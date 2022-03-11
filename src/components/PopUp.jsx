@@ -1,6 +1,5 @@
-import styled, { css } from 'styled-components';
-import { IoIosClose } from 'react-icons/io';
-
+import styled, { css } from "styled-components";
+import { IoIosClose } from "react-icons/io";
 
 const PopUpBackground = styled.div`
   display: flex;
@@ -10,9 +9,9 @@ const PopUpBackground = styled.div`
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
-  overflow: auto; 
+  overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -21,19 +20,17 @@ const PopUpWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: white;  
+  background: white;
   border-radius: 0.7rem;
   padding: 2rem;
   box-sizing: border-box;
   position: relative;
-
-  ${props => {
+  ${(props) => {
     return css`
       width: ${props.width};
       height: ${props.height};
     `;
   }}
-
   .icon {
     position: absolute;
     right: 0;
@@ -47,19 +44,18 @@ const PopUp = ({ children, isVisible, setIsPopUp, width, height }) => {
 
   return (
     <PopUpBackground>
-      <PopUpWrapper
-        width={width}
-        height={height}
-      >
-        <IoIosClose 
-          className="icon" 
-          size="40" 
-          onClick={()=>{setIsPopUp(false)}}
+      <PopUpWrapper width={width} height={height}>
+        <IoIosClose
+          className="icon"
+          size="40"
+          onClick={() => {
+            setIsPopUp(false);
+          }}
         />
         {children}
       </PopUpWrapper>
     </PopUpBackground>
   );
-}
+};
 
 export default PopUp;
