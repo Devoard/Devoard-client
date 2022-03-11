@@ -14,7 +14,7 @@ export const submit_chat = (body) => {
     Authorization: "Token 1e7a973a7b5239e32330a1a71c72019713dec43f",
   };
 
-  axios.post("http://localhost:8000/chat/collect", body, { headers });
+  axios.post("http://localhost:8000/chat/collect/", body, { headers });
   return {
     type: SUBMIT_CHAT,
   };

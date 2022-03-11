@@ -23,7 +23,7 @@ export const submit_survey = (datas) => {
     Authorization: "Token 1e7a973a7b5239e32330a1a71c72019713dec43f",
   };
   axios
-    .post("http://localhost:8000/survey/collect", survey, { headers })
+    .post("http://localhost:8000/survey/collect/", survey, { headers })
     .then((res) => {
       console.log(res.data);
     });
