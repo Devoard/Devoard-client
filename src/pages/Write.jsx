@@ -83,13 +83,18 @@ const Write = () => {
     await PostAPI.createPost({
       title: title,
       body: body,
-      tags: stacks,
-      recruit_cnt: recruitCnt,
+      field: stacks,
+      frontend_cnt: recruitCnt.front_end,
+      backend_cnt: recruitCnt.back_end,
+      android_cnt: recruitCnt.android,
+      ios_cnt: recruitCnt.ios,
+      data_cnt: recruitCnt.data,
+      devops_cnt: recruitCnt.devops,
       period: period,
-      situation: situation,
+      done: situation,
       recruit_state: true,
-      writer_info: loggedUser,
-      date: date
+      user_id: loggedUser.id,
+      date: date,
     })
     .then(navigate("/devoard"));
   }
@@ -99,10 +104,15 @@ const Write = () => {
       id: postId,
       title: title,
       body: body,
-      tags: stacks,
-      recruit_cnt: recruitCnt,
+      field: stacks,
+      frontend_cnt: recruitCnt.front_end,
+      backend_cnt: recruitCnt.back_end,
+      android_cnt: recruitCnt.android,
+      ios_cnt: recruitCnt.ios,
+      data_cnt: recruitCnt.data,
+      devops_cnt: recruitCnt.devops,
       period: period,
-      sitaution: situation,
+      done: situation,
     })
     .then(navigate("/devoard"));
   }
