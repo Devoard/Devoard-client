@@ -24,8 +24,8 @@ export const setActivePage = (page) => {
 const initialState = {
     loggedUser: {
         username: '',
-        id: '',
-        imageUrl: ''
+        imageUrl: '',
+        token: ''
     },
     loggedIn: false,
     activePage: null,

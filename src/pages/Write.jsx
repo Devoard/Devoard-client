@@ -80,6 +80,9 @@ const Write = () => {
 
     const date = year + '-' + month + '-' + day;
 
+    const headers = {
+      'Authorization': loggedUser.token
+    }
     await PostAPI.createPost({
       title: title,
       body: body,
@@ -93,8 +96,10 @@ const Write = () => {
       period: period,
       done: situation,
       recruit_state: true,
-      user_id: loggedUser.id,
+      username: loggedUser.username,
       date: date,
+    }, {
+      headers: headers
     })
     .then(navigate("/devoard"));
   }

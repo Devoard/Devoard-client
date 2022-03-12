@@ -59,16 +59,14 @@ const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
       dispatch(setLoggedIn());
 
       const name = window.sessionStorage.getItem('name');
-      const id = window.sessionStorage.getItem('id');
       const imageUrl = window.sessionStorage.getItem('imageUrl');
   
       dispatch(setLoggedUser({
         username: name,
-        id: id,
         imageUrl: imageUrl
       }));
     }
-    else if (getCookie('git_username')) {
+    else if (getCookie('token')) {
       dispatch(setLoggedIn());
 
       try {
@@ -78,7 +76,8 @@ const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
 
         dispatch(setLoggedUser({
           username: username,
-          imageUrl: imageUrl
+          imageUrl: imageUrl,
+          token: token
         }))
       } catch (err) {
         console.log(err);
@@ -99,15 +98,13 @@ const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
 
   const doSignIn = (res) => {
     if (!window.sessionStorage.getItem('name')) {
-      const { profileObj : { name, email, imageUrl }} = res;
+      const { profileObj : { name, imageUrl }} = res;
 
       window.sessionStorage.setItem('name', name);
-      window.sessionStorage.setItem('id', email);
       window.sessionStorage.setItem('imageUrl', imageUrl);
 
       const loggedUser = {
         username: name,
-        id: email,
         imageUrl: imageUrl
       }
 
