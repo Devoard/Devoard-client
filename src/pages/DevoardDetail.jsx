@@ -76,7 +76,7 @@ const DevoardDetail = () => {
 
   useEffect(() => {
     const checkIsWriter = () => {
-      if (post.writer_info.id === loggedUser.id) 
+      if (post.user_id === loggedUser.id) 
         setIsWriter(true);
     }
 
@@ -94,19 +94,19 @@ const DevoardDetail = () => {
             <Link to={`/write/${postId}`} style={{textDecoration: 'none'}}>
               <Edit>수정</Edit>
             </Link>}
-            <Remove
+            {isWriter && <Remove
               onClick={()=>setIsRemovePopUp(true)}
             >
               삭제
-            </Remove>
+            </Remove>}
           </UpdateWrapper>
         </StateWrapper>
         <DetailWrapper>
           <Title>{post.title}</Title>
           <InfoWrapper>
             <UserWrapper>
-              <UserImg src={post.writer_info.imageUrl} />
-              <UserName>{post.writer_info.username}</UserName>
+              {/*<UserImg src={post.writer_info.imageUrl} />
+              <UserName>{post.writer_info.username}</UserName>*/}
             </UserWrapper>
             <DataWrapper>
               <WriteDate>{post.date}</WriteDate>
@@ -118,25 +118,25 @@ const DevoardDetail = () => {
           </InfoWrapper>
           <DividerLine />
           <TagWrapper>
-          {post.tags.map((tag, i) => (
+          {post.field.map((tag, i) => (
             <Tag key={i}>{tag}</Tag>
           ))}
           </TagWrapper>
           <BodyWrapper>
             <SubTitle>모집 인원</SubTitle>
             <RecruitCnt>
-              {post.recruit_cnt.front_end &&
-                <Field>Front-end : {post.recruit_cnt.front_end} 명</Field>}
-              {post.recruit_cnt.back_end &&
-                <Field>Back-end : {post.recruit_cnt.back_end} 명</Field>}
-              {post.recruit_cnt.android &&
-                <Field>Android : {post.recruit_cnt.android} 명</Field>} 
-              {post.recruit_cnt.ios &&
-                <Field>IOS : {post.recruit_cnt.ios} 명</Field>} 
-              {post.recruit_cnt.data &&
-                <Field>Data : {post.recruit_cnt.data} 명</Field>} 
-              {post.recruit_cnt.devops &&
-                <Field>Devops : {post.recruit_cnt.devops} 명</Field>}  
+              {post.frontend_cnt &&
+                <Field>Front-end : {post.frontend_cnt} 명</Field>}
+              {post.backend_cnt &&
+                <Field>Back-end : {post.backend_cnt} 명</Field>}
+              {post.android_cnt &&
+                <Field>Android : {post.android_cnt} 명</Field>} 
+              {post.ios_cnt &&
+                <Field>IOS : {post.ios_cnt} 명</Field>} 
+              {post.data_cnt &&
+                <Field>Data : {post.data_cnt} 명</Field>} 
+              {post.devops_cnt &&
+                <Field>Devops : {post.devops_cnt} 명</Field>}  
             </RecruitCnt>
             <SubTitle>프로젝트 설명</SubTitle>
             <Body>
@@ -151,13 +151,29 @@ const DevoardDetail = () => {
               {post.situation}
             </Situation>
             <ButtonWrapper>
-            {isWriter && post.recruit_state &&
+              {isWriter && post.recruit_state &&
               <Button 
                 onClick={()=>setIsCheckPopUp(true)}
                 color='orange'
               >
                 모집 완료
               </Button>}
+              {!isWriter && post.recruit_state &&
+                <>
+                <Button
+                  color="orange"
+                >
+                  신청하기
+                </Button>
+                <Button
+                  color="gray"
+                  outline
+                  style={{marginLeft: '2rem'}}
+                >
+                  문의하기
+                </Button>
+                </>
+              }
             </ButtonWrapper>
           </BodyWrapper>
         </DetailWrapper>
