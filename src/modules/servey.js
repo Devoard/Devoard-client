@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 const SUBMIT_SURVEY = "survey/SUBMIT_SURVEY";
 
@@ -18,9 +19,11 @@ export const submit_survey = (datas) => {
     user_tmi: datas[11],
     user_git_id: datas[12],
   };
-  console.log("survey:", survey);
+  const cookies = new Cookies();
+  const token = cookies.get("token");
+
   const headers = {
-    Authorization: "Token 1e7a973a7b5239e32330a1a71c72019713dec43f",
+    Authorization: token,
   };
   axios
     .post("http://localhost:8000/survey/collect/", survey, { headers })
@@ -37,7 +40,6 @@ const initialState = {
   survey: {},
 };
 export default function surveyReducer(state = initialState, action) {
-  console.log("페이로드", action.payload);
   switch (action.type) {
     case SUBMIT_SURVEY:
       return { ...state, survy: action.payload };
