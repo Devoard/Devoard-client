@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PopUp from "../components/PopUp";
 import { submit_chat } from "../modules/chat";
-
+import moment from "moment";
 const Form = styled.form`
   width: 90%;
   height: 70%;
@@ -51,6 +51,7 @@ const ChatWrite = ({ writeOpen, setWriteOpen }) => {
       from_user: loggedUser.username,
       content: content,
       to_user: to_user,
+      date: moment().format("YYYY.MM.DD h:mm a"),
     };
     dispatch(submit_chat(body));
     alert("쪽지를 전송했습니다.");

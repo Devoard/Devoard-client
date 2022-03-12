@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { submit_survey } from "../modules/servey";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const SurveyPage = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,6 +54,7 @@ const Survey = () => {
     12: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     setProgressRate(dataId);
   }, [dataId]);
@@ -68,6 +69,7 @@ const Survey = () => {
       if (window.confirm("설문조사를 완료하시겠습니까?")) {
         dispatch(submit_survey(datas));
         window.alert("전송하였습니다.");
+        navigate("/");
       }
     }
     if (dataId >= 12) return;

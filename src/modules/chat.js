@@ -1,17 +1,16 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
+
 const DETAIL_CHAT = "chat/DETAIL_CHAT";
 const SUBMIT_CHAT = "chat/SUBMIT_CHAT";
 const SET_USER = "chat/SET_USER";
-export const view_detail_chat = (user) => {
-  // 한 사용자와 쪽지 주고받은걸 배열로 넣어서 payload에
-  return {
-    type: DETAIL_CHAT,
-  };
-};
+
 export const submit_chat = (body) => {
   console.log("전송 정보", body);
+  const cookies = new Cookies();
+  const token = cookies.get("token");
   const headers = {
-    Authorization: "Token 1e7a973a7b5239e32330a1a71c72019713dec43f",
+    Authorization: token,
   };
 
   axios.post("http://localhost:8000/chat/collect/", body, { headers });
@@ -24,6 +23,15 @@ export const set_user = (user) => {
     type: SET_USER,
     payload: user,
   };
+};
+export const detail_list = (user) => {
+  // 한 사용자와 쪽지 주고받은걸 배열로 넣어서 payload에
+  return {
+    type: DETAIL_CHAT,
+  };
+};
+export const chat_list = () => {
+  const response = axios.get();
 };
 const initialState = {
   allChat: [
