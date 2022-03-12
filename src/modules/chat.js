@@ -6,7 +6,6 @@ const SUBMIT_CHAT = "chat/SUBMIT_CHAT";
 const SET_USER = "chat/SET_USER";
 
 export const submit_chat = (body) => {
-  console.log("전송 정보", body);
   const cookies = new Cookies();
   const token = cookies.get("token");
   const headers = {
