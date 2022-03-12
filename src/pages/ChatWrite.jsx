@@ -46,7 +46,6 @@ const ChatWrite = ({ writeOpen, setWriteOpen }) => {
     setContent(e.target.value);
   };
   const onSubmit = () => {
-    console.log(loggedUser);
     const body = {
       from_user: loggedUser.username,
       content: content,
