@@ -13,7 +13,7 @@ const headers = {
 };
 
 export const submit_chat = (body) => {
-  axios.post("http://localhost:8000/chat/collect/", body, { headers });
+  axios.post("http://localhost:8000/chat/list/", body, { headers });
   return {
     type: SUBMIT_CHAT,
   };
