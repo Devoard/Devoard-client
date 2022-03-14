@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PopUp from "../components/PopUp";
 import WriteBtn from "../components/WriteBtn";
+import { chat_detail_list } from "../modules/chat";
 import ChatWrite from "./ChatWrite";
 
 const ListBox = styled.div`
@@ -41,10 +42,17 @@ const Content = styled.p`
 
 const ChatDetail = ({ setDetailOpen, detailOpen }) => {
   const [writeOpen, setWriteOpen] = useState(false);
+  const { to_user } = useSelector((state) => state.chat);
+  const { loggedUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   // const {detailChat} = useSelector(state=>state.chat);
   useEffect(() => {
-    // dispatch(view_detail_chat(user));
+    const body = {
+      to_user: to_user,
+      from_user: loggedUser.username,
+    };
+    console.log("detail list body", body);
+    dispatch(chat_detail_list(body));
   }, []);
   const onWriteClick = (e) => {
     setWriteOpen(true);

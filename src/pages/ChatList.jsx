@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Title from "../components/Title";
 import ChatDetail from "./ChatDetail";
-import { set_user } from "../modules/chat";
+import { chat_list, set_user } from "../modules/chat";
 const ListBox = styled.div`
   width: 65%;
   margin: 40px auto;
@@ -70,6 +70,7 @@ const ChatList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
+  const { loggedUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const page_num = 5; //페이지 숫자 개수 ◀ 1 2 3 ▶
   const message_num = 12; //한페이지에 보여질 쪽지수
@@ -81,7 +82,16 @@ const ChatList = () => {
       setPages((prev) => prev.concat([i]));
       if (i >= page_num) return;
     }
+    get_list();
   }, []);
+
+  const get_list = () => {
+    const body = {
+      user: loggedUser.username,
+    };
+    console.log("list body: ", body);
+    dispatch(chat_list(body));
+  };
 
   const onPageChange = (e) => {
     setCurrentPage(e.target.innerHTML);
