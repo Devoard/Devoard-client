@@ -1,17 +1,18 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-const DETAIL_CHAT = "chat/DETAIL_CHAT";
 const SUBMIT_CHAT = "chat/SUBMIT_CHAT";
 const SET_USER = "chat/SET_USER";
+const LIST_CHAT = "chat/LIST_CHAT";
+const LIST_DETAIL_CHAT = "chat/LIST_DETAIL_CHAT";
+
+const cookies = new Cookies();
+const token = cookies.get("token");
+const headers = {
+  Authorization: `Token ${token}`,
+};
 
 export const submit_chat = (body) => {
-  const cookies = new Cookies();
-  const token = cookies.get("token");
-  const headers = {
-    Authorization: token,
-  };
-
   axios.post("http://localhost:8000/chat/collect/", body, { headers });
   return {
     type: SUBMIT_CHAT,
@@ -23,14 +24,28 @@ export const set_user = (user) => {
     payload: user,
   };
 };
-export const detail_list = (user) => {
-  // 한 사용자와 쪽지 주고받은걸 배열로 넣어서 payload에
+
+export const chat_list = (body) => {
+  const response = axios.get("http://localhost:8000/chat/list/", {
+    params: body,
+    headers,
+  });
+  const data = response.data;
   return {
-    type: DETAIL_CHAT,
+    type: LIST_CHAT,
+    // payload: data,
   };
 };
-export const chat_list = () => {
-  const response = axios.get();
+export const chat_detail_list = (body) => {
+  const response = axios.get("http://localhost:8000/chat/detail/", {
+    params: body,
+    headers,
+  });
+  const data = response.data;
+  return {
+    type: LIST_DETAIL_CHAT,
+    // payload: data,
+  };
 };
 const initialState = {
   allChat: [
@@ -162,10 +177,12 @@ const initialState = {
 };
 export default function chatReducer(state = initialState, action) {
   switch (action.type) {
-    case DETAIL_CHAT:
-      return { ...state, detailChat: action.payload };
     case SET_USER:
       return { ...state, to_user: action.payload };
+    case LIST_CHAT:
+    // return { ...state, allChat: action.payload };
+    case LIST_DETAIL_CHAT:
+    // return { ...state, detailChat: action.payload };
     default:
       return state;
   }

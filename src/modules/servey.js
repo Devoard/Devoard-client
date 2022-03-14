@@ -23,7 +23,7 @@ export const submit_survey = (datas) => {
   const token = cookies.get("token");
 
   const headers = {
-    Authorization: token,
+    Authorization: `Token ${token}`,
   };
   axios
     .post("http://localhost:8000/survey/collect/", survey, { headers })
