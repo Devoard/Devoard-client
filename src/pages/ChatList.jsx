@@ -136,13 +136,13 @@ const ChatList = () => {
             ) {
               return (
                 <ChatItem isRead={v.read} key={i}>
-                  <FromId data-from={v.sender} onClick={onDetailClick}>
-                    {v.chat_body}
+                  <FromId data-from={v.reciever} onClick={onDetailClick}>
+                    {v.reciever}
                   </FromId>
-                  <Content data-from={v.sender} onClick={onDetailClick}>
-                    {v.content}
+                  <Content data-from={v.reciever} onClick={onDetailClick}>
+                    {v.chat_body}
                   </Content>
-                  <Date data-from={v.sender} onClick={onDetailClick}>
+                  <Date data-from={v.reciever} onClick={onDetailClick}>
                     {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
                   </Date>
                 </ChatItem>
