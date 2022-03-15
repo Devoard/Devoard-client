@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import styled from "styled-components";
 import Title from "../components/Title";
 import ChatDetail from "./ChatDetail";
 import { chat_list, set_user } from "../modules/chat";
+
 const ListBox = styled.div`
   width: 65%;
   margin: 40px auto;
@@ -76,7 +78,6 @@ const ChatList = () => {
   const message_num = 12; //한페이지에 보여질 쪽지수
   const { allChat } = useSelector((state) => state.chat);
   const page = Math.ceil(allChat.length / message_num); //총 페이지 수
-
   useEffect(() => {
     for (let i = 1; i <= page; i++) {
       setPages((prev) => prev.concat([i]));
@@ -89,7 +90,6 @@ const ChatList = () => {
     const body = {
       user: loggedUser.username,
     };
-    console.log("list body: ", body);
     dispatch(chat_list(body));
   };
 
@@ -128,21 +128,22 @@ const ChatList = () => {
       <Title>쪽지함</Title>
       <ListBox>
         {allChat &&
+          allChat.length &&
           allChat.map((v, i) => {
             if (
               i + 1 > (currentPage - 1) * message_num &&
               i + 1 <= currentPage * message_num
             ) {
               return (
-                <ChatItem isRead={v.isRead} key={i}>
-                  <FromId data-from={v.from} onClick={onDetailClick}>
-                    {v.from}
+                <ChatItem isRead={v.read} key={i}>
+                  <FromId data-from={v.reciever} onClick={onDetailClick}>
+                    {v.reciever}
                   </FromId>
-                  <Content data-from={v.from} onClick={onDetailClick}>
-                    {v.content}
+                  <Content data-from={v.reciever} onClick={onDetailClick}>
+                    {v.chat_body}
                   </Content>
-                  <Date data-from={v.from} onClick={onDetailClick}>
-                    {v.date}
+                  <Date data-from={v.reciever} onClick={onDetailClick}>
+                    {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
                   </Date>
                 </ChatItem>
               );

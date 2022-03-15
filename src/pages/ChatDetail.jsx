@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import styled from "styled-components";
 import PopUp from "../components/PopUp";
 import WriteBtn from "../components/WriteBtn";
@@ -45,13 +46,12 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
   const { to_user } = useSelector((state) => state.chat);
   const { loggedUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // const {detailChat} = useSelector(state=>state.chat);
+  const { detailChat } = useSelector((state) => state.chat);
   useEffect(() => {
     const body = {
       to_user: to_user,
       from_user: loggedUser.username,
     };
-    console.log("detail list body", body);
     dispatch(chat_detail_list(body));
   }, []);
   const onWriteClick = (e) => {
@@ -67,35 +67,18 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
       >
         <WriteBtn onClick={onWriteClick} />
         <ListBox>
-          <ChatItem desc={"받은 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>
-              안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-            </Content>
-          </ChatItem>
-          <ChatItem desc={"보낸 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"보낸 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"받은 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"보낸 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"받은 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"보낸 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"받은 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
-          <ChatItem desc={"받은 쪽지"} date={"2022-02-10 11:19"}>
-            <Content>안녕하세요?</Content>
-          </ChatItem>
+          {detailChat &&
+            detailChat.length > 0 &&
+            detailChat.map((v, i) => {
+              return (
+                <ChatItem
+                  desc={"받은 쪽지"}
+                  date={moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
+                >
+                  <Content>{v.chat_body}</Content>
+                </ChatItem>
+              );
+            })}
         </ListBox>
       </PopUp>
       {writeOpen && (
