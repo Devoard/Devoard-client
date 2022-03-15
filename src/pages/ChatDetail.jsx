@@ -46,13 +46,16 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
   const { to_user } = useSelector((state) => state.chat);
   const { loggedUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { detailChat } = useSelector((state) => state.chat);
+  // const { detailChat } = useSelector((state) => state.chat);
+  const [detailChat, setDetailChat] = useState([]);
   useEffect(() => {
     const body = {
       to_user: to_user,
       from_user: loggedUser.username,
     };
-    dispatch(chat_detail_list(body));
+    dispatch(chat_detail_list(body)).payload.then((res) => {
+      setDetailChat(res);
+    });
   }, []);
   const onWriteClick = (e) => {
     setWriteOpen(true);
@@ -72,6 +75,7 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
             detailChat.map((v, i) => {
               return (
                 <ChatItem
+                  key={i}
                   desc={"받은 쪽지"}
                   date={moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
                 >

@@ -76,21 +76,28 @@ const ChatList = () => {
   const dispatch = useDispatch();
   const page_num = 5; //페이지 숫자 개수 ◀ 1 2 3 ▶
   const message_num = 12; //한페이지에 보여질 쪽지수
-  const { allChat } = useSelector((state) => state.chat);
-  const page = Math.ceil(allChat.length / message_num); //총 페이지 수
+  const [allChat, setAllChat] = useState([]);
+  const [page, setPage] = useState(0);
+  // const page = Math.ceil(allChat.length / message_num); //총 페이지 수
   useEffect(() => {
-    for (let i = 1; i <= page; i++) {
-      setPages((prev) => prev.concat([i]));
-      if (i >= page_num) return;
+    if (page > 0) {
+      for (let i = 1; i <= page; i++) {
+        setPages((prev) => prev.concat([i]));
+        if (i >= page_num) return;
+      }
     }
     get_list();
-  }, []);
+  }, [page]);
 
-  const get_list = () => {
+  const get_list = async () => {
     const body = {
       user: loggedUser.username,
     };
-    dispatch(chat_list(body));
+
+    const request = dispatch(chat_list(body));
+    const arr = await request.payload.then((res) => res);
+    setAllChat(arr);
+    setPage(Math.ceil(arr.length / message_num));
   };
 
   const onPageChange = (e) => {

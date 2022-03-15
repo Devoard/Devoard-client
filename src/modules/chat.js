@@ -25,12 +25,12 @@ export const set_user = (user) => {
   };
 };
 
-export const chat_list = (body) => {
-  const response = axios.get("http://localhost:8000/chat/list/", {
+export const chat_list = (body) => async () => {
+  const response = await axios.get("http://localhost:8000/chat/list/", {
     params: body,
     headers,
   });
-  const data = response.data;
+  const data = await response.data;
   // const data = [
   //   {
   //     sender: "dvlops87",
@@ -54,7 +54,7 @@ export const chat_list = (body) => {
   //     read: true,
   //   },
   // ];
-  let sortData = data.map((v, i) => {
+  let sortData = await data.map((v, i) => {
     v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
     return v;
   });
@@ -66,12 +66,12 @@ export const chat_list = (body) => {
     payload: sortData,
   };
 };
-export const chat_detail_list = (body) => {
-  const response = axios.get("http://localhost:8000/chat/detail/", {
+export const chat_detail_list = (body) => async () => {
+  const response = await axios.get("http://localhost:8000/chat/detail/", {
     params: body,
     headers,
   });
-  const data = response.data;
+  const data = await response.data;
   // const data = [
   //   {
   //     sender: "dvlops87",
@@ -95,11 +95,9 @@ export const chat_detail_list = (body) => {
   //     read: true,
   //   },
   // ];
-  let sortData = data.filter((v, i) => {
-    if (body.to_user === v.reciever) {
-      v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
-      return v;
-    }
+  let sortData = await data.filter((v, i) => {
+    v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
+    return body.to_user === v.reciever;
   });
   sortData.sort((a, b) => {
     return b.time - a.time;
