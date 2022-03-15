@@ -25,7 +25,7 @@ export const set_user = (user) => {
   };
 };
 
-export const chat_list = async (body) => {
+export const chat_list = (body) => async () => {
   const response = await axios.get("http://localhost:8000/chat/list/", {
     params: body,
     headers,
@@ -66,7 +66,7 @@ export const chat_list = async (body) => {
     payload: sortData,
   };
 };
-export const chat_detail_list = async (body) => {
+export const chat_detail_list = (body) => async () => {
   const response = await axios.get("http://localhost:8000/chat/detail/", {
     params: body,
     headers,
@@ -96,10 +96,8 @@ export const chat_detail_list = async (body) => {
   //   },
   // ];
   let sortData = await data.filter((v, i) => {
-    if (body.to_user === v.reciever) {
-      v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
-      return v;
-    }
+    v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
+    return body.to_user === v.reciever;
   });
   sortData.sort((a, b) => {
     return b.time - a.time;
