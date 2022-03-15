@@ -76,7 +76,6 @@ const DevoardDetail = () => {
 
   useEffect(() => {
     const checkIsWriter = () => {
-      console.log(post.username, loggedUser.username);
       if (post.username === loggedUser.username) 
         setIsWriter(true);
     }

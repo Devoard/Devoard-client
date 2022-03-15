@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import GoogleLogin from 'react-google-login';
 import githubIcon from '../assets/images/githubIcon.png';
 import googleIcon from '../assets/images/googleIcon.png';
@@ -32,50 +33,35 @@ const GithubIcon = styled(Icon).attrs({
 
 
 const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
+  const cookies = new Cookies();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCookie = (key) => {
-      let result = null;
-      let cookie = document.cookie.split(';');
-    
-      cookie.some((item) => {
-        item = item.replace(' ', '');
-    
-        let dic = item.split('=');
-    
-        if (key === dic[0]) {
-          result = dic[1];
-          return true;
-        }
-        return false;
-      });
-    
-      return result;
-    }
-    
     if (window.sessionStorage.getItem('name')) {
       dispatch(setLoggedIn());
 
       const name = window.sessionStorage.getItem('name');
       const imageUrl = window.sessionStorage.getItem('imageUrl');
+      console.log(imageUrl);
   
       dispatch(setLoggedUser({
-        username: name,
+        id: name,
         imageUrl: imageUrl
       }));
     }
-    else if (getCookie('token')) {
+    else if (cookies.get('token')) {
       dispatch(setLoggedIn());
 
       try {
-        const username = getCookie('git_username');
-        const imageUrl = getCookie('git_userImg');
-        const token = getCookie('token');
+        const username = cookies.get('git_username');
+        const imageUrl = cookies.get('git_userImg');
+        const token = cookies.get('token');
+
+        console.log(username, imageUrl, token);
 
         dispatch(setLoggedUser({
-          username: username,
+          id: username,
           imageUrl: imageUrl,
           token: token
         }))
@@ -104,7 +90,7 @@ const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
       window.sessionStorage.setItem('imageUrl', imageUrl);
 
       const loggedUser = {
-        username: name,
+        id: name,
         imageUrl: imageUrl
       }
 
