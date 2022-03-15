@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Button from '../components/Button';
+import { IoIosArrowDown } from 'react-icons/io';
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -43,4 +44,46 @@ export const UploadButton = styled(Button)`
 export const DeleteButton = styled(Button)`
   width: 15rem;
   margin-top: 1rem;
+`;
+
+const Wrapper = styled.div`
+  margin-top: 2rem;
+`;
+export const Text = styled.div`
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+`;
+export const Input = styled.input`
+  border: none;
+  color: #3A3D3E;
+  border-bottom: 1px solid gray;
+  outline: none;
+  font-size: 1.1rem;
+`;
+
+export const UserNameWrapper = styled(Wrapper)`
+  margin-top: 3rem;
+`;
+
+export const IntroWrapper = styled(Wrapper)``;
+export const ContactWrapper = styled(Wrapper)``;
+export const PfAddrWrapper = styled(Wrapper)``;
+
+export const DevStackWrapper = styled(Wrapper)``;
+
+export const FieldTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+`;
+
+export const DownIcon = styled(IoIosArrowDown)`
+  margin: 0 0.5rem;
+`;
+
+export const FieldText = styled.div`
+  font-size: 1.05rem;
+  font-weight: bold;
 `;

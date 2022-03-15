@@ -41,9 +41,13 @@ const Home = () => {
     };
 
     const getPostCnt = async() => {
-      const posts = await PostAPI.getPosts('ongoing');
-      const totalCnt = posts.length;
-      recruitCntAnimation(totalCnt);
+      try {
+        const posts = await PostAPI.getPosts('ongoing');
+        const totalCnt = posts.length;
+        recruitCntAnimation(totalCnt);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     getPostCnt();

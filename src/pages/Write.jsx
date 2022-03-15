@@ -81,7 +81,7 @@ const Write = () => {
     const date = year + '-' + month + '-' + day;
 
     const headers = {
-      'Authorization': loggedUser.token
+      'Authorization': `Token ${loggedUser.token}`
     }
     await PostAPI.createPost({
       title: title,

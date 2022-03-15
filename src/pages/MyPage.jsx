@@ -9,11 +9,22 @@ import {
   UserImg,
   ImgInput,
   UploadButton,
-  DeleteButton
+  DeleteButton,
+  Text,
+  Input,
+  UserNameWrapper,
+  IntroWrapper,
+  ContactWrapper,
+  PfAddrWrapper,
+  DevStackWrapper,
+  FieldTextWrapper,
+  DownIcon,
+  FieldText,
 } from '../styles/MyPage';
 
 const MyPage = () => {
   const [files, setFiles] = useState('');
+  const [selectedField, setSelectedField] = useState("");
   const imgInput = useRef();
   const { loggedUser } = useSelector(state=>state.user);
   const dispatch = useDispatch();
@@ -66,6 +77,35 @@ const MyPage = () => {
             선택된 이미지 삭제하기
           </DeleteButton>
         </UserImgWrapper>
+        <UserNameWrapper>
+          <Text>이름</Text>
+          <Input />
+        </UserNameWrapper>
+        <IntroWrapper>
+          <Text>소개</Text>
+          <Input 
+            style={{width: '100%'}}
+          />
+        </IntroWrapper>
+        <ContactWrapper>
+          <Text>연락처</Text>
+          <Input />
+        </ContactWrapper>
+        <PfAddrWrapper>
+          <Text>포트폴리오 주소</Text>
+          <Input />
+        </PfAddrWrapper>
+        <DevStackWrapper>
+          <Text>기술 스택</Text>
+          <FieldTextWrapper>
+            <DownIcon />
+            <FieldText>Front-end</FieldText>
+          </FieldTextWrapper>
+          <FieldTextWrapper>
+            <DownIcon />
+            <FieldText>Back-end</FieldText>
+          </FieldTextWrapper>
+        </DevStackWrapper>
       </Background>
     </PageWrapper>
   )
