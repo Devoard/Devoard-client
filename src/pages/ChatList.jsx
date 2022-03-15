@@ -128,7 +128,7 @@ const ChatList = () => {
       <Title>쪽지함</Title>
       <ListBox>
         {allChat &&
-          allChat.length &&
+          allChat.length > 0 &&
           allChat.map((v, i) => {
             if (
               i + 1 > (currentPage - 1) * message_num &&
@@ -147,7 +147,7 @@ const ChatList = () => {
                   </Date>
                 </ChatItem>
               );
-            }
+            } else return "";
           })}
       </ListBox>
       <PageControl>
