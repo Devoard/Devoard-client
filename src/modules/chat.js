@@ -1,103 +1,127 @@
-const DETAIL_CHAT = 'chat/DETAIL_CHAT';
+import axios from "axios";
+import Cookies from "universal-cookie";
+import moment from "moment";
+const SUBMIT_CHAT = "chat/SUBMIT_CHAT";
+const SET_USER = "chat/SET_USER";
+const LIST_CHAT = "chat/LIST_CHAT";
+const LIST_DETAIL_CHAT = "chat/LIST_DETAIL_CHAT";
 
+const cookies = new Cookies();
+const token = cookies.get("token");
+const headers = {
+  Authorization: `Token ${token}`,
+};
 
-export const view_detail_chat = (user) => {
-    // 한 사용자와 쪽지 주고받은걸 배열로 넣어서 payload에 
-    return {
-        type: DETAIL_CHAT,
-    }
-}
+export const submit_chat = (body) => {
+  axios.post("http://localhost:8000/chat/list/", body, { headers });
+  return {
+    type: SUBMIT_CHAT,
+  };
+};
+export const set_user = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
+
+export const chat_list = (body) => async () => {
+  const response = await axios.get("http://localhost:8000/chat/list/", {
+    params: body,
+    headers,
+  });
+  const data = await response.data;
+  // const data = [
+  //   {
+  //     sender: "dvlops87",
+  //     reciever: "Zy0ung1",
+  //     chat_body: "test2",
+  //     time_stamp: "2022-03-13T16:57:37.824863+09:00",
+  //     read: true,
+  //   },
+  //   {
+  //     sender: "dvlops87",
+  //     reciever: "Zy0ung2",
+  //     chat_body: "test3",
+  //     time_stamp: "2022-03-13T17:02:43.228861+09:00",
+  //     read: true,
+  //   },
+  //   {
+  //     sender: "dvlops87",
+  //     reciever: "Zy0ung2",
+  //     chat_body: "test1",
+  //     time_stamp: "2022-03-10T01:01:00+09:00",
+  //     read: true,
+  //   },
+  // ];
+  let sortData = await data.map((v, i) => {
+    v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
+    return v;
+  });
+  sortData.sort((a, b) => {
+    return b.time - a.time;
+  });
+  return {
+    type: LIST_CHAT,
+    payload: sortData,
+  };
+};
+export const chat_detail_list = (body) => async () => {
+  const response = await axios.get("http://localhost:8000/chat/detail/", {
+    params: body,
+    headers,
+  });
+  const data = await response.data;
+  // const data = [
+  //   {
+  //     sender: "dvlops87",
+  //     reciever: "Zy0ung1",
+  //     chat_body: "test2",
+  //     time_stamp: "2022-03-13T16:57:37.824863+09:00",
+  //     read: true,
+  //   },
+  //   {
+  //     sender: "dvlops87",
+  //     reciever: "Zy0ung2",
+  //     chat_body: "test3",
+  //     time_stamp: "2022-03-13T17:02:43.228861+09:00",
+  //     read: true,
+  //   },
+  //   {
+  //     sender: "dvlops87",
+  //     reciever: "Zy0ung2",
+  //     chat_body: "test1",
+  //     time_stamp: "2022-03-10T01:01:00+09:00",
+  //     read: true,
+  //   },
+  // ];
+  let sortData = await data.filter((v, i) => {
+    v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
+    return body.to_user === v.reciever;
+  });
+  sortData.sort((a, b) => {
+    return b.time - a.time;
+  });
+
+  return {
+    type: LIST_DETAIL_CHAT,
+    payload: sortData,
+  };
+};
 const initialState = {
-    allChat: [
-        {from: '사용자1사용자1사용자1사용자1', 
-        content: '지수님 안녕하세요지수님 안녕하세요?지수님 안녕하세요?지수님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: true},
-        {from: '사용자2', 
-        content: '지영님 안녕하세요?지영님 안녕하세요?지영님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자2', 
-        content: '성현님 안녕하세요?성현님 안녕하세요?성현님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자2', 
-        content: '다혜님 안녕하세요?다혜님 안녕하세요?다혜님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자5', 
-        content: '지수님 안녕하세요?지수님 안녕하세요?지수님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: true},
-        {from: '사용자6', 
-        content: '지영님 안녕하세요?지영님 안녕하세요?지영님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자7', 
-        content: '성현님 안녕하세요?성현님 안녕하세요?성현님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자8', 
-        content: '다혜님 안녕하세요?다혜님 안녕하세요?다혜님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자9', 
-        content: '지수님 안녕하세요?지수님 안녕하세요?지수님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: true},
-        {from: '사용자10', 
-        content: '지영님 안녕하세요?지영님 안녕하세요?지영님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자11', 
-        content: '성현님 안녕하세요?성현님 안녕하세요?성현님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자12', 
-        content: '다혜님 안녕하세요?다혜님 안녕하세요?다혜님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자13', 
-        content: '지수님 안녕하세요?지수님 안녕하세요?지수님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: true},
-        {from: '사용자14', 
-        content: '지영님 안녕하세요?지영님 안녕하세요?지영님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자15', 
-        content: '성현님 안녕하세요?성현님 안녕하세요?성현님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자16', 
-        content: '다혜님 안녕하세요?다혜님 안녕하세요?다혜님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자17', 
-        content: '지수님 안녕하세요?지수님 안녕하세요?지수님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: true},
-        {from: '사용자18', 
-        content: '지영님 안녕하세요?지영님 안녕하세요?지영님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자19', 
-        content: '성현님 안녕하세요?성현님 안녕하세요?성현님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-        {from: '사용자사용자20', 
-        content: '다혜님 안녕하세요?다혜님 안녕하세요?다혜님 안녕하세요?다혜님 안녕하세요?', 
-        date: '2022-02-10 11:19',
-        isRead: false},
-    ],
-    detailChat: [],
+  allChat: [],
+  detailChat: [],
+  to_user: "",
+};
+export default function chatReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_USER:
+      return { ...state, to_user: action.payload };
+    case LIST_CHAT:
+      return { ...state, allChat: action.payload };
+    case LIST_DETAIL_CHAT:
+      return { ...state, detailChat: action.payload };
+    default:
+      return state;
+  }
 }
-export default function chatReducer(state=initialState, action){
-    switch(action.type){
-        case DETAIL_CHAT:
-            return {...state, detailChat: action.payload}
-        default: 
-            return state;
-    }
-}
-
