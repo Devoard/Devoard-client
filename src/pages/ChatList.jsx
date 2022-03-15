@@ -86,8 +86,13 @@ const ChatList = () => {
         if (i >= page_num) return;
       }
     }
-    get_list();
   }, [page]);
+
+  useEffect(() => {
+    if (loggedUser) {
+      get_list();
+    }
+  }, [loggedUser]);
 
   const get_list = async () => {
     const body = {
@@ -95,7 +100,6 @@ const ChatList = () => {
     };
 
     dispatch(chat_list(body)).then((res) => {
-      console.log(res.payload);
       setAllChat(res.payload);
       setPage(Math.ceil(res.payload.length / message_num));
     });
