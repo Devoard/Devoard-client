@@ -35,7 +35,6 @@ import {
 } from '../styles/Write';
 
 const Write = () => {
-
   const [recruitCnt, setRecruitCnt] = useState({
     front_end: "",
     back_end: "",
