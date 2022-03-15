@@ -94,10 +94,11 @@ const ChatList = () => {
       user: loggedUser.username,
     };
 
-    const request = dispatch(chat_list(body));
-    const arr = await request.payload.then((res) => res);
-    setAllChat(arr);
-    setPage(Math.ceil(arr.length / message_num));
+    dispatch(chat_list(body)).then((res) => {
+      console.log(res.payload);
+      setAllChat(res.payload);
+      setPage(Math.ceil(res.payload.length / message_num));
+    });
   };
 
   const onPageChange = (e) => {

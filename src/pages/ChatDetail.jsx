@@ -53,8 +53,8 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
       to_user: to_user,
       from_user: loggedUser.username,
     };
-    dispatch(chat_detail_list(body)).payload.then((res) => {
-      setDetailChat(res);
+    dispatch(chat_detail_list(body)).then((res) => {
+      setDetailChat(res.payload);
     });
   }, []);
   const onWriteClick = (e) => {
