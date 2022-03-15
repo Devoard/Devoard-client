@@ -46,17 +46,19 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
   const { to_user } = useSelector((state) => state.chat);
   const { loggedUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // const { detailChat } = useSelector((state) => state.chat);
   const [detailChat, setDetailChat] = useState([]);
   useEffect(() => {
-    const body = {
-      to_user: to_user,
-      from_user: loggedUser.username,
-    };
-    dispatch(chat_detail_list(body)).payload.then((res) => {
-      setDetailChat(res);
-    });
-  }, []);
+    if (to_user) {
+      const body = {
+        to_user: to_user,
+        from_user: loggedUser.username,
+      };
+      dispatch(chat_detail_list(body)).then((res) => {
+        setDetailChat(res.payload);
+      });
+    }
+  }, [to_user]);
+
   const onWriteClick = (e) => {
     setWriteOpen(true);
   };

@@ -94,10 +94,11 @@ const ChatList = () => {
       user: loggedUser.username,
     };
 
-    const request = dispatch(chat_list(body));
-    const arr = await request.payload.then((res) => res);
-    setAllChat(arr);
-    setPage(Math.ceil(arr.length / message_num));
+    dispatch(chat_list(body)).then((res) => {
+      console.log(res.payload);
+      setAllChat(res.payload);
+      setPage(Math.ceil(res.payload.length / message_num));
+    });
   };
 
   const onPageChange = (e) => {
@@ -143,13 +144,13 @@ const ChatList = () => {
             ) {
               return (
                 <ChatItem isRead={v.read} key={i}>
-                  <FromId data-from={v.reciever} onClick={onDetailClick}>
-                    {v.reciever}
+                  <FromId data-from={v.receiver} onClick={onDetailClick}>
+                    {v.receiver}
                   </FromId>
-                  <Content data-from={v.reciever} onClick={onDetailClick}>
+                  <Content data-from={v.receiver} onClick={onDetailClick}>
                     {v.chat_body}
                   </Content>
-                  <Date data-from={v.reciever} onClick={onDetailClick}>
+                  <Date data-from={v.receiver} onClick={onDetailClick}>
                     {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
                   </Date>
                 </ChatItem>

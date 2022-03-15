@@ -34,21 +34,21 @@ export const chat_list = (body) => async () => {
   // const data = [
   //   {
   //     sender: "dvlops87",
-  //     reciever: "Zy0ung1",
+  //     receiver: "Zy0ung1",
   //     chat_body: "test2",
   //     time_stamp: "2022-03-13T16:57:37.824863+09:00",
   //     read: true,
   //   },
   //   {
   //     sender: "dvlops87",
-  //     reciever: "Zy0ung2",
+  //     receiver: "Zy0ung2",
   //     chat_body: "test3",
   //     time_stamp: "2022-03-13T17:02:43.228861+09:00",
   //     read: true,
   //   },
   //   {
   //     sender: "dvlops87",
-  //     reciever: "Zy0ung2",
+  //     receiver: "Zy0ung2",
   //     chat_body: "test1",
   //     time_stamp: "2022-03-10T01:01:00+09:00",
   //     read: true,
@@ -75,39 +75,39 @@ export const chat_detail_list = (body) => async () => {
   // const data = [
   //   {
   //     sender: "dvlops87",
-  //     reciever: "Zy0ung1",
+  //     receiver: "Zy0ung1",
   //     chat_body: "test2",
   //     time_stamp: "2022-03-13T16:57:37.824863+09:00",
   //     read: true,
   //   },
   //   {
   //     sender: "dvlops87",
-  //     reciever: "Zy0ung2",
+  //     receiver: "Zy0ung2",
   //     chat_body: "test3",
   //     time_stamp: "2022-03-13T17:02:43.228861+09:00",
   //     read: true,
   //   },
   //   {
   //     sender: "dvlops87",
-  //     reciever: "Zy0ung2",
+  //     receiver: "Zy0ung2",
   //     chat_body: "test1",
   //     time_stamp: "2022-03-10T01:01:00+09:00",
   //     read: true,
   //   },
   // ];
-  let sortData = await data.filter((v, i) => {
+  let sortData = await data.map((v, i) => {
     v.time = moment(v.time_stamp).format("YYYYMMDDHHmmss");
-    return body.to_user === v.reciever;
+    return v;
   });
   sortData.sort((a, b) => {
     return b.time - a.time;
   });
-
   return {
     type: LIST_DETAIL_CHAT,
     payload: sortData,
   };
 };
+
 const initialState = {
   allChat: [],
   detailChat: [],
