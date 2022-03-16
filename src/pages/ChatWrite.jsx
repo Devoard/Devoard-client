@@ -47,7 +47,7 @@ const ChatWrite = ({ writeOpen, setWriteOpen }) => {
   };
   const onSubmit = () => {
     const body = {
-      from_user: loggedUser.username,
+      from_user: loggedUser.id,
       content: content,
       to_user: to_user,
       date: moment().format("YYYY.MM.DD h:mm a"),

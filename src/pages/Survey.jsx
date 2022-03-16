@@ -39,7 +39,7 @@ const Survey = () => {
   const [dataId, setDataId] = useState(1);
   const { loggedUser } = useSelector((state) => state.user);
   const [datas, setDatas] = useState({
-    0: loggedUser.username,
+    0: loggedUser.id,
     1: "",
     2: [],
     3: "",
