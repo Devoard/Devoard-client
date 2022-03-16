@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import Button from '../components/Button';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 2rem;
   margin-bottom: 2rem;
 `;
 
@@ -23,6 +22,7 @@ export const UserImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
 `;
 
 export const UserImg = styled.img`
@@ -57,9 +57,21 @@ export const Text = styled.div`
 export const Input = styled.input`
   border: none;
   color: #3A3D3E;
-  border-bottom: 1px solid gray;
+  border-bottom: 2px solid gray;
   outline: none;
   font-size: 1.1rem;
+`;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  resize: none;
+  outline: none;
+  border-radius: 1rem;
+  border: 2px solid gray;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
 `;
 
 export const UserNameWrapper = styled(Wrapper)`

@@ -9,6 +9,7 @@ import googleIcon from '../assets/images/googleIcon.png';
 import PopUp from './PopUp';
 import { useDispatch } from "react-redux";
 import { setLoggedIn, setLoggedUser } from '../modules/user';
+import setAuthorizationToken from "../utils/setAuthorizationToken";
 
 const LoginText = styled.h1`
   margin-bottom: 2.5rem;
@@ -65,6 +66,7 @@ const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
           imageUrl: imageUrl,
           token: token
         }))
+        setAuthorizationToken(token);
       } catch (err) {
         console.log(err);
       }

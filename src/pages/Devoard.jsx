@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PostAPI from '../api/PostAPI';
 import { setActivePage } from '../modules/user';
+import Title from '../components/Title';
 import ProjectDetail from '../components/ProjectDetail';
 import WriteBtn from '../components/WriteBtn';
 import {
   PageWrapper,
-  DevoardTitle,
   SortingWrapper,
   ComboBox,
   SelectedText,
@@ -72,7 +72,7 @@ const Devoard = () => {
   if (loading) return <div style={{color: 'white'}}>로딩 중 ...</div>;
   return (
     <PageWrapper>
-      <DevoardTitle>현재 모집 중인 프로젝트</DevoardTitle>
+      <Title>현재 모집 중인 프로젝트</Title>
       <SortingWrapper>
         <ComboBox
           ref={comboBox}

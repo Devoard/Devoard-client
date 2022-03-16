@@ -6,14 +6,7 @@ export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 2rem;
   margin-bottom: 2rem;
-`;
-
-export const DevoardTitle = styled.div`
-  color: white;
-  font-size: 1.5rem;
-  font-family: var(--font-title);
 `;
 
 export const ProjectWrapper = styled.div`
