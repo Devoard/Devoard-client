@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Question = styled.h1`
   color: #fff;
   line-height: 1.3;
+  font-size: 24px;
 `;
 
 const Answer = styled.p`
