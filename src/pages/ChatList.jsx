@@ -89,16 +89,16 @@ const ChatList = () => {
   }, [page]);
 
   useEffect(() => {
-    if (loggedUser) {
+    if (loggedUser.id) {
       get_list();
+      console.log(loggedUser.id);
     }
-  }, [loggedUser]);
+  }, [loggedUser.id]);
 
-  const get_list = async () => {
+  const get_list = () => {
     const body = {
-      user: loggedUser.username,
+      user: loggedUser.id,
     };
-
     dispatch(chat_list(body)).then((res) => {
       setAllChat(res.payload);
       setPage(Math.ceil(res.payload.length / message_num));
