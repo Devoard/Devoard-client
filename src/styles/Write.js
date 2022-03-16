@@ -17,13 +17,6 @@ export const PageWrapper = styled.div`
   margin: 2rem 0;
 `;
 
-export const WriteTitle = styled.div`
-  color: white;
-  font-size: 1.5rem;
-  font-family: var(--font-title);
-  margin-bottom: 1.5rem;
-`;
-
 export const Background = styled.div`
   @media (min-width: 1400px) {
     padding: 3rem;

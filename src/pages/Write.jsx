@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PostAPI from '../api/PostAPI';
+import Title from '../components/Title';
 import AddTag from '../components/AddTag';
 import PopUp from '../components/PopUp';
 import Button from '../components/Button';
 import {
   PageWrapper,
-  WriteTitle,
   Background,
   Input,
   Text,
@@ -79,9 +79,6 @@ const Write = () => {
 
     const date = year + '-' + month + '-' + day;
 
-    const headers = {
-      'Authorization': `Token ${loggedUser.token}`
-    }
     await PostAPI.createPost({
       title: title,
       body: body,
@@ -97,8 +94,6 @@ const Write = () => {
       recruit_state: true,
       username: loggedUser.username,
       date: date,
-    }, {
-      headers: headers
     })
     .then(navigate("/devoard"));
   }
@@ -195,7 +190,7 @@ const Write = () => {
   
   return (
     <PageWrapper>
-      <WriteTitle>모집 글 작성하기</WriteTitle>
+      <Title>모집 글 작성하기</Title>
       <Background>
         <WarningText style={{marginBottom: '2rem'}}>* 은 필수 항목입니다</WarningText>
         <TitleWrapper

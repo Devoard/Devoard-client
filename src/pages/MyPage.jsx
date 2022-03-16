@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePage } from '../modules/user';
+import Title from '../components/Title';
 import defaultUserImg from '../assets/images/defaultUserImg.png';
 import {
   PageWrapper,
@@ -12,6 +13,7 @@ import {
   DeleteButton,
   Text,
   Input,
+  TextArea,
   UserNameWrapper,
   IntroWrapper,
   ContactWrapper,
@@ -24,7 +26,6 @@ import {
 
 const MyPage = () => {
   const [files, setFiles] = useState('');
-  const [selectedField, setSelectedField] = useState("");
   const imgInput = useRef();
   const { loggedUser } = useSelector(state=>state.user);
   const dispatch = useDispatch();
@@ -46,9 +47,15 @@ const MyPage = () => {
     setFiles(defaultUserImg);
   }
 
+  const resizeTextArea = (e) => {
+    e.target.style.height = "1px";
+    e.target.style.height = (14 + e.target.scrollHeight) + "px";
+  }
+
 
   return (
     <PageWrapper>
+      <Title>마이 페이지</Title>
       <Background>
         <UserImgWrapper>
           {files &&
@@ -83,8 +90,8 @@ const MyPage = () => {
         </UserNameWrapper>
         <IntroWrapper>
           <Text>소개</Text>
-          <Input 
-            style={{width: '100%'}}
+          <TextArea 
+            onChange={resizeTextArea}
           />
         </IntroWrapper>
         <ContactWrapper>
