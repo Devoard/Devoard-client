@@ -91,7 +91,6 @@ const ChatList = () => {
   useEffect(() => {
     if (loggedUser.id) {
       get_list();
-      console.log(loggedUser.id);
     }
   }, [loggedUser.id]);
 
@@ -148,13 +147,13 @@ const ChatList = () => {
             ) {
               return (
                 <ChatItem isRead={v.read} key={i}>
-                  <FromId data-from={v.receiver} onClick={onDetailClick}>
-                    {v.receiver}
+                  <FromId data-from={v.sender} onClick={onDetailClick}>
+                    {v.sender}
                   </FromId>
-                  <Content data-from={v.receiver} onClick={onDetailClick}>
+                  <Content data-from={v.sender} onClick={onDetailClick}>
                     {v.chat_body}
                   </Content>
-                  <Date data-from={v.receiver} onClick={onDetailClick}>
+                  <Date data-from={v.sender} onClick={onDetailClick}>
                     {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
                   </Date>
                 </ChatItem>

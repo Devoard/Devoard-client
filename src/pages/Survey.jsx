@@ -33,6 +33,11 @@ const ProgressStatus = styled.div`
 const CuntrolBox = styled.div`
   display: flex;
 `;
+const Title = styled.h2`
+  color: white;
+  font-size: 1.5rem;
+  font-family: var(--font-title);
+`;
 
 const Survey = () => {
   const [progressRate, setProgressRate] = useState(0);
@@ -77,26 +82,30 @@ const Survey = () => {
   };
 
   return (
-    <SurveyPage>
-      <ProgressBar>
-        <ProgressStatus status={progressRate} />
-      </ProgressBar>
-      {dataList.map((v, i) => {
-        if (i + 1 === dataId) {
-          return (
-            <SurveyComp key={i} data={v} setDatas={setDatas} datas={datas} />
-          );
-        }
-      })}
-      <CuntrolBox>
-        <Button color="orange" outline onClick={onPrevClick}>
-          이전
-        </Button>
-        <Button color="orange" outline onClick={onNextClick}>
-          다음
-        </Button>
-      </CuntrolBox>
-    </SurveyPage>
+    <>
+      <Title>설문조사</Title>
+
+      <SurveyPage>
+        <ProgressBar>
+          <ProgressStatus status={progressRate} />
+        </ProgressBar>
+        {dataList.map((v, i) => {
+          if (i + 1 === dataId) {
+            return (
+              <SurveyComp key={i} data={v} setDatas={setDatas} datas={datas} />
+            );
+          }
+        })}
+        <CuntrolBox>
+          <Button color="orange" outline onClick={onPrevClick}>
+            이전
+          </Button>
+          <Button color="orange" outline onClick={onNextClick}>
+            다음
+          </Button>
+        </CuntrolBox>
+      </SurveyPage>
+    </>
   );
 };
 export default Survey;
