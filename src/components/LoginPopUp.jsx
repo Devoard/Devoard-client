@@ -44,7 +44,6 @@ const LoginPopUp = ({ isVisible, setIsLoginPopUp }) => {
 
       const name = window.sessionStorage.getItem('name');
       const imageUrl = window.sessionStorage.getItem('imageUrl');
-      console.log(imageUrl);
   
       dispatch(setLoggedUser({
         id: name,

@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePage } from '../modules/user';
 import Title from '../components/Title';
+import Button from '../components/Button';
+import DevStackContents from '../components/StackContents';
+import devStack from '../assets/data/devStack.json';
 import defaultUserImg from '../assets/images/defaultUserImg.png';
 import {
   PageWrapper,
@@ -19,19 +22,45 @@ import {
   ContactWrapper,
   PfAddrWrapper,
   DevStackWrapper,
-  FieldTextWrapper,
-  DownIcon,
-  FieldText,
+  CheckBoxWrapper,
+  CheckBox,
+  Label,
+  ExperienceWrapper,
+  ImportantWrapper,
+  LevelBox,
+  Box,
+  ButtonWrapper
 } from '../styles/MyPage';
+
+
+const important = ['디자인', '기능', 'UI/UX', '일정', '실력', '친목'];
+
+const ImportantContents = () => (
+  important.map((v, i) => (
+    <CheckBoxWrapper key={i} style={{marginLeft: '1rem'}}>
+      <CheckBox id={v} /><Label htmlFor={v}>{v}</Label>
+    </CheckBoxWrapper>
+  ))
+)
+
 
 const MyPage = () => {
   const [files, setFiles] = useState('');
+  const [isFieldOpen, setIsFieldOpen] = useState({
+    front_end: false,
+    back_end: false,
+    android: false,
+    ios: false,
+    data: false,
+    devops: false
+  });
   const imgInput = useRef();
   const { loggedUser } = useSelector(state=>state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setActivePage('my_page'));
+    //console.log(devStack['front_end'].stack);
   }, [setActivePage])
 
   useEffect(() => {
@@ -51,7 +80,6 @@ const MyPage = () => {
     e.target.style.height = "1px";
     e.target.style.height = (14 + e.target.scrollHeight) + "px";
   }
-
 
   return (
     <PageWrapper>
@@ -86,7 +114,7 @@ const MyPage = () => {
         </UserImgWrapper>
         <UserNameWrapper>
           <Text>이름</Text>
-          <Input />
+          <Text style={{fontWeight: 'normal', color: 'gray'}}>{loggedUser.id}</Text>
         </UserNameWrapper>
         <IntroWrapper>
           <Text>소개</Text>
@@ -104,15 +132,34 @@ const MyPage = () => {
         </PfAddrWrapper>
         <DevStackWrapper>
           <Text>기술 스택</Text>
-          <FieldTextWrapper>
-            <DownIcon />
-            <FieldText>Front-end</FieldText>
-          </FieldTextWrapper>
-          <FieldTextWrapper>
-            <DownIcon />
-            <FieldText>Back-end</FieldText>
-          </FieldTextWrapper>
+          {Object.keys(devStack).map((v, i) => (
+            <DevStackContents
+              key={i}
+              field={v}
+              isFieldOpen={isFieldOpen}
+              setIsFieldOpen={setIsFieldOpen}
+            />
+          ))} 
         </DevStackWrapper>
+        <ExperienceWrapper>
+          <Text style={{marginRight: '3rem'}}>팀 프로젝트 경험 유무</Text>
+          <LevelBox>
+            <Box isChecked={true}>있음</Box>
+            <Box>없음</Box>
+          </LevelBox>
+        </ExperienceWrapper>
+        <ImportantWrapper>
+          <Text>중요하게 생각하는 요소</Text>
+          <ImportantContents />
+        </ImportantWrapper>
+        <ButtonWrapper>
+          <Button 
+            color="orange"
+          >저장</Button>
+          <Button
+            color="gray"
+          >취소</Button>
+        </ButtonWrapper>
       </Background>
     </PageWrapper>
   )
