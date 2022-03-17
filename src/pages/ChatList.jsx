@@ -145,19 +145,35 @@ const ChatList = () => {
               i + 1 > (currentPage - 1) * message_num &&
               i + 1 <= currentPage * message_num
             ) {
-              return (
-                <ChatItem isRead={v.read} key={i}>
-                  <FromId data-from={v.sender} onClick={onDetailClick}>
-                    {v.sender}
-                  </FromId>
-                  <Content data-from={v.sender} onClick={onDetailClick}>
-                    {v.chat_body}
-                  </Content>
-                  <Date data-from={v.sender} onClick={onDetailClick}>
-                    {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
-                  </Date>
-                </ChatItem>
-              );
+              if (v.sender) {
+                return (
+                  <ChatItem isRead={v.read} key={i}>
+                    <FromId data-from={v.sender} onClick={onDetailClick}>
+                      {v.sender}
+                    </FromId>
+                    <Content data-from={v.sender} onClick={onDetailClick}>
+                      {v.chat_body}
+                    </Content>
+                    <Date data-from={v.sender} onClick={onDetailClick}>
+                      {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
+                    </Date>
+                  </ChatItem>
+                );
+              } else {
+                return (
+                  <ChatItem isRead={v.read} key={i}>
+                    <FromId data-from={v.receiver} onClick={onDetailClick}>
+                      {v.receiver}
+                    </FromId>
+                    <Content data-from={v.receiver} onClick={onDetailClick}>
+                      {v.chat_body}
+                    </Content>
+                    <Date data-from={v.receiver} onClick={onDetailClick}>
+                      {moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
+                    </Date>
+                  </ChatItem>
+                );
+              }
             } else return "";
           })}
       </ListBox>
