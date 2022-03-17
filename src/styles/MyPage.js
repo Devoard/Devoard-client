@@ -1,6 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../components/Button';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -82,20 +81,72 @@ export const IntroWrapper = styled(Wrapper)``;
 export const ContactWrapper = styled(Wrapper)``;
 export const PfAddrWrapper = styled(Wrapper)``;
 
-export const DevStackWrapper = styled(Wrapper)``;
+export const DevStackWrapper = styled(Wrapper)`
+  display: flex;
+  flex-direction: column;
+`;
 
-export const FieldTextWrapper = styled.div`
+export const CheckBoxWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 2rem;
+  margin-top: 0.2rem;
+`;
+
+export const CheckBox = styled.input.attrs({
+  type: 'checkbox'
+})
+`
   cursor: pointer;
-  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+  &:checked {
+    background: var(--color-orange);
+  }
 `;
 
-export const DownIcon = styled(IoIosArrowDown)`
-  margin: 0 0.5rem;
-`;
-
-export const FieldText = styled.div`
+export const Label = styled.label`
   font-size: 1.05rem;
-  font-weight: bold;
+  width: 6rem;
+  margin-right: 4rem;
+  cursor: pointer;
+  &:hover { opacity: 0.8; }
+`;
+
+export const ExperienceWrapper = styled(Wrapper)`
+  display: flex;
+`;
+
+export const ImportantWrapper = styled(Wrapper)``;
+
+
+export const Box = styled.div`
+  padding: 0 0.6rem;
+  border: 1.5px solid gray;
+  text-align: center;
+  height: 1.45rem;
+  margin-left: -0.1rem;
+  cursor: pointer;
+
+  ${props =>
+    props.isChecked &&
+    css`
+      border: 2px solid var(--color-orange);
+      z-index: 1;
+    `
+  }
+
+  &:hover { opacity: 0.8; }
+`;
+
+export const LevelBox = styled.div`
+  display: flex;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  * {
+    margin: 0 0.5rem;
+  }
 `;

@@ -1,0 +1,26 @@
+{
+  "front_end": {
+    "text": "Front-end",
+    "stack": ["React", "TypeScript", "Angular", "Vue", "Ember", "Node", "Nuxt", "Next", "etc"]
+  },
+  "back_end": {
+    "text": "Back-end",
+    "stack": ["Flask", "Django", "Spring", "Express", "Koa", "etc"]
+  },
+  "android": {
+    "text": "Android",
+    "stack": ["Android"]
+  },
+  "ios": {
+    "text": "IOS",
+    "stack": ["Swift", "Object-C", "etc"]
+  },
+  "data": {
+    "text": "Data",
+    "stack": ["Data"]
+  },
+  "devops": {
+    "text": "Devops",
+    "stack": ["Devops"]
+  }
+}
