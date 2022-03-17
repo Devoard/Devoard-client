@@ -52,6 +52,7 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
       const body = {
         to_user: to_user,
         from_user: loggedUser.id,
+        loggedUser: loggedUser.id,
       };
       dispatch(chat_detail_list(body)).then((res) => {
         setDetailChat(res.payload);
