@@ -54,14 +54,22 @@ const MyPage = () => {
     data: false,
     devops: false
   });
+  const [stackLevel, setStackLevel] = useState({
+    front_end: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    back_end: [0, 0, 0, 0, 0, 0],
+    android: [0],
+    ios: [0, 0, 0],
+    data: [0],
+    devops: [0]
+  });
+  const [isExperienced, setIsExperienced] = useState(false);
   const imgInput = useRef();
-  const { loggedUser } = useSelector(state=>state.user);
+  const { loggedUser } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setActivePage('my_page'));
-    //console.log(devStack['front_end'].stack);
-  }, [setActivePage])
+  }, [dispatch])
 
   useEffect(() => {
     setFiles(loggedUser.imageUrl);
@@ -87,10 +95,7 @@ const MyPage = () => {
       <Background>
         <UserImgWrapper>
           {files &&
-          <UserImg 
-            src={files} 
-            alt='user_img' 
-          />}
+          <UserImg src={files} alt='user_img' />}
           <ImgInput 
             ref={imgInput}
             type="file"
@@ -138,14 +143,22 @@ const MyPage = () => {
               field={v}
               isFieldOpen={isFieldOpen}
               setIsFieldOpen={setIsFieldOpen}
+              stackLevel={stackLevel}
+              setStackLevel={setStackLevel}
             />
           ))} 
         </DevStackWrapper>
         <ExperienceWrapper>
           <Text style={{marginRight: '3rem'}}>팀 프로젝트 경험 유무</Text>
           <LevelBox>
-            <Box isChecked={true}>있음</Box>
-            <Box>없음</Box>
+            <Box 
+              isChecked={isExperienced}
+              onClick={() => setIsExperienced(true)}
+            >있음</Box>
+            <Box
+              isChecked={!isExperienced}
+              onClick={() => setIsExperienced(false)}
+            >없음</Box>
           </LevelBox>
         </ExperienceWrapper>
         <ImportantWrapper>
