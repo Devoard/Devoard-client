@@ -99,6 +99,7 @@ export const CheckBox = styled.input.attrs({
 `
   cursor: pointer;
   margin-right: 1rem;
+  outline: none;
   &:checked {
     background: var(--color-orange);
   }
