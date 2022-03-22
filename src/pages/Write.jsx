@@ -65,7 +65,7 @@ const Write = () => {
     setTitle(post.title);
     setBody(post.body);
     setRecruitCnt(post.recruit_cnt);
-    setStacks(post.tags);
+    setStacks(post.field);
     setSituation(post.situation);
     setPeriod(post.period);
   }
