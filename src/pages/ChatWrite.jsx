@@ -37,7 +37,7 @@ const SubmitBtn = styled.button`
   cursor: pointer;
 `;
 
-const ChatWrite = ({ writeOpen, setWriteOpen }) => {
+const ChatWrite = ({ writeOpen, setWriteOpen, setDetailOpen }) => {
   const [content, setContent] = useState("");
   const { loggedUser } = useSelector((state) => state.user);
   const { to_user } = useSelector((state) => state.chat);
@@ -52,10 +52,11 @@ const ChatWrite = ({ writeOpen, setWriteOpen }) => {
       to_user: to_user,
       date: moment().format("YYYY-MM-DD HH:mm"),
     };
-    console.log("body:", body);
     dispatch(submit_chat(body));
     alert("쪽지를 전송했습니다.");
     setContent("");
+    setWriteOpen(false);
+    setDetailOpen(false);
   };
   return (
     <PopUp

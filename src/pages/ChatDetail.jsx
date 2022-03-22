@@ -101,7 +101,11 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
         </ListBox>
       </PopUp>
       {writeOpen && (
-        <ChatWrite writeOpen={writeOpen} setWriteOpen={setWriteOpen} />
+        <ChatWrite
+          writeOpen={writeOpen}
+          setWriteOpen={setWriteOpen}
+          setDetailOpen={setDetailOpen}
+        />
       )}
     </>
   );

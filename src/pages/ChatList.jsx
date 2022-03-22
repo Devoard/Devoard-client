@@ -5,7 +5,7 @@ import moment from "moment";
 import styled from "styled-components";
 import Title from "../components/Title";
 import ChatDetail from "./ChatDetail";
-import { setActivePage } from '../modules/user';
+import { setActivePage } from "../modules/user";
 import { chat_list, set_user } from "../modules/chat";
 
 const ListBox = styled.div`
@@ -80,11 +80,11 @@ const ChatList = () => {
   const [allChat, setAllChat] = useState([]);
   const [page, setPage] = useState(0);
   // const page = Math.ceil(allChat.length / message_num); //총 페이지 수
-  
+
   useEffect(() => {
-    dispatch(setActivePage('chat'));
+    dispatch(setActivePage("chat"));
   }, [setActivePage]);
-  
+
   useEffect(() => {
     if (page > 0) {
       for (let i = 1; i <= page; i++) {
@@ -95,10 +95,10 @@ const ChatList = () => {
   }, [page]);
 
   useEffect(() => {
-    if (loggedUser.id) {
+    if (loggedUser.id && !detailOpen) {
       get_list();
     }
-  }, [loggedUser.id]);
+  }, [loggedUser.id, detailOpen]);
 
   const get_list = () => {
     const body = {
