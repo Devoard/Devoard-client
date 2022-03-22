@@ -50,8 +50,9 @@ const ChatWrite = ({ writeOpen, setWriteOpen }) => {
       from_user: loggedUser.id,
       content: content,
       to_user: to_user,
-      date: moment().format("YYYY.MM.DD h:mm a"),
+      date: moment().format("YYYY-MM-DD HH:mm"),
     };
+    console.log("body:", body);
     dispatch(submit_chat(body));
     alert("쪽지를 전송했습니다.");
     setContent("");
