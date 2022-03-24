@@ -99,7 +99,7 @@ const Devoard = () => {
         {posts &&
          posts.map(post => (
           <Link 
-            to={'/devoard/detail/' + post.id} 
+            to={'devoard/detail/' + post.id} 
             key={post.id}
             style={{ color: '#333333' }}
           >

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePage } from '../modules/user';
+import ProfileAPI from '../api/ProfileAPI';
 import Title from '../components/Title';
 import Button from '../components/Button';
 import DevStackContents from '../components/StackContents';
@@ -46,6 +47,9 @@ const ImportantContents = () => (
 
 const MyPage = () => {
   const [files, setFiles] = useState('');
+  const [intro, setIntro] = useState('');
+  const [contact, setContact] = useState('');
+  const [portfolio, setPortfolio] = useState('');
   const [isFieldOpen, setIsFieldOpen] = useState({
     front_end: false,
     back_end: false,
@@ -63,8 +67,8 @@ const MyPage = () => {
     devops: [0]
   });
   const [isExperienced, setIsExperienced] = useState(false);
-  const imgInput = useRef();
   const { loggedUser } = useSelector(state => state.user);
+  const imgInput = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,6 +86,10 @@ const MyPage = () => {
   const onDeleteImg = () => {
     URL.revokeObjectURL(files);
     setFiles(defaultUserImg);
+  }
+  
+  const saveData = async() => {
+    
   }
 
   const resizeTextArea = (e) => {
@@ -168,6 +176,7 @@ const MyPage = () => {
         <ButtonWrapper>
           <Button 
             color="orange"
+            onClick={saveData}
           >저장</Button>
           <Button
             color="gray"
