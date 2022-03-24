@@ -64,9 +64,16 @@ const Write = () => {
 
     setTitle(post.title);
     setBody(post.body);
-    setRecruitCnt(post.recruit_cnt);
+    setRecruitCnt({
+      front_end: post.frontend_cnt,
+      back_end: post.backend_cnt,
+      android: post.android_cnt,
+      ios: post.ios_cnt,
+      data: post.data_cnt,
+      devops: post.devops_cnt
+    });
     setStacks(post.field);
-    setSituation(post.situation);
+    setSituation(post.done);
     setPeriod(post.period);
   }
 
@@ -92,7 +99,7 @@ const Write = () => {
       period: period,
       done: situation,
       recruit_state: true,
-      username: loggedUser.username,
+      username: loggedUser.id,
       date: date,
     })
     .then(navigate("/devoard"));
@@ -173,9 +180,15 @@ const Write = () => {
   }, [selectedTag]);
 
   useEffect(() => {
-    setTimeout(()=>{
+    let timer = null;
+
+    timer = setTimeout(()=>{
       setIsExistStack(false);
     }, 3000);
+
+    return (() => {
+      clearTimeout(timer);
+    })
   }, [isExistStack]);
 
   useEffect(() => {

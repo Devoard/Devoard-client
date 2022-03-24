@@ -62,10 +62,11 @@ const Header = () => {
               size='32'
             />
           </Link>
+          {loggedUser.imageUrl &&
           <UserIcon 
             ref={userIcon}
             src={loggedUser.imageUrl}
-          />
+          />}
           </>) :
           (<LoginBtn
             color='orange'

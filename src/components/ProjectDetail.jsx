@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RecruitState from '../components/RecruitState';
 import Tag from '../components/Tag';
@@ -90,14 +90,14 @@ const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, ta
           onClick={()=>setIsColored(!isColored)}
         />
       </StateWrapper>
-     
       <ProjectTitle>{projectTitle}</ProjectTitle>
       <DividerLine />
-      {tags && tags.length !== 0 && <TagWrapper>
+      {tags && tags.length !== 0 && 
+      <TagWrapper>
         {tags.map((tag, i) => (
           <Tag key={i}>{tag}</Tag>
         ))}
-      </TagWrapper>}
+        </TagWrapper>}
       <ProjectText>
         {projectText}
       </ProjectText>

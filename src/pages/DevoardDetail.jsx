@@ -148,7 +148,7 @@ const DevoardDetail = () => {
             </Period>
             <SubTitle>진행 상황</SubTitle>
             <Situation>
-              {post.situation}
+              {post.done}
             </Situation>
             <ButtonWrapper>
               {isWriter && post.recruit_state &&
