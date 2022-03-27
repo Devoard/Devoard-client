@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePage } from '../modules/user';
+import ProfileAPI from '../api/ProfileAPI';
 import Title from '../components/Title';
 import Button from '../components/Button';
 import DevStackContents from '../components/StackContents';
+import ImportantContents from '../components/ImportantContents';
 import devStack from '../assets/data/devStack.json';
 import defaultUserImg from '../assets/images/defaultUserImg.png';
 import {
@@ -22,9 +24,6 @@ import {
   ContactWrapper,
   PfAddrWrapper,
   DevStackWrapper,
-  CheckBoxWrapper,
-  CheckBox,
-  Label,
   ExperienceWrapper,
   ImportantWrapper,
   LevelBox,
@@ -33,19 +32,11 @@ import {
 } from '../styles/MyPage';
 
 
-const important = ['디자인', '기능', 'UI/UX', '일정', '실력', '친목'];
-
-const ImportantContents = () => (
-  important.map((v, i) => (
-    <CheckBoxWrapper key={i} style={{marginLeft: '1rem'}}>
-      <CheckBox id={v} /><Label htmlFor={v}>{v}</Label>
-    </CheckBoxWrapper>
-  ))
-)
-
-
 const MyPage = () => {
   const [files, setFiles] = useState('');
+  const [intro, setIntro] = useState('');
+  const [contact, setContact] = useState('');
+  const [portfolio, setPortfolio] = useState('');
   const [isFieldOpen, setIsFieldOpen] = useState({
     front_end: false,
     back_end: false,
@@ -54,14 +45,30 @@ const MyPage = () => {
     data: false,
     devops: false
   });
+  const [stackLevel, setStackLevel] = useState({
+    front_end: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    back_end: [0, 0, 0, 0, 0, 0],
+    android: [0],
+    ios: [0, 0, 0],
+    data: [0],
+    devops: [0]
+  });
+  const [important, setImportant] = useState({
+    design: false,
+    feature: false,
+    ui_ux: false,
+    schedule: false,
+    skill: false,
+    socialize: false,
+  });
+  const [isExperienced, setIsExperienced] = useState(false);
+  const { loggedUser } = useSelector(state => state.user);
   const imgInput = useRef();
-  const { loggedUser } = useSelector(state=>state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setActivePage('my_page'));
-    //console.log(devStack['front_end'].stack);
-  }, [setActivePage])
+  }, [dispatch])
 
   useEffect(() => {
     setFiles(loggedUser.imageUrl);
@@ -75,6 +82,18 @@ const MyPage = () => {
     URL.revokeObjectURL(files);
     setFiles(defaultUserImg);
   }
+  
+  const saveData = async() => {
+    await ProfileAPI.createProfileData({
+      id: loggedUser.id,
+      user_img: files,
+      user_connect: contact,
+      user_pf_addr: portfolio,
+      user_stack: stackLevel,
+      user_exp: isExperienced,
+      user_import: important
+    })
+  }
 
   const resizeTextArea = (e) => {
     e.target.style.height = "1px";
@@ -87,10 +106,7 @@ const MyPage = () => {
       <Background>
         <UserImgWrapper>
           {files &&
-          <UserImg 
-            src={files} 
-            alt='user_img' 
-          />}
+          <UserImg src={files} alt='user_img' />}
           <ImgInput 
             ref={imgInput}
             type="file"
@@ -119,16 +135,26 @@ const MyPage = () => {
         <IntroWrapper>
           <Text>소개</Text>
           <TextArea 
-            onChange={resizeTextArea}
+            value={intro}
+            onChange={(e) => {
+              resizeTextArea(e);
+              setIntro(e.target.value);
+            }}
           />
         </IntroWrapper>
         <ContactWrapper>
           <Text>연락처</Text>
-          <Input />
+          <Input 
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          />
         </ContactWrapper>
         <PfAddrWrapper>
           <Text>포트폴리오 주소</Text>
-          <Input />
+          <Input 
+            value={portfolio}
+            onChange={(e) => setPortfolio(e.target.value)}
+          />
         </PfAddrWrapper>
         <DevStackWrapper>
           <Text>기술 스택</Text>
@@ -138,23 +164,35 @@ const MyPage = () => {
               field={v}
               isFieldOpen={isFieldOpen}
               setIsFieldOpen={setIsFieldOpen}
+              stackLevel={stackLevel}
+              setStackLevel={setStackLevel}
             />
           ))} 
         </DevStackWrapper>
         <ExperienceWrapper>
           <Text style={{marginRight: '3rem'}}>팀 프로젝트 경험 유무</Text>
           <LevelBox>
-            <Box isChecked={true}>있음</Box>
-            <Box>없음</Box>
+            <Box 
+              isChecked={isExperienced}
+              onClick={() => setIsExperienced(true)}
+            >있음</Box>
+            <Box
+              isChecked={!isExperienced}
+              onClick={() => setIsExperienced(false)}
+            >없음</Box>
           </LevelBox>
         </ExperienceWrapper>
         <ImportantWrapper>
           <Text>중요하게 생각하는 요소</Text>
-          <ImportantContents />
+          <ImportantContents 
+            important={important}
+            setImportant={setImportant}
+          />
         </ImportantWrapper>
         <ButtonWrapper>
           <Button 
             color="orange"
+            onClick={saveData}
           >저장</Button>
           <Button
             color="gray"
