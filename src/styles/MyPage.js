@@ -86,33 +86,6 @@ export const DevStackWrapper = styled(Wrapper)`
   flex-direction: column;
 `;
 
-export const CheckBoxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 2rem;
-  margin-top: 0.2rem;
-`;
-
-export const CheckBox = styled.input.attrs({
-  type: 'checkbox'
-})
-`
-  cursor: pointer;
-  margin-right: 1rem;
-  outline: none;
-  &:checked {
-    background: var(--color-orange);
-  }
-`;
-
-export const Label = styled.label`
-  font-size: 1.05rem;
-  width: 6rem;
-  margin-right: 4rem;
-  cursor: pointer;
-  &:hover { opacity: 0.8; }
-`;
-
 export const ExperienceWrapper = styled(Wrapper)`
   display: flex;
 `;

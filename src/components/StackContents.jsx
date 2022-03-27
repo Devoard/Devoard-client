@@ -3,13 +3,12 @@ import devStack from '../assets/data/devStack.json';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 const FieldWrapper = styled.div`
-  display: flex;
   margin-bottom: 0.5rem;
-  flex-direction: column;
 `;
 
 const FieldTextWrapper = styled.div`
-  display: flex;
+  display: inline-flex;
+  align-items: center;
   margin-bottom: 0.2rem;
 `;
 
