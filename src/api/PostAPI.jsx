@@ -6,7 +6,8 @@ const PostAPI = {
   getPosts: async (state) => {
     let res = null;
     if (state === "all") {
-      res = await axios.get(`${url}`).catch((err) => {
+      res = await axios.get(`${url}`)
+      .catch((err) => {
         console.log(err);
       });
     }
@@ -36,24 +37,28 @@ const PostAPI = {
     return res.data;
   },
   getDetailPost: async (id) => {
-    const res = await axios.get(`${url}/${id}`).catch((err) => {
+    const res = await axios.get(`${url}/${id}`)
+    .catch((err) => {
       console.log(err);
     });
 
     return res.data;
   },
   createPost: async (data) => {
-    await axios.post(`${url}`, data).catch((err) => {
+    await axios.post(`${url}`, data)
+    .catch((err) => {
       console.log(err);
     });
   },
   updatePost: async (id, data) => {
-    await axios.patch(`${url}/${id}`, data).catch((err) => {
+    await axios.patch(`${url}/${id}`, data)
+    .catch((err) => {
       console.log(err);
     });
   },
   removePost: async (id) => {
-    await axios.delete(`${url}/${id}`).catch((err) => {
+    await axios.delete(`${url}/${id}`)
+    .catch((err) => {
       console.log(err);
     });
   },
