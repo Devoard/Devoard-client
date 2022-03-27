@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import RecruitState from '../components/RecruitState';
 import Tag from '../components/Tag';
@@ -15,6 +15,8 @@ const ProjectDetailWrapper = styled.div`
   margin: 0.7rem;
   text-align: center;
   cursor: pointer;
+
+  &:hover { opacity: 0.97 }
 `;
 
 const StateWrapper = styled.div`

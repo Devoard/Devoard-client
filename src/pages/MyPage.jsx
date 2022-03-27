@@ -5,6 +5,7 @@ import ProfileAPI from '../api/ProfileAPI';
 import Title from '../components/Title';
 import Button from '../components/Button';
 import DevStackContents from '../components/StackContents';
+import ImportantContents from '../components/ImportantContents';
 import devStack from '../assets/data/devStack.json';
 import defaultUserImg from '../assets/images/defaultUserImg.png';
 import {
@@ -23,26 +24,12 @@ import {
   ContactWrapper,
   PfAddrWrapper,
   DevStackWrapper,
-  CheckBoxWrapper,
-  CheckBox,
-  Label,
   ExperienceWrapper,
   ImportantWrapper,
   LevelBox,
   Box,
   ButtonWrapper
 } from '../styles/MyPage';
-
-
-const important = ['디자인', '기능', 'UI/UX', '일정', '실력', '친목'];
-
-const ImportantContents = () => (
-  important.map((v, i) => (
-    <CheckBoxWrapper key={i} style={{marginLeft: '1rem'}}>
-      <CheckBox id={v} /><Label htmlFor={v}>{v}</Label>
-    </CheckBoxWrapper>
-  ))
-)
 
 
 const MyPage = () => {
@@ -65,6 +52,14 @@ const MyPage = () => {
     ios: [0, 0, 0],
     data: [0],
     devops: [0]
+  });
+  const [important, setImportant] = useState({
+    design: false,
+    feature: false,
+    ui_ux: false,
+    schedule: false,
+    skill: false,
+    socialize: false,
   });
   const [isExperienced, setIsExperienced] = useState(false);
   const { loggedUser } = useSelector(state => state.user);
@@ -89,7 +84,15 @@ const MyPage = () => {
   }
   
   const saveData = async() => {
-    
+    await ProfileAPI.createProfileData({
+      id: loggedUser.id,
+      user_img: files,
+      user_connect: contact,
+      user_pf_addr: portfolio,
+      user_stack: stackLevel,
+      user_exp: isExperienced,
+      user_import: important
+    })
   }
 
   const resizeTextArea = (e) => {
@@ -132,16 +135,26 @@ const MyPage = () => {
         <IntroWrapper>
           <Text>소개</Text>
           <TextArea 
-            onChange={resizeTextArea}
+            value={intro}
+            onChange={(e) => {
+              resizeTextArea(e);
+              setIntro(e.target.value);
+            }}
           />
         </IntroWrapper>
         <ContactWrapper>
           <Text>연락처</Text>
-          <Input />
+          <Input 
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          />
         </ContactWrapper>
         <PfAddrWrapper>
           <Text>포트폴리오 주소</Text>
-          <Input />
+          <Input 
+            value={portfolio}
+            onChange={(e) => setPortfolio(e.target.value)}
+          />
         </PfAddrWrapper>
         <DevStackWrapper>
           <Text>기술 스택</Text>
@@ -171,7 +184,10 @@ const MyPage = () => {
         </ExperienceWrapper>
         <ImportantWrapper>
           <Text>중요하게 생각하는 요소</Text>
-          <ImportantContents />
+          <ImportantContents 
+            important={important}
+            setImportant={setImportant}
+          />
         </ImportantWrapper>
         <ButtonWrapper>
           <Button 
