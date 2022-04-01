@@ -8,7 +8,7 @@ const Wrap = styled.div`
   height: 330px;
   display: inline-block;
   margin: 10px;
-  padding: 12px;
+  padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
 `;
@@ -17,22 +17,26 @@ const RecruitState = styled.span`
     ${(props) =>
       props.active ? props.theme.palette.orange : props.theme.palette.gray};
   border-radius: 10px;
-  padding: 4px 12px;
+  padding: 2px 12px;
   color: ${(props) =>
     props.active ? props.theme.palette.orange : props.theme.palette.gray};
 `;
-const OutlineHeart = styled(TiHeartOutline)`
-  color: red;
-  font-size: 24px;
-`;
-const FullHeart = styled(TiHeartFullOutline)`
-  color: red;
-  font-size: 24px;
-`;
+// const OutlineHeart = styled(TiHeartOutline)`
+//   color: red;
+//   font-size: 24px;
+// `;
+// const FullHeart = styled(TiHeartFullOutline)`
+//   color: red;
+//   font-size: 24px;
+// `;
 const Title = styled.h3`
   border-bottom: 1px solid ${(props) => props.theme.palette.gray};
   margin: 0;
+  margin-bottom: 10px;
   padding-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const Desc = styled.p`
   width: 100%;
@@ -55,24 +59,18 @@ const Tag = styled.span`
   font-size: 14px;
   margin-right: 6px;
 `;
-const MakedProjectCard = ({
-  title,
-  description,
-  isLike,
-  isRecruiting,
-  tags,
-}) => {
+const MakedProjectCard = ({ title, body, done, field }) => {
   return (
     <Wrap>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <RecruitState active={isRecruiting ? true : false}>
-          {isRecruiting ? "모집중" : "마감"}
+        <RecruitState active={done === "진행중" ? true : false}>
+          {done}
         </RecruitState>
-        {isLike ? <FullHeart /> : <OutlineHeart />}
+        {/* {isLike ? <FullHeart /> : <OutlineHeart />} */}
       </div>
       <Title>{title}</Title>
-      {tags && tags.length > 0 && tags.map((v, i) => <Tag key={i}>{v}</Tag>)}
-      <Desc>{description}</Desc>
+      {field && field.length > 0 && field.map((v, i) => <Tag key={i}>{v}</Tag>)}
+      <Desc>{body}</Desc>
     </Wrap>
   );
 };
