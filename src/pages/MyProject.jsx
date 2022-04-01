@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import MakedProjectCard from "../components/MakedProjectCard";
-import { getMakedList } from "../modules/project";
+import { getJoinList, getMakedList } from "../modules/project";
 import { setActivePage } from "../modules/user";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import JoinProjectCard from "../components/JoinProjectCard";
 const Title = styled.h2`
   color: white;
   font-size: 1.5rem;
@@ -67,6 +68,10 @@ const MyProject = () => {
       username: loggedUser.id,
     };
     if (clickMenu === "내가 소속된 프로젝트") {
+      dispatch(getJoinList(body)).then((res) => {
+        setProjectList(res.payload);
+        console.log(res.payload);
+      });
     }
     if (clickMenu === "내가 구성한 프로젝트") {
       dispatch(getMakedList(body)).then((res) => {
@@ -76,28 +81,20 @@ const MyProject = () => {
     if (clickMenu === "나의 프로젝트 지원 현황") {
     }
   }, [clickMenu]);
-  useEffect(() => {
-    if (projectList && projectList.length > 0) {
-      let arr = [];
-      for (let i = 0; i < 8; i++) {
-        arr.push(projectList[i]);
-      }
-      setDataList(arr);
-    }
-  }, [projectList]);
 
   useEffect(() => {
     if (!projectList || projectList.length === 0) return;
     let arr = [];
     for (let i = skip; i <= projectList.length - 1; i++) {
-      console.log(arr);
       if (arr.length < 8) arr.push(projectList[i]);
       if (arr.length > 8) break;
     }
     setDataList(arr);
-  }, [skip]);
+    console.log("asdsa");
+  }, [skip, projectList]);
 
   const onMenuClick = (e) => {
+    setSkip(0);
     setClickMenu(e.target.innerHTML);
   };
   const isActive = (value) => {
@@ -155,6 +152,9 @@ const MyProject = () => {
                 done={v.done}
               />
             ))}
+          {clickMenu === "내가 소속된 프로젝트" &&
+            dataList.length > 0 &&
+            dataList.map((v, i) => <JoinProjectCard key={i} project={v} />)}
         </List>
 
         <NextBtn onClick={onNextClick} />
