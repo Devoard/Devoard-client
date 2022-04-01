@@ -59,21 +59,21 @@ const Tag = styled.span`
   font-size: 14px;
   margin-right: 6px;
 `;
-const MakedProjectCard = ({ title, body, done, field }) => {
-  const fieldArr = field.split(",");
+const MakedProjectCard = ({ project }) => {
+  const fieldArr = project.field.split(",");
   return (
     <Wrap>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <RecruitState active={done === "진행중" ? true : false}>
-          {done}
+        <RecruitState active={project.done === "진행중" ? true : false}>
+          {project.done}
         </RecruitState>
         {/* {isLike ? <FullHeart /> : <OutlineHeart />} */}
       </div>
-      <Title>{title}</Title>
+      <Title>{project.title}</Title>
       {fieldArr &&
         fieldArr.length > 0 &&
         fieldArr.map((v, i) => <Tag key={i}>{v}</Tag>)}
-      <Desc>{body}</Desc>
+      <Desc>{project.body}</Desc>
     </Wrap>
   );
 };

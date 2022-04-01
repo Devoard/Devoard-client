@@ -60,7 +60,6 @@ const Tag = styled.span`
   margin-right: 6px;
 `;
 const JoinProjectCard = ({ project }) => {
-  console.log(project);
   const fieldArr = project.field.split(",");
   return (
     <Wrap>
