@@ -60,6 +60,7 @@ const Tag = styled.span`
   margin-right: 6px;
 `;
 const MakedProjectCard = ({ title, body, done, field }) => {
+  const fieldArr = field.split(",");
   return (
     <Wrap>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -69,7 +70,9 @@ const MakedProjectCard = ({ title, body, done, field }) => {
         {/* {isLike ? <FullHeart /> : <OutlineHeart />} */}
       </div>
       <Title>{title}</Title>
-      {field && field.length > 0 && field.map((v, i) => <Tag key={i}>{v}</Tag>)}
+      {fieldArr &&
+        fieldArr.length > 0 &&
+        fieldArr.map((v, i) => <Tag key={i}>{v}</Tag>)}
       <Desc>{body}</Desc>
     </Wrap>
   );
