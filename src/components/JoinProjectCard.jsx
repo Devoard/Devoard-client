@@ -61,6 +61,7 @@ const Tag = styled.span`
 `;
 const JoinProjectCard = ({ project }) => {
   console.log(project);
+  const fieldArr = project.field.split(",");
   return (
     <Wrap>
       {project && (
@@ -71,9 +72,9 @@ const JoinProjectCard = ({ project }) => {
             </RecruitState>
           </div>
           <Title>{project.title}</Title>
-          {project.field &&
-            project.field.length > 0 &&
-            project.field.map((v, i) => <Tag key={i}>{v}</Tag>)}
+          {fieldArr &&
+            fieldArr.length > 0 &&
+            fieldArr.map((v, i) => <Tag key={i}>{v}</Tag>)}
           <Desc>{project.body}</Desc>
         </>
       )}
