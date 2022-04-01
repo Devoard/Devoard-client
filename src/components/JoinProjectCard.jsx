@@ -63,20 +63,18 @@ const JoinProjectCard = ({ project }) => {
   console.log(project);
   return (
     <Wrap>
-      {project && project.project_detail && (
+      {project && (
         <>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <RecruitState
-              active={project.project_detail.done === "진행중" ? true : false}
-            >
-              {project.project_detail.done}
+            <RecruitState active={project.done === "진행중" ? true : false}>
+              {project.done}
             </RecruitState>
           </div>
-          <Title>{project.project_detail.title}</Title>
-          {project.project_detail.field &&
-            project.project_detail.field.length > 0 &&
-            project.project_detail.field.map((v, i) => <Tag key={i}>{v}</Tag>)}
-          <Desc>{project.project_detail.body}</Desc>
+          <Title>{project.title}</Title>
+          {project.field &&
+            project.field.length > 0 &&
+            project.field.map((v, i) => <Tag key={i}>{v}</Tag>)}
+          <Desc>{project.body}</Desc>
         </>
       )}
     </Wrap>

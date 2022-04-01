@@ -154,7 +154,9 @@ const MyProject = () => {
             ))}
           {clickMenu === "내가 소속된 프로젝트" &&
             dataList.length > 0 &&
-            dataList.map((v, i) => <JoinProjectCard key={i} project={v} />)}
+            dataList.map((v, i) => (
+              <JoinProjectCard key={i} project={v.project_detail} />
+            ))}
         </List>
 
         <NextBtn onClick={onNextClick} />
