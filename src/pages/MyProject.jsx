@@ -58,8 +58,9 @@ const MyProject = () => {
   const [projectList, setProjectList] = useState([]);
   const { loggedUser } = useSelector((state) => state.user);
   const [clickMenu, setClickMenu] = useState("내가 소속된 프로젝트");
-  const [dataList, setDataList] = useState([]);
   const [skip, setSkip] = useState(0);
+  const [makedList, setMakedList] = useState([]);
+  const [joinList, setJoinList] = useState([]);
   useEffect(() => {
     dispatch(setActivePage("my_project"));
   }, [setActivePage]);
@@ -70,7 +71,6 @@ const MyProject = () => {
     if (clickMenu === "내가 소속된 프로젝트") {
       dispatch(getJoinList(body)).then((res) => {
         setProjectList(res.payload);
-        console.log(res.payload);
       });
     }
     if (clickMenu === "내가 구성한 프로젝트") {
@@ -89,8 +89,12 @@ const MyProject = () => {
       if (arr.length < 8) arr.push(projectList[i]);
       if (arr.length > 8) break;
     }
-    setDataList(arr);
-    console.log("asdsa");
+    if (clickMenu === "내가 소속된 프로젝트") {
+      setJoinList(arr);
+    }
+    if (clickMenu === "내가 구성한 프로젝트") {
+      setMakedList(arr);
+    }
   }, [skip, projectList]);
 
   const onMenuClick = (e) => {
@@ -109,8 +113,20 @@ const MyProject = () => {
     setSkip((prev) => prev - 8);
   };
   const onNextClick = () => {
-    if (projectList[projectList.length - 1] === dataList[dataList.length - 1])
-      return;
+    if (clickMenu === "내가 소속된 프로젝트") {
+      if (
+        projectList[projectList.length - 1] === joinList[joinList.length - 1]
+      ) {
+        return;
+      }
+    }
+    if (clickMenu === "내가 구성한 프로젝트") {
+      if (
+        projectList[projectList.length - 1] === makedList[makedList.length - 1]
+      ) {
+        return;
+      }
+    }
     setSkip((prev) => prev + 8);
   };
   return (
@@ -140,23 +156,16 @@ const MyProject = () => {
       <ContentBox>
         <PrevBtn onClick={onPrevClick} />
         <List>
-          {clickMenu === "내가 구성한 프로젝트" &&
-            dataList.length > 0 &&
-            dataList.map((v, i) => (
-              <MakedProjectCard
-                key={i}
-                title={v.title}
-                // isLike={v.isLike}
-                field={v.field}
-                body={v.body}
-                done={v.done}
-              />
-            ))}
           {clickMenu === "내가 소속된 프로젝트" &&
-            dataList.length > 0 &&
-            dataList.map((v, i) => (
+            joinList &&
+            joinList.length > 0 &&
+            joinList.map((v, i) => (
               <JoinProjectCard key={i} project={v.project_detail} />
             ))}
+          {clickMenu === "내가 구성한 프로젝트" &&
+            makedList &&
+            makedList.length > 0 &&
+            makedList.map((v, i) => <MakedProjectCard key={i} project={v} />)}
         </List>
 
         <NextBtn onClick={onNextClick} />
