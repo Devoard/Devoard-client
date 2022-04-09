@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { TiHeartOutline, TiHeartFullOutline } from "react-icons/ti";
+// import { TiHeartOutline, TiHeartFullOutline } from "react-icons/ti";
+import { useNavigate} from 'react-router-dom';
 const Wrap = styled.div`
   background: #fff;
   width: 23%;
@@ -10,6 +11,7 @@ const Wrap = styled.div`
   margin: 10px;
   padding: 10px;
   box-sizing: border-box;
+  cursor: pointer;
   overflow: hidden;
 `;
 const RecruitState = styled.span`
@@ -59,10 +61,14 @@ const Tag = styled.span`
   font-size: 14px;
   margin-right: 6px;
 `;
-const JoinProjectCard = ({ project }) => {
+const JoinProjectCard = ({ project, project_id }) => {
   const fieldArr = project.field.split(",");
+  const navigate = useNavigate();
+  const onDetail = ()=>{
+    navigate(`/devoard/detail/${project_id}`)
+  }
   return (
-    <Wrap>
+    <Wrap onClick={onDetail}>
       {project && (
         <>
           <div style={{ display: "flex", justifyContent: "space-between" }}>

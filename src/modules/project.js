@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 const JOIN_PROJECT = "project/JOIN_PROJECT";
 const MAKED_PROJECT = "project/MAKED_PROJECT";
 const APPLY_PROJECT = "project/APPLY_PROJECT";
+const DETAIL_PROJECT = "project/DETAIL_PROJECT";
 const cookies = new Cookies();
 const token = cookies.get("token");
 const headers = {
@@ -23,60 +24,12 @@ export const getMakedList = (body) => async () => {
     payload: data,
     // payload: [
     //   {
-    //     title: "1",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
-    //     title: "2",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명설명설설명설명설명설명설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
-    //     title: "3",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
-    //     title: "4",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명설명설설명설명설명설명설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
-    //     title: "5",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
-    //     title: "6",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명설명설설명설명설명설명설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
-    //     title: "7",
-    //     field: "django,react,android,next.js,express,mongodb",
-    //     body: "설명설명설명설설명설명설명설명설명설명",
-    //     done: "진행중",
-    //     user_id: "팀장",
-    //   },
-    //   {
     //     title: "8",
     //     field: "django,react,android,next.js,express,mongodb",
     //     body: "설명설명",
     //     done: "진행중",
     //     user_id: "팀장",
+    //     id: 1,
     //   },
     //   {
     //     title: "9",
@@ -84,6 +37,7 @@ export const getMakedList = (body) => async () => {
     //     body: "설명설명설명설설명설명설명설명설명설명",
     //     done: "진행중",
     //     user_id: "팀장",
+    //     id: 2,
     //   },
     //   {
     //     title: "10",
@@ -91,6 +45,7 @@ export const getMakedList = (body) => async () => {
     //     body: "설명설명설명설설명설명설명설명설명설명",
     //     done: "진행중",
     //     user_id: "팀장",
+    //     id: 3,
     //   },
     // ],
   };
@@ -118,10 +73,41 @@ export const getJoinList = (body) => async () => {
     //     },
     //     team_master: "팀장",
     //     joiner: ["지영", "다혜", "지수", "성현"],
+    //     id: 3,
     //   },
     // ],
   };
 };
+
+export const getDetailProject = (body) => async () => {
+  // const response = await axios.get(
+  //   "http://localhost:8000/project/detail/",
+  //   {
+  //     params: body,
+  //     headers,
+  //   }
+  // );
+  // const data = await response.data;
+  return {
+    type: DETAIL_PROJECT,
+    // payload: data,
+    payload: {
+      title: "세번째 극비 프로젝트",
+      frontend_cnt: 2,
+      backend_cnt: 3,
+      android_cnt: 2,
+      ios_cnt: 1,
+      data_cnt: 0,
+      devops_cnt: 2,
+      field: "Django, React, Android",
+      body: "극비입니다",
+      period: "1개월~3개월",
+      done: "진행중",
+      user_id: 6,
+    },
+  };
+};
+
 const initialState = {
   projectList: [],
 };

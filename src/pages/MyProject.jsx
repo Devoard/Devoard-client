@@ -160,14 +160,13 @@ const MyProject = () => {
             joinList &&
             joinList.length > 0 &&
             joinList.map((v, i) => (
-              <JoinProjectCard key={i} project={v.project_detail} />
+              <JoinProjectCard key={i} project={v.project_detail} project_id={v.id}/>
             ))}
           {clickMenu === "내가 구성한 프로젝트" &&
             makedList &&
             makedList.length > 0 &&
             makedList.map((v, i) => <MakedProjectCard key={i} project={v} />)}
         </List>
-
         <NextBtn onClick={onNextClick} />
       </ContentBox>
     </>
