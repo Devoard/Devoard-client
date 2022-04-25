@@ -117,7 +117,8 @@ const StackContents = ({ field, isFieldOpen, setIsFieldOpen, stackLevel, setStac
             <CheckBoxWrapper>
               <CheckBox 
                 id={stack} 
-                onClick={() => {onToggleCheck(i)}}
+                checked={stackLevel[field][i]}
+                onChange={() => {onToggleCheck(i)}}
               /><Label htmlFor={stack}>{stack}</Label>
             </CheckBoxWrapper>
             {stackLevel[field][i] !== 0 &&

@@ -124,3 +124,16 @@ export const ButtonWrapper = styled.div`
     margin: 0 0.5rem;
   }
 `;
+
+export const CheckText = styled.div`
+  font-size: 1.4rem;
+  font-family: var(--font-title);
+  margin-top: 3rem;
+`;
+
+export const PopUpBtnWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 4rem;
+`;

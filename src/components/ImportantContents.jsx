@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import importantData from '../assets/data/important.json';
 
@@ -33,8 +34,10 @@ const ImportantContents = ({ important, setImportant }) => {
     importantData.text.map((v, i) => (
       <CheckBoxWrapper key={i} style={{marginLeft: '1rem'}}>
         <CheckBox 
-          id={v} 
-          onClick={(e) => {
+          id={v}
+          checked={important[importantData.value[i]]}
+          onChange={(e) => {
+
             setImportant({
               ...important,
               [importantData.value[i]]: e.target.checked

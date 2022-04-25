@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePage } from '../modules/user';
+import { setActivePage, setLoggedUser } from '../modules/user';
 import ProfileAPI from '../api/ProfileAPI';
 import Title from '../components/Title';
 import Button from '../components/Button';
+import PopUp from '../components/PopUp';
 import DevStackContents from '../components/StackContents';
 import ImportantContents from '../components/ImportantContents';
 import devStack from '../assets/data/devStack.json';
@@ -28,7 +29,9 @@ import {
   ImportantWrapper,
   LevelBox,
   Box,
-  ButtonWrapper
+  ButtonWrapper,
+  CheckText,
+  PopUpBtnWrapper
 } from '../styles/MyPage';
 
 
@@ -38,12 +41,12 @@ const MyPage = () => {
   const [contact, setContact] = useState('');
   const [portfolio, setPortfolio] = useState('');
   const [isFieldOpen, setIsFieldOpen] = useState({
-    front_end: false,
-    back_end: false,
-    android: false,
-    ios: false,
-    data: false,
-    devops: false
+    front_end: true,
+    back_end: true,
+    android: true,
+    ios: true,
+    data: true,
+    devops: true
   });
   const [stackLevel, setStackLevel] = useState({
     front_end: [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -62,17 +65,10 @@ const MyPage = () => {
     socialize: false,
   });
   const [isExperienced, setIsExperienced] = useState(false);
+  const [isCheckPopUp, setIsCheckPopUp] = useState(false);
   const { loggedUser } = useSelector(state => state.user);
   const imgInput = useRef();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setActivePage('my_page'));
-  }, [dispatch])
-
-  useEffect(() => {
-    setFiles(loggedUser.imageUrl);
-  }, [loggedUser]);
 
   const onLoadImg = (e) => {
     setFiles(URL.createObjectURL(e.target.files[0]));
@@ -95,10 +91,55 @@ const MyPage = () => {
     })
   }
 
+  const getData = async() => {
+    const data = await ProfileAPI.getProfileData(loggedUser.id)
+    
+    setFiles(data.user_img);
+    setIntro(data.user_intro);
+    setContact(data.user_connect);
+    setPortfolio(data.user_pf_addr);
+    setStackLevel(data.user_stack);
+    setIsExperienced(data.user_exp);
+    setImportant(data.user_import);
+  } 
+
+  const updateData = async() => {
+    await ProfileAPI.updateProfileData(
+      loggedUser.id, {
+        user_img: files,
+        user_intro: intro,
+        user_connect: contact,
+        user_pf_addr: portfolio,
+        user_stack: stackLevel,
+        user_exp: isExperienced,
+        user_import: important
+      }
+    )
+    .then(() => {
+      window.scrollTo(0, 0);
+      setIsCheckPopUp(false);
+      /*dispatch(setLoggedUser({
+        ...loggedUser,
+        imageUrl: files
+      }))*/
+    })
+  }
+
   const resizeTextArea = (e) => {
     e.target.style.height = "1px";
     e.target.style.height = (14 + e.target.scrollHeight) + "px";
   }
+
+  useEffect(() => {
+    dispatch(setActivePage('my_page'));
+  }, [dispatch])
+
+  useEffect(() => {
+    setFiles(loggedUser.imageUrl);
+    if (loggedUser.id) getData();
+  }, [loggedUser]);
+
+
 
   return (
     <PageWrapper>
@@ -118,14 +159,14 @@ const MyPage = () => {
             color="orange"
             onClick={() => {imgInput.current.click()}}
           >
-            이미지 선택하기
+            이미지 선택
           </UploadButton>
           <DeleteButton
             outline
             color="gray"
             onClick={onDeleteImg}
           >
-            선택된 이미지 삭제하기
+            선택된 이미지 삭제
           </DeleteButton>
         </UserImgWrapper>
         <UserNameWrapper>
@@ -192,13 +233,32 @@ const MyPage = () => {
         <ButtonWrapper>
           <Button 
             color="orange"
-            onClick={saveData}
+            onClick={() => setIsCheckPopUp(true)}
           >저장</Button>
           <Button
             color="gray"
           >취소</Button>
         </ButtonWrapper>
       </Background>
+      <PopUp
+        isVisible={isCheckPopUp}
+        width="23rem"
+        height="12rem"
+        setIsPopUp={setIsCheckPopUp}
+      >
+        <CheckText>내 정보를 변경하시겠습니까?</CheckText>
+        <PopUpBtnWrapper>
+          <Button
+            color="orange"
+            onClick={updateData}
+          >확인</Button>
+          <Button
+            color="gray"
+            style={{marginLeft: '1rem'}}
+            onClick={() => setIsCheckPopUp(false)}
+          >취소</Button>
+        </PopUpBtnWrapper>
+      </PopUp>
     </PageWrapper>
   )
 }
