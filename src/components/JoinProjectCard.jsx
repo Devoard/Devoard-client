@@ -61,28 +61,30 @@ const Tag = styled.span`
   font-size: 14px;
   margin-right: 6px;
 `;
-const MakedProjectCard = ({ project }) => {
+const JoinProjectCard = ({ project, project_id }) => {
   const fieldArr = project.field.split(",");
   const navigate = useNavigate();
   const onDetail = ()=>{
-    navigate(`/devoard/detail/${project.id}`)
+    navigate(`/devoard/detail/${project_id}`)
   }
-
   return (
     <Wrap onClick={onDetail}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <RecruitState active={project.done === "진행중" ? true : false}>
-          {project.done}
-        </RecruitState>
-        {/* {isLike ? <FullHeart /> : <OutlineHeart />} */}
-      </div>
-      <Title>{project.title}</Title>
-      {fieldArr &&
-        fieldArr.length > 0 &&
-        fieldArr.map((v, i) => <Tag key={i}>{v}</Tag>)}
-      <Desc>{project.body}</Desc>
+      {project && (
+        <>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <RecruitState active={project.done === "진행중" ? true : false}>
+              {project.done}
+            </RecruitState>
+          </div>
+          <Title>{project.title}</Title>
+          {fieldArr &&
+            fieldArr.length > 0 &&
+            fieldArr.map((v, i) => <Tag key={i}>{v}</Tag>)}
+          <Desc>{project.body}</Desc>
+        </>
+      )}
     </Wrap>
   );
 };
 
-export default MakedProjectCard;
+export default JoinProjectCard;

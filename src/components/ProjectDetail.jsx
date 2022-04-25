@@ -15,6 +15,8 @@ const ProjectDetailWrapper = styled.div`
   margin: 0.7rem;
   text-align: center;
   cursor: pointer;
+
+  &:hover { opacity: 0.97 }
 `;
 
 const StateWrapper = styled.div`

@@ -37,6 +37,7 @@ const ImportantContents = ({ important, setImportant }) => {
           id={v}
           checked={important[importantData.value[i]]}
           onChange={(e) => {
+
             setImportant({
               ...important,
               [importantData.value[i]]: e.target.checked

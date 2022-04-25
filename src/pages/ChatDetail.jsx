@@ -76,20 +76,36 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
           {detailChat &&
             detailChat.length > 0 &&
             detailChat.map((v, i) => {
-              return (
-                <ChatItem
-                  key={i}
-                  desc={"받은 쪽지"}
-                  date={moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
-                >
-                  <Content>{v.chat_body}</Content>
-                </ChatItem>
-              );
+              if (v.sender) {
+                return (
+                  <ChatItem
+                    key={i}
+                    desc={"받은 쪽지"}
+                    date={moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
+                  >
+                    <Content>{v.chat_body}</Content>
+                  </ChatItem>
+                );
+              } else {
+                return (
+                  <ChatItem
+                    key={i}
+                    desc={"보낸 쪽지"}
+                    date={moment(v.time_stamp).format("YYYY-MM-DD HH:mm")}
+                  >
+                    <Content>{v.chat_body}</Content>
+                  </ChatItem>
+                );
+              }
             })}
         </ListBox>
       </PopUp>
       {writeOpen && (
-        <ChatWrite writeOpen={writeOpen} setWriteOpen={setWriteOpen} />
+        <ChatWrite
+          writeOpen={writeOpen}
+          setWriteOpen={setWriteOpen}
+          setDetailOpen={setDetailOpen}
+        />
       )}
     </>
   );

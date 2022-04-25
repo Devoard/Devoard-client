@@ -70,7 +70,6 @@ const MyPage = () => {
   const imgInput = useRef();
   const dispatch = useDispatch();
 
-
   const onLoadImg = (e) => {
     setFiles(URL.createObjectURL(e.target.files[0]));
   }
@@ -78,6 +77,18 @@ const MyPage = () => {
   const onDeleteImg = () => {
     URL.revokeObjectURL(files);
     setFiles(defaultUserImg);
+  }
+  
+  const saveData = async() => {
+    await ProfileAPI.createProfileData({
+      id: loggedUser.id,
+      user_img: files,
+      user_connect: contact,
+      user_pf_addr: portfolio,
+      user_stack: stackLevel,
+      user_exp: isExperienced,
+      user_import: important
+    })
   }
 
   const getData = async() => {

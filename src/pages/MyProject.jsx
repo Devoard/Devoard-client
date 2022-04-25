@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import MakedProjectCard from "../components/MakedProjectCard";
+import { getJoinList, getMakedList } from "../modules/project";
 import { setActivePage } from "../modules/user";
-
+import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import JoinProjectCard from "../components/JoinProjectCard";
 const Title = styled.h2`
   color: white;
   font-size: 1.5rem;
@@ -34,15 +36,69 @@ const ContentBox = styled.div`
   width: 100%;
   margin: 30px 0;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const List = styled.div`
+  width: 90%;
+`;
+const PrevBtn = styled(MdOutlineNavigateBefore)`
+  color: #fff;
+  font-size: 42px;
+  cursor: pointer;
+`;
+const NextBtn = styled(MdOutlineNavigateNext)`
+  color: #fff;
+  font-size: 42px;
+  cursor: pointer;
 `;
 const MyProject = () => {
   const dispatch = useDispatch();
-  const { projectList } = useSelector((state) => state.project);
+  const [projectList, setProjectList] = useState([]);
+  const { loggedUser } = useSelector((state) => state.user);
   const [clickMenu, setClickMenu] = useState("내가 소속된 프로젝트");
+  const [skip, setSkip] = useState(0);
+  const [makedList, setMakedList] = useState([]);
+  const [joinList, setJoinList] = useState([]);
   useEffect(() => {
     dispatch(setActivePage("my_project"));
   }, [setActivePage]);
+  useEffect(() => {
+    const body = {
+      username: loggedUser.id,
+    };
+    if (clickMenu === "내가 소속된 프로젝트") {
+      dispatch(getJoinList(body)).then((res) => {
+        setProjectList(res.payload);
+      });
+    }
+    if (clickMenu === "내가 구성한 프로젝트") {
+      dispatch(getMakedList(body)).then((res) => {
+        setProjectList(res.payload);
+      });
+    }
+    if (clickMenu === "나의 프로젝트 지원 현황") {
+    }
+  }, [clickMenu]);
+
+  useEffect(() => {
+    if (!projectList || projectList.length === 0) return;
+    let arr = [];
+    for (let i = skip; i <= projectList.length - 1; i++) {
+      if (arr.length < 8) arr.push(projectList[i]);
+      if (arr.length > 8) break;
+    }
+    if (clickMenu === "내가 소속된 프로젝트") {
+      setJoinList(arr);
+    }
+    if (clickMenu === "내가 구성한 프로젝트") {
+      setMakedList(arr);
+    }
+  }, [skip, projectList]);
+
   const onMenuClick = (e) => {
+    setSkip(0);
     setClickMenu(e.target.innerHTML);
   };
   const isActive = (value) => {
@@ -50,6 +106,28 @@ const MyProject = () => {
       return true;
     }
     return false;
+  };
+
+  const onPrevClick = () => {
+    if (skip === 0) return;
+    setSkip((prev) => prev - 8);
+  };
+  const onNextClick = () => {
+    if (clickMenu === "내가 소속된 프로젝트") {
+      if (
+        projectList[projectList.length - 1] === joinList[joinList.length - 1]
+      ) {
+        return;
+      }
+    }
+    if (clickMenu === "내가 구성한 프로젝트") {
+      if (
+        projectList[projectList.length - 1] === makedList[makedList.length - 1]
+      ) {
+        return;
+      }
+    }
+    setSkip((prev) => prev + 8);
   };
   return (
     <>
@@ -74,19 +152,22 @@ const MyProject = () => {
           나의 프로젝트 지원 현황
         </MenuItem>
       </Menu>
+
       <ContentBox>
-        {clickMenu === "내가 구성한 프로젝트" &&
-          projectList.length > 0 &&
-          projectList.map((v, i) => (
-            <MakedProjectCard
-              key={i}
-              title={v.title}
-              isLike={v.isLike}
-              tags={v.tags}
-              description={v.description}
-              isRecruiting={v.isRecruiting}
-            />
-          ))}
+        <PrevBtn onClick={onPrevClick} />
+        <List>
+          {clickMenu === "내가 소속된 프로젝트" &&
+            joinList &&
+            joinList.length > 0 &&
+            joinList.map((v, i) => (
+              <JoinProjectCard key={i} project={v.project_detail} project_id={v.id}/>
+            ))}
+          {clickMenu === "내가 구성한 프로젝트" &&
+            makedList &&
+            makedList.length > 0 &&
+            makedList.map((v, i) => <MakedProjectCard key={i} project={v} />)}
+        </List>
+        <NextBtn onClick={onNextClick} />
       </ContentBox>
     </>
   );
