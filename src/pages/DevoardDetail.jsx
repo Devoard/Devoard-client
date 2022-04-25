@@ -118,9 +118,9 @@ const DevoardDetail = () => {
           </InfoWrapper>
           <DividerLine />
           <TagWrapper>
-          {post.field.map((tag, i) => (
+          {/* {post.field.map((tag, i) => (
             <Tag key={i}>{tag}</Tag>
-          ))}
+          ))} */}
           </TagWrapper>
           <BodyWrapper>
             <SubTitle>모집 인원</SubTitle>

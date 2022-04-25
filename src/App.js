@@ -40,7 +40,7 @@ const App = () => {
             {loggedIn ? <Route path="/write/:id" element={<Write />} /> : ""}
             {loggedIn ? <Route path="/survey" element={<Survey />} /> : ""}
             <Route path="*" element={<NotFound />} />
-            <Route path="/devoard/detail/:id" element={<DevoardDetail />} />
+            <Route path="/devoard/:id" element={<DevoardDetail />} />
           </Route>
         </Routes>
       </ThemeProvider>

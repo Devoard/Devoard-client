@@ -1,12 +1,18 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 
-const url = "http://localhost:8000/devoard";
+const url = "http://localhost:8000/devoard/";
+const cookies = new Cookies();
+const token = cookies.get('token');
+const headers = {
+  Authorization: `Token ${token}`,
+};
 
 const PostAPI = {
   getPosts: async (state) => {
     let res = null;
     if (state === "all") {
-      res = await axios.get(`${url}`)
+      res = await axios.get(`${url}`, { headers })
       .catch((err) => {
         console.log(err);
       });
@@ -37,7 +43,7 @@ const PostAPI = {
     return res.data;
   },
   getDetailPost: async (id) => {
-    const res = await axios.get(`${url}/${id}`)
+    const res = await axios.get(`${url}${id}`)
     .catch((err) => {
       console.log(err);
     });
@@ -51,13 +57,13 @@ const PostAPI = {
     });
   },
   updatePost: async (id, data) => {
-    await axios.patch(`${url}/${id}`, data)
+    await axios.patch(`${url}${id}`, data)
     .catch((err) => {
       console.log(err);
     });
   },
   removePost: async (id) => {
-    await axios.delete(`${url}/${id}`)
+    await axios.delete(`${url}${id}`)
     .catch((err) => {
       console.log(err);
     });

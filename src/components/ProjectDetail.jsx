@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RecruitState from '../components/RecruitState';
 import Tag from '../components/Tag';
@@ -15,8 +15,6 @@ const ProjectDetailWrapper = styled.div`
   margin: 0.7rem;
   text-align: center;
   cursor: pointer;
-
-  &:hover { opacity: 0.97 }
 `;
 
 const StateWrapper = styled.div`
@@ -77,6 +75,10 @@ const ProjectText = styled.div`
 
 const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, tags, ...rest }) => {
   const [isColored, setIsColored] = useState(isScrapped);
+
+  useEffect(()=>{
+    console.log(tags);
+  }, []);
   
   return (
     <ProjectDetailWrapper
@@ -94,12 +96,12 @@ const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, ta
       </StateWrapper>
       <ProjectTitle>{projectTitle}</ProjectTitle>
       <DividerLine />
-      {tags && tags.length !== 0 && 
+      {/*tags && tags.length !== 0 && 
       <TagWrapper>
         {tags.map((tag, i) => (
           <Tag key={i}>{tag}</Tag>
         ))}
-        </TagWrapper>}
+        </TagWrapper>*/}
       <ProjectText>
         {projectText}
       </ProjectText>
