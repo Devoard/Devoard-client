@@ -3,7 +3,6 @@ import Cookies from "universal-cookie";
 const JOIN_PROJECT = "project/JOIN_PROJECT";
 const MAKED_PROJECT = "project/MAKED_PROJECT";
 const APPLY_PROJECT = "project/APPLY_PROJECT";
-const DETAIL_PROJECT = "project/DETAIL_PROJECT";
 const cookies = new Cookies();
 const token = cookies.get("token");
 const headers = {
@@ -78,33 +77,90 @@ export const getJoinList = (body) => async () => {
     // ],
   };
 };
-
-export const getDetailProject = (body) => async () => {
-  // const response = await axios.get(
-  //   "http://localhost:8000/project/detail/",
-  //   {
-  //     params: body,
-  //     headers,
-  //   }
-  // );
-  // const data = await response.data;
+export const getApplyProject = (body) => async () => {
+  const response = await axios.get(
+    "http://localhost:8000/project/apply_project/",
+    {
+      params: body,
+      headers,
+    }
+  );
+  const data = await response.data;
   return {
-    type: DETAIL_PROJECT,
-    // payload: data,
-    payload: {
-      title: "세번째 극비 프로젝트",
-      frontend_cnt: 2,
-      backend_cnt: 3,
-      android_cnt: 2,
-      ios_cnt: 1,
-      data_cnt: 0,
-      devops_cnt: 2,
-      field: "Django, React, Android",
-      body: "극비입니다",
-      period: "1개월~3개월",
-      done: "진행중",
-      user_id: 6,
-    },
+    type: APPLY_PROJECT,
+    payload: data,
+    // payload: [
+    //   {
+    //     project_detail: "tq",
+    //     team_master: {
+    //       username: "dvlops87",
+    //       user_field: "백엔드",
+    //       user_exp: "경험 있음",
+    //       user_import: "실력,일정,기능",
+    //       user_connect: "tjdgus917@naver.com",
+    //       user_pf_addr: "github/dvlops87",
+    //       u_skill: [
+    //         {
+    //           user_skill_name: "Django",
+    //           user_score: 0,
+    //         },
+    //         {
+    //           user_skill_name: "Express",
+    //           user_score: 0,
+    //         },
+    //         {
+    //           user_skill_name: "Koa",
+    //           user_score: 0,
+    //         },
+    //       ],
+    //     },
+    //     joiner: [
+    //       {
+    //         username: "dvlops87",
+    //         user_field: "백엔드",
+    //         user_exp: "경험 있음",
+    //         user_import: "실력,일정,기능",
+    //         user_connect: "tjdgus917@naver.com",
+    //         user_pf_addr: "github/dvlops87",
+    //         u_skill: [
+    //           {
+    //             user_skill_name: "Django",
+    //             user_score: 0,
+    //           },
+    //           {
+    //             user_skill_name: "Express",
+    //             user_score: 0,
+    //           },
+    //           {
+    //             user_skill_name: "Koa",
+    //             user_score: 0,
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //     awaiter: [
+    //       {
+    //         username: "Zy0ung",
+    //         user_field: "프론트엔드",
+    //         user_exp: "경험 없음",
+    //         user_import: "기능",
+    //         user_connect: "Zy0ung@gmail.com",
+    //         user_pf_addr: "github/Zy0ung",
+    //         u_skill: [
+    //           {
+    //             user_skill_name: "React",
+    //             user_score: 0,
+    //           },
+    //           {
+    //             user_skill_name: "Flask",
+    //             user_score: 0,
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //     id: 1,
+    //   },
+    // ],
   };
 };
 

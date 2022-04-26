@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 // import { TiHeartOutline, TiHeartFullOutline } from "react-icons/ti";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 const Wrap = styled.div`
   background: #fff;
   width: 23%;
@@ -64,9 +64,9 @@ const Tag = styled.span`
 const MakedProjectCard = ({ project }) => {
   const fieldArr = project.field.split(",");
   const navigate = useNavigate();
-  const onDetail = ()=>{
-    navigate(`/devoard/detail/${project.id}`)
-  }
+  const onDetail = () => {
+    navigate(`/devoard/detail/${project.id}`);
+  };
 
   return (
     <Wrap onClick={onDetail}>
