@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { IoIosClose } from "react-icons/io";
-
 const PopUpBackground = styled.div`
   display: flex;
   justify-content: center;
