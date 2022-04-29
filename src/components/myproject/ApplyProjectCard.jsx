@@ -78,6 +78,7 @@ const ApplyProjectCard = ({ awaiter, projectId }) => {
           detailOpen={detailOpen}
           setDetailOpen={setDetailOpen}
           awaiter={awaiter}
+          projectId={projectId}
           importArr={importArr}
         />
       )}
