@@ -28,6 +28,7 @@ const NextBtn = styled(MdOutlineNavigateNext)`
 const ApplyProjectComp = ({ project }) => {
   const [skip, setSkip] = useState(0);
   const [awaiterList, setAwaiterList] = useState([]);
+
   useEffect(() => {
     let arr = [];
     for (let i = skip; i < project.awaiter.length; i++) {
@@ -35,12 +36,13 @@ const ApplyProjectComp = ({ project }) => {
       if (arr.length > 4) break;
     }
     setAwaiterList(arr);
-    console.log(project.awaiter);
   }, [skip]);
+
   const onPrevClick = () => {
     if (skip === 0) return;
     setSkip((prev) => prev - 4);
   };
+
   const onNextClick = () => {
     if (
       project.awaiter[project.awaiter.length - 1] ===
@@ -49,6 +51,7 @@ const ApplyProjectComp = ({ project }) => {
       return;
     setSkip((prev) => prev + 4);
   };
+
   return (
     <>
       <ProjectTilte>{project.project_detail}</ProjectTilte>

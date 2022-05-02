@@ -56,7 +56,7 @@ const NextBtn = styled(MdOutlineNavigateNext)`
 `;
 const MyProject = () => {
   const dispatch = useDispatch();
-  const [projectList, setProjectList] = useState([]);
+  const { projectList } = useSelector((state) => state.project);
   const { loggedUser } = useSelector((state) => state.user);
   const [clickMenu, setClickMenu] = useState("내가 소속된 프로젝트");
   const [skip, setSkip] = useState(0);
@@ -71,19 +71,13 @@ const MyProject = () => {
       username: loggedUser.id,
     };
     if (clickMenu === "내가 소속된 프로젝트") {
-      dispatch(getJoinList(body)).then((res) => {
-        setProjectList(res.payload);
-      });
+      dispatch(getJoinList(body));
     }
     if (clickMenu === "내가 구성한 프로젝트") {
-      dispatch(getMakedList(body)).then((res) => {
-        setProjectList(res.payload);
-      });
+      dispatch(getMakedList(body));
     }
     if (clickMenu === "나의 프로젝트 지원 현황") {
-      dispatch(getApplyProject(body)).then((res) => {
-        setProjectList(res.payload);
-      });
+      dispatch(getApplyProject(body));
     }
   }, [clickMenu]);
 
