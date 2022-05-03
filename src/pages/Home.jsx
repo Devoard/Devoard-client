@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PostAPI from '../api/PostAPI';
 import { useDispatch } from 'react-redux';
 import { setActivePage } from '../modules/user';
-import ProjectDetail from '../components/ProjectDetail';
+import ProjectDetail from '../components/common/ProjectDetail';
 import {
   PageWrapper,
   RecruitDisplayWrapper,

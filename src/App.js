@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 import Home from "./pages/Home";
-import Layout from "./components/Layout";
+import Layout from "./components/common/Layout";
 import Alert from "./pages/Alert";
 import ChatList from "./pages/ChatList";
 import Scrap from "./pages/Scrap";

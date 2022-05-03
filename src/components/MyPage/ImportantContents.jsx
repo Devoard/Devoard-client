@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import importantData from '../assets/data/important.json';
+import importantData from '../../assets/data/important.json';
 
 const CheckBoxWrapper = styled.div`
   display: flex;

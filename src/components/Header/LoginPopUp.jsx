@@ -4,12 +4,12 @@ import styled from "styled-components";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import GoogleLogin from 'react-google-login';
-import githubIcon from '../assets/images/githubIcon.png';
-import googleIcon from '../assets/images/googleIcon.png';
-import PopUp from './PopUp';
+import githubIcon from '../../assets/images/githubIcon.png';
+import googleIcon from '../../assets/images/googleIcon.png';
+import PopUp from '../common/PopUp';
 import { useDispatch } from "react-redux";
-import { setLoggedIn, setLoggedUser } from '../modules/user';
-import setAuthorizationToken from "../utils/setAuthorizationToken";
+import { setLoggedIn, setLoggedUser } from '../../modules/user';
+import setAuthorizationToken from "../../utils/setAuthorizationToken";
 
 const LoginText = styled.h1`
   margin-bottom: 2.5rem;

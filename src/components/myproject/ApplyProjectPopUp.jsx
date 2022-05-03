@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PopUp from "../PopUp";
+import PopUp from "../common/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { useProject } from "../hooks/useProject";
 import { getApplyProject } from "../../modules/project";

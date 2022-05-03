@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import LoginPopUp from '../components/LoginPopUp';
-import ToggleMenu from '../components/ToggleMenu';
+import LoginPopUp from './LoginPopUp';
+import ToggleMenu from './ToggleMenu';
 import {
   HeaderWrapper,
   StaticMenuWrapper,
@@ -12,7 +12,7 @@ import {
   LoginBtn,
   AlertBtn,
   ChatBtn
-} from '../styles/Header'
+} from '../../styles/Header'
 import { useSelector } from 'react-redux';
 
 const Header = () => {

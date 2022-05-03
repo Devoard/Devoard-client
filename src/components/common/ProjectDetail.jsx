@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import RecruitState from '../components/RecruitState';
-import Tag from '../components/Tag';
+import RecruitState from './RecruitState';
+import Tag from './Tag';
 import { FiHeart } from 'react-icons/fi';
 
 const ProjectDetailWrapper = styled.div`

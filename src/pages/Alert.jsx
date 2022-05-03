@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Title from "../components/Title";
+import Title from "../components/common/Title";
 import { setActivePage } from "../modules/user";
 import AlertDetail from "./AlertDetail";
 const AlertWrap = styled.div`

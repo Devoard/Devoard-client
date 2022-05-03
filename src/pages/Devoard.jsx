@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PostAPI from '../api/PostAPI';
 import { setActivePage } from '../modules/user';
-import Title from '../components/Title';
-import ProjectDetail from '../components/ProjectDetail';
-import WriteBtn from '../components/WriteBtn';
+import Title from '../components/common/Title';
+import ProjectDetail from '../components/common/ProjectDetail';
+import WriteBtn from '../components/Write/WriteBtn';
 import {
   PageWrapper,
   SortingWrapper,
