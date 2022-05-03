@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePage } from "../modules/user";
-import RecruitState from "../components/RecruitState";
-import Tag from "../components/Tag";
-import Button from "../components/Button";
-import PopUp from "../components/PopUp";
+import RecruitState from "../components/common/RecruitState";
+import Tag from "../components/common/Tag";
+import Button from "../components/common/Button";
+import PopUp from "../components/common/PopUp";
 import PostAPI from "../api/PostAPI";
 import {
   PageWrapper,

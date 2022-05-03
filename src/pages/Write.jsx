@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PostAPI from '../api/PostAPI';
-import Title from '../components/Title';
-import AddTag from '../components/AddTag';
-import PopUp from '../components/PopUp';
-import Button from '../components/Button';
+import Title from '../components/common/Title';
+import AddTag from '../components/Write/AddTag';
+import PopUp from '../components/common/PopUp';
+import Button from '../components/common/Button';
 import {
   PageWrapper,
   Background,

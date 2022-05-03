@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import styled from "styled-components";
-import Title from "../components/Title";
+import Title from "../components/common/Title";
 import ChatDetail from "./ChatDetail";
 import { setActivePage } from "../modules/user";
 import { chat_list, set_user } from "../modules/chat";

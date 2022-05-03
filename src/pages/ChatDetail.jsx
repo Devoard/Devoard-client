@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import styled from "styled-components";
-import PopUp from "../components/PopUp";
-import WriteBtn from "../components/WriteBtn";
+import PopUp from "../components/common/PopUp";
+import WriteBtn from "../components/Write/WriteBtn";
 import { chat_detail_list } from "../modules/chat";
 import ChatWrite from "./ChatWrite";
 

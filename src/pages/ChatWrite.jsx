@@ -2,7 +2,7 @@ import { darken, lighten } from "polished";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import PopUp from "../components/PopUp";
+import PopUp from "../components/common/PopUp";
 import { submit_chat } from "../modules/chat";
 import moment from "moment";
 const Form = styled.form`

@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePage, setLoggedUser } from '../modules/user';
 import ProfileAPI from '../api/ProfileAPI';
-import Title from '../components/Title';
-import Button from '../components/Button';
-import PopUp from '../components/PopUp';
-import DevStackContents from '../components/StackContents';
-import ImportantContents from '../components/ImportantContents';
+import Title from '../components/common/Title';
+import Button from '../components/common/Button';
+import PopUp from '../components/common/PopUp';
+import DevStackContents from '../components/MyPage/StackContents';
+import ImportantContents from '../components/MyPage/ImportantContents';
 import devStack from '../assets/data/devStack.json';
 import defaultUserImg from '../assets/images/defaultUserImg.png';
 import {

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PopUp from "../components/PopUp";
+import PopUp from "../components/common/PopUp";
 const Content = styled.div`
   overflow-y: auto;
   height: 80%;

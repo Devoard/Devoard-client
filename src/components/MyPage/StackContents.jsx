@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import devStack from '../assets/data/devStack.json';
+import devStack from '../../assets/data/devStack.json';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 const FieldWrapper = styled.div`

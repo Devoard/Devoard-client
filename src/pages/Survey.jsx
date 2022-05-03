@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { dataList } from "./surveyData";
 import SurveyComp from "../components/SurveyComp";
-import Button from "../components/Button";
+import Button from "../components/common/Button";
 import { useDispatch } from "react-redux";
 import { submit_survey } from "../modules/servey";
 import { useSelector } from "react-redux";

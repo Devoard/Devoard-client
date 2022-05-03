@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
-import Button from '../components/Button';
+import Button from '../components/common/Button';
 import { BsBellFill, BsChatSquareDotsFill } from "react-icons/bs";
 
 export const HeaderWrapper = styled.div`
