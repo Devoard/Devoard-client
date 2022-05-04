@@ -32,6 +32,8 @@ const ProgressStatus = styled.div`
 
 const CuntrolBox = styled.div`
   display: flex;
+  margin-top: 32px;
+  gap: 14px;
 `;
 const Title = styled.h2`
   color: white;
@@ -60,6 +62,7 @@ const Survey = () => {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     setProgressRate(dataId);
   }, [dataId]);
@@ -84,7 +87,6 @@ const Survey = () => {
   return (
     <>
       <Title>설문조사</Title>
-
       <SurveyPage>
         <ProgressBar>
           <ProgressStatus status={progressRate} />

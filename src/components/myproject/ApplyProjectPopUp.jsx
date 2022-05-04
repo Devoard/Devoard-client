@@ -58,24 +58,24 @@ const ApplyProjectPopUp = ({
   const onAccept = () => {
     if (window.confirm("수락하시겠습니까?")) {
       acceptAwaiter(loggedUser.id, projectId, awaiter.username);
+      setDetailOpen(false);
       dispatch(
         getApplyProject({
           username: loggedUser.id,
         })
       );
-      setDetailOpen(false);
     }
   };
 
   const onReject = () => {
     if (window.confirm("거절하시겠습니까?")) {
       rejectAwaiter(loggedUser.id, projectId, awaiter.username);
+      setDetailOpen(false);
       dispatch(
         getApplyProject({
           username: loggedUser.id,
         })
       );
-      setDetailOpen(false);
     }
   };
 

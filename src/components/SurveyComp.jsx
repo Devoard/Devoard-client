@@ -34,23 +34,33 @@ const TextArea = styled.textarea`
 const SurveyComp = ({ data, setDatas, datas }) => {
   const [selectArr, setSelectArr] = useState([]);
   const [id, setId] = useState(0);
+
   useEffect(() => {
     if (selectArr.length > 0) setDatas({ ...datas, [id]: selectArr });
   }, [selectArr]);
+
   const onTextChange = (e) => {
     setDatas({ ...datas, [e.target.dataset.id]: e.target.value });
   };
+
   const onFirstAnswer = (e) => {
     setDatas({ ...datas, [e.target.dataset.id]: e.target.innerHTML });
   };
+
   const onSelect = (e) => {
     setDatas({ ...datas, [e.target.dataset.id]: e.target.innerHTML });
   };
+
   const onSelectMulti = (e) => {
-    if (selectArr.includes(e.target.innerHTML)) return;
-    setSelectArr((prev) => prev.concat(e.target.innerHTML));
-    setId(e.target.dataset.id);
+    if (selectArr.includes(e.target.innerHTML)) {
+      const arr = selectArr.filter((v, i) => v !== e.target.innerHTML);
+      setSelectArr(arr);
+    } else {
+      setSelectArr((prev) => prev.concat(e.target.innerHTML));
+      setId(e.target.dataset.id);
+    }
   };
+
   return (
     <>
       <Question>{data.q}</Question>
