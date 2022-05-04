@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PopUp from "../common/PopUp";
 import { useDispatch, useSelector } from "react-redux";
-import { useProject } from "../hooks/useProject";
+import { useProject } from "../../hooks/useProject";
 import { getApplyProject } from "../../modules/project";
 
 const Name = styled.h3`
@@ -51,18 +51,13 @@ const ApplyProjectPopUp = ({
   importArr,
   projectId,
 }) => {
-  const dispatch = useDispatch();
   const { acceptAwaiter, rejectAwaiter } = useProject();
+
   const { loggedUser } = useSelector((state) => state.user);
 
   const onAccept = () => {
     if (window.confirm("수락하시겠습니까?")) {
       acceptAwaiter(loggedUser.id, projectId, awaiter.username);
-      dispatch(
-        getApplyProject({
-          username: loggedUser.id,
-        })
-      );
       setDetailOpen(false);
     }
   };
@@ -70,11 +65,6 @@ const ApplyProjectPopUp = ({
   const onReject = () => {
     if (window.confirm("거절하시겠습니까?")) {
       rejectAwaiter(loggedUser.id, projectId, awaiter.username);
-      dispatch(
-        getApplyProject({
-          username: loggedUser.id,
-        })
-      );
       setDetailOpen(false);
     }
   };

@@ -8,9 +8,15 @@ import ChatDetail from "./ChatDetail";
 import { setActivePage } from "../modules/user";
 import { chat_list, set_user } from "../modules/chat";
 
+// const Wrap = styled.div`
+//   width: 100%;
+//   height: 90vh;
+//   position: relative;
+// `;
 const ListBox = styled.div`
   width: 65%;
-  margin: 40px auto;
+  min-height: 680px;
+  margin: 30px auto;
 `;
 const ChatItem = styled.div`
   font-size: 20px;
@@ -44,6 +50,7 @@ const Content = styled.p`
   text-overflow: ellipsis;
   padding: 0 26px;
   margin: 0;
+  ${(props) => props.color && `color: ${props.color}`};
 `;
 const Date = styled.p`
   width: 20%;
@@ -64,7 +71,6 @@ const ControlBtn = styled.button`
   background: transparent;
   font-size: 20px;
   cursor: pointer;
-
   &:hover {
     color: #ddd;
   }
@@ -79,11 +85,11 @@ const ChatList = () => {
   const message_num = 12; //한페이지에 보여질 쪽지수
   const [allChat, setAllChat] = useState([]);
   const [page, setPage] = useState(0);
-  // const page = Math.ceil(allChat.length / message_num); //총 페이지 수
-  
+
   useEffect(() => {
-    dispatch(setActivePage('chat'));
+    dispatch(setActivePage("chat"));
   }, [setActivePage]);
+
   useEffect(() => {
     if (page > 0) {
       for (let i = 1; i <= page; i++) {
@@ -181,16 +187,21 @@ const ChatList = () => {
               }
             } else return "";
           })}
+        {allChat.length === 0 && (
+          <Content color="#fff">나눈 대화가 존재하지 않습니다.</Content>
+        )}
       </ListBox>
-      <PageControl>
-        <ControlBtn onClick={onPrev}>◀</ControlBtn>
-        {pages.map((v, i) => (
-          <ControlBtn key={i} onClick={onPageChange}>
-            {v}
-          </ControlBtn>
-        ))}
-        <ControlBtn onClick={onNext}>▶</ControlBtn>
-      </PageControl>
+      {allChat && allChat.length > 0 && (
+        <PageControl>
+          <ControlBtn onClick={onPrev}>◀</ControlBtn>
+          {pages.map((v, i) => (
+            <ControlBtn key={i} onClick={onPageChange}>
+              {v}
+            </ControlBtn>
+          ))}
+          <ControlBtn onClick={onNext}>▶</ControlBtn>
+        </PageControl>
+      )}
       {detailOpen && (
         <ChatDetail detailOpen={detailOpen} setDetailOpen={setDetailOpen} />
       )}

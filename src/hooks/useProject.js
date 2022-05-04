@@ -1,8 +1,14 @@
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
+import { getApplyProject } from "../modules/project";
+
 const cookies = new Cookies();
 const token = cookies.get("token");
+
 export const useProject = () => {
+  const dispatch = useDispatch();
+  const { loggedUser } = useSelector((state) => state.user);
   const headers = {
     Authorization: `Token ${token}`,
   };
@@ -18,6 +24,11 @@ export const useProject = () => {
         headers,
       })
       .then((res) => {
+        dispatch(
+          getApplyProject({
+            username: loggedUser.id,
+          })
+        );
         alert(res.data);
       });
   };
@@ -33,6 +44,11 @@ export const useProject = () => {
         headers,
       })
       .then((res) => {
+        dispatch(
+          getApplyProject({
+            username: loggedUser.id,
+          })
+        );
         alert(res.data);
       });
   };
