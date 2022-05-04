@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import ApplyProjectPopUp from "./ApplyProjectPopUp";
 const Wrap = styled.div`
   background: #fff;

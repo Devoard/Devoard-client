@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { dataList } from "./surveyData";
-import SurveyComp from "../components/SurveyComp";
+import { dataList } from "../assets/data/surveyData";
+import SurveyComp from "../components/Survey/SurveyComp";
 import Button from "../components/common/Button";
-import { useDispatch } from "react-redux";
-import { submit_survey } from "../modules/servey";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useSurvey } from "../hooks/useSurvey";
+
 const SurveyPage = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,9 +42,14 @@ const Title = styled.h2`
 `;
 
 const Survey = () => {
+  const navigate = useNavigate();
+
+  const { submitSurvey } = useSurvey();
+
+  const { loggedUser } = useSelector((state) => state.user);
+
   const [progressRate, setProgressRate] = useState(0);
   const [dataId, setDataId] = useState(1);
-  const { loggedUser } = useSelector((state) => state.user);
   const [datas, setDatas] = useState({
     0: loggedUser.id,
     1: "",
@@ -60,8 +65,6 @@ const Survey = () => {
     11: "",
     12: "",
   });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     setProgressRate(dataId);
@@ -75,7 +78,7 @@ const Survey = () => {
   const onNextClick = () => {
     if (dataId === 12) {
       if (window.confirm("설문조사를 완료하시겠습니까?")) {
-        dispatch(submit_survey(datas));
+        submitSurvey(datas);
         window.alert("전송하였습니다.");
         navigate("/");
       }

@@ -50,6 +50,7 @@ const Content = styled.p`
   text-overflow: ellipsis;
   padding: 0 26px;
   margin: 0;
+  ${(props) => props.color && `color: ${props.color}`};
 `;
 const Date = styled.p`
   width: 20%;
@@ -187,7 +188,7 @@ const ChatList = () => {
             } else return "";
           })}
         {allChat.length === 0 && (
-          <Content>나눈 대화가 존재하지 않습니다.</Content>
+          <Content color="#fff">나눈 대화가 존재하지 않습니다.</Content>
         )}
       </ListBox>
       {allChat && allChat.length > 0 && (
