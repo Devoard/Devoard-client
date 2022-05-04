@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePage, setLoggedUser } from '../modules/user';
+import { useNavigate } from 'react-router-dom';
+import { setActivePage } from '../modules/user';
 import ProfileAPI from '../api/ProfileAPI';
 import Title from '../components/common/Title';
 import Button from '../components/common/Button';
@@ -36,6 +37,7 @@ import {
 
 
 const MyPage = () => {
+  const [data, setData] = useState(null);
   const [files, setFiles] = useState('');
   const [intro, setIntro] = useState('');
   const [contact, setContact] = useState('');
@@ -69,6 +71,7 @@ const MyPage = () => {
   const { loggedUser } = useSelector(state => state.user);
   const imgInput = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onLoadImg = (e) => {
     setFiles(URL.createObjectURL(e.target.files[0]));
@@ -78,29 +81,23 @@ const MyPage = () => {
     URL.revokeObjectURL(files);
     setFiles(defaultUserImg);
   }
-  
-  const saveData = async() => {
-    await ProfileAPI.createProfileData({
-      id: loggedUser.id,
-      user_img: files,
-      user_connect: contact,
-      user_pf_addr: portfolio,
-      user_stack: stackLevel,
-      user_exp: isExperienced,
-      user_import: important
-    })
-  }
 
   const getData = async() => {
-    const data = await ProfileAPI.getProfileData(loggedUser.id)
-    
-    setFiles(data.user_img);
-    setIntro(data.user_intro);
-    setContact(data.user_connect);
-    setPortfolio(data.user_pf_addr);
-    setStackLevel(data.user_stack);
-    setIsExperienced(data.user_exp);
-    setImportant(data.user_import);
+    const data = await ProfileAPI.getProfileData("loggedUser.id");
+
+    if (!data) {
+      navigate('/survey')
+    }
+    else {
+      setData(data);
+      setFiles(data.user_img);
+      setIntro(data.user_intro);
+      setContact(data.user_connect);
+      setPortfolio(data.user_pf_addr);
+      setStackLevel(data.user_stack);
+      setIsExperienced(data.user_exp);
+      setImportant(data.user_import);
+    }
   } 
 
   const updateData = async() => {
@@ -140,7 +137,7 @@ const MyPage = () => {
   }, [loggedUser]);
 
 
-
+  if (!data) return null;
   return (
     <PageWrapper>
       <Title>마이 페이지</Title>
