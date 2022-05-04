@@ -65,7 +65,7 @@ const MakedProjectCard = ({ project }) => {
   const fieldArr = project.field.split(",");
   const navigate = useNavigate();
   const onDetail = () => {
-    navigate(`/devoard/detail/${project.id}`);
+    navigate(`/devoard/${project.id}`);
   };
 
   return (

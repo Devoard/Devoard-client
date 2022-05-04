@@ -65,7 +65,7 @@ const JoinProjectCard = ({ project, project_id }) => {
   const fieldArr = project.field.split(",");
   const navigate = useNavigate();
   const onDetail = () => {
-    navigate(`/devoard/detail/${project_id}`);
+    navigate(`/devoard/${project_id}`);
   };
   return (
     <Wrap onClick={onDetail}>
