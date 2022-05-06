@@ -46,18 +46,9 @@ const Tag = styled.span`
 `;
 
 const ApplyProjectCard = ({ awaiter, projectId }) => {
-  const dispatch = useDispatch();
-
   const importArr = awaiter.user_import.split(",");
 
   const [detailOpen, setDetailOpen] = useState(false);
-  const { loggedUser } = useSelector((state) => state.user);
-
-  // useEffect(() => {
-  //   if (!detailOpen) {
-  //     dispatch(getApplyProject({ username: loggedUser.id }));
-  //   }
-  // }, [detailOpen]);
 
   const onDetail = () => {
     setDetailOpen(true);
