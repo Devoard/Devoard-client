@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 // import { TiHeartOutline, TiHeartFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
+
 const Wrap = styled.div`
   background: #fff;
   width: 23%;
@@ -14,6 +15,7 @@ const Wrap = styled.div`
   cursor: pointer;
   overflow: hidden;
 `;
+
 const RecruitState = styled.span`
   border: 1px solid
     ${(props) =>
@@ -40,6 +42,7 @@ const Title = styled.h3`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
+
 const Desc = styled.p`
   width: 100%;
   font-size: 18px;
@@ -53,6 +56,7 @@ const Desc = styled.p`
   line-height: 1.2em;
   height: 12em;
 `;
+
 const Tag = styled.span`
   padding: 4px 10px;
   border-radius: 10px;
@@ -61,9 +65,12 @@ const Tag = styled.span`
   font-size: 14px;
   margin-right: 6px;
 `;
+
 const MakedProjectCard = ({ project }) => {
-  const fieldArr = project.field.split(",");
   const navigate = useNavigate();
+
+  const fieldArr = project.field.split(",");
+
   const onDetail = () => {
     navigate(`/devoard/${project.id}`);
   };

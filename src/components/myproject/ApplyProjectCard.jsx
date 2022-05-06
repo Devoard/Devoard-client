@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getApplyProject } from "../../modules/project";
 import ApplyProjectPopUp from "./ApplyProjectPopUp";
 const Wrap = styled.div`
   background: #fff;
@@ -44,11 +46,23 @@ const Tag = styled.span`
 `;
 
 const ApplyProjectCard = ({ awaiter, projectId }) => {
+  const dispatch = useDispatch();
+
   const importArr = awaiter.user_import.split(",");
+
   const [detailOpen, setDetailOpen] = useState(false);
+  const { loggedUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!detailOpen) {
+      dispatch(getApplyProject({ username: loggedUser.id }));
+    }
+  }, [detailOpen]);
+
   const onDetail = () => {
     setDetailOpen(true);
   };
+
   return (
     <>
       <Wrap onClick={onDetail}>
