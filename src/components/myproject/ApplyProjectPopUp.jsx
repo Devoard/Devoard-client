@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PopUp from "../common/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { useProject } from "../../hooks/useProject";
-import { getApplyProject } from "../../modules/project";
+import { getApplyProject, setProjectTabMenu } from "../../modules/project";
 
 const Name = styled.h3`
   border-bottom: 1px solid #000;
@@ -51,8 +51,6 @@ const ApplyProjectPopUp = ({
   importArr,
   projectId,
 }) => {
-  const dispatch = useDispatch();
-
   const { acceptAwaiter, rejectAwaiter } = useProject();
 
   const { loggedUser } = useSelector((state) => state.user);
@@ -60,16 +58,14 @@ const ApplyProjectPopUp = ({
   const onAccept = () => {
     if (window.confirm("수락하시겠습니까?")) {
       acceptAwaiter(loggedUser.id, projectId, awaiter.username);
-      dispatch(getApplyProject({ username: loggedUser.id }));
-      setDetailOpen(false);
+      window.location.replace("/my_project");
     }
   };
 
   const onReject = () => {
     if (window.confirm("거절하시겠습니까?")) {
       rejectAwaiter(loggedUser.id, projectId, awaiter.username);
-      dispatch(getApplyProject({ username: loggedUser.id }));
-      setDetailOpen(false);
+      window.location.replace("/my_project");
     }
   };
 

@@ -7,8 +7,6 @@ const cookies = new Cookies();
 const token = cookies.get("token");
 
 export const useProject = () => {
-  const dispatch = useDispatch();
-  const { loggedUser } = useSelector((state) => state.user);
   const headers = {
     Authorization: `Token ${token}`,
   };
