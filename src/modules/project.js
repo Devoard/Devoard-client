@@ -77,86 +77,86 @@ export const getJoinList = (body) => async (dispatch) => {
 };
 
 export const getApplyProject = (body) => async (dispatch) => {
-  // const response = await axios.get(
-  //   "http://localhost:8000/project/apply_project/",
-  //   {
-  //     params: body,
-  //     headers,
-  //   }
-  // );
-  // const data = await response.data;
-  const data = [
+  const response = await axios.get(
+    "http://localhost:8000/project/apply_project/",
     {
-      project_detail: "tq",
-      team_master: {
-        username: "dvlops87",
-        user_field: "백엔드",
-        user_exp: "경험 있음",
-        user_import: "실력,일정,기능",
-        user_connect: "tjdgus917@naver.com",
-        user_pf_addr: "github/dvlops87",
-        u_skill: [
-          {
-            user_skill_name: "Django",
-            user_score: 0,
-          },
-          {
-            user_skill_name: "Express",
-            user_score: 0,
-          },
-          {
-            user_skill_name: "Koa",
-            user_score: 0,
-          },
-        ],
-      },
-      joiner: [
-        {
-          username: "dvlops87",
-          user_field: "백엔드",
-          user_exp: "경험 있음",
-          user_import: "실력,일정,기능",
-          user_connect: "tjdgus917@naver.com",
-          user_pf_addr: "github/dvlops87",
-          u_skill: [
-            {
-              user_skill_name: "Django",
-              user_score: 0,
-            },
-            {
-              user_skill_name: "Express",
-              user_score: 0,
-            },
-            {
-              user_skill_name: "Koa",
-              user_score: 0,
-            },
-          ],
-        },
-      ],
-      awaiter: [
-        {
-          username: "Zy0ung",
-          user_field: "프론트엔드",
-          user_exp: "경험 없음",
-          user_import: "기능",
-          user_connect: "Zy0ung@gmail.com",
-          user_pf_addr: "github/Zy0ung",
-          u_skill: [
-            {
-              user_skill_name: "React",
-              user_score: 0,
-            },
-            {
-              user_skill_name: "Flask",
-              user_score: 0,
-            },
-          ],
-        },
-      ],
-      id: 1,
-    },
-  ];
+      params: body,
+      headers,
+    }
+  );
+  const data = await response.data;
+  // const data = [
+  //   {
+  //     project_detail: "tq",
+  //     team_master: {
+  //       username: "dvlops87",
+  //       user_field: "백엔드",
+  //       user_exp: "경험 있음",
+  //       user_import: "실력,일정,기능",
+  //       user_connect: "tjdgus917@naver.com",
+  //       user_pf_addr: "github/dvlops87",
+  //       u_skill: [
+  //         {
+  //           user_skill_name: "Django",
+  //           user_score: 0,
+  //         },
+  //         {
+  //           user_skill_name: "Express",
+  //           user_score: 0,
+  //         },
+  //         {
+  //           user_skill_name: "Koa",
+  //           user_score: 0,
+  //         },
+  //       ],
+  //     },
+  //     joiner: [
+  //       {
+  //         username: "dvlops87",
+  //         user_field: "백엔드",
+  //         user_exp: "경험 있음",
+  //         user_import: "실력,일정,기능",
+  //         user_connect: "tjdgus917@naver.com",
+  //         user_pf_addr: "github/dvlops87",
+  //         u_skill: [
+  //           {
+  //             user_skill_name: "Django",
+  //             user_score: 0,
+  //           },
+  //           {
+  //             user_skill_name: "Express",
+  //             user_score: 0,
+  //           },
+  //           {
+  //             user_skill_name: "Koa",
+  //             user_score: 0,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //     awaiter: [
+  //       {
+  //         username: "Zy0ung",
+  //         user_field: "프론트엔드",
+  //         user_exp: "경험 없음",
+  //         user_import: "기능",
+  //         user_connect: "Zy0ung@gmail.com",
+  //         user_pf_addr: "github/Zy0ung",
+  //         u_skill: [
+  //           {
+  //             user_skill_name: "React",
+  //             user_score: 0,
+  //           },
+  //           {
+  //             user_skill_name: "Flask",
+  //             user_score: 0,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //     id: 1,
+  //   },
+  // ];
   dispatch({
     type: APPLY_PROJECT,
     payload: data,
