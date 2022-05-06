@@ -36,7 +36,7 @@ const ApplyProjectComp = ({ project }) => {
       if (arr.length > 4) break;
     }
     setAwaiterList(arr);
-  }, [skip, project]);
+  }, [skip]);
 
   const onPrevClick = () => {
     if (skip === 0) return;
