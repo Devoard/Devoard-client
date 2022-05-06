@@ -53,11 +53,11 @@ const ApplyProjectCard = ({ awaiter, projectId }) => {
   const [detailOpen, setDetailOpen] = useState(false);
   const { loggedUser } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    if (!detailOpen) {
-      dispatch(getApplyProject({ username: loggedUser.id }));
-    }
-  }, [detailOpen]);
+  // useEffect(() => {
+  //   if (!detailOpen) {
+  //     dispatch(getApplyProject({ username: loggedUser.id }));
+  //   }
+  // }, [detailOpen]);
 
   const onDetail = () => {
     setDetailOpen(true);
