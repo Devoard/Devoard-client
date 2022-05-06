@@ -24,11 +24,6 @@ export const useProject = () => {
         headers,
       })
       .then((res) => {
-        dispatch(
-          getApplyProject({
-            username: loggedUser.id,
-          })
-        );
         alert(res.data);
       });
   };
@@ -44,11 +39,6 @@ export const useProject = () => {
         headers,
       })
       .then((res) => {
-        dispatch(
-          getApplyProject({
-            username: loggedUser.id,
-          })
-        );
         alert(res.data);
       });
   };
