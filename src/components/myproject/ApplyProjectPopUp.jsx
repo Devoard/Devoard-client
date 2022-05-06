@@ -51,6 +51,8 @@ const ApplyProjectPopUp = ({
   importArr,
   projectId,
 }) => {
+  const dispatch = useDispatch();
+
   const { acceptAwaiter, rejectAwaiter } = useProject();
 
   const { loggedUser } = useSelector((state) => state.user);
@@ -58,16 +60,16 @@ const ApplyProjectPopUp = ({
   const onAccept = () => {
     if (window.confirm("수락하시겠습니까?")) {
       acceptAwaiter(loggedUser.id, projectId, awaiter.username);
-      // setDetailOpen(false);
-      window.location.reload();
+      dispatch(getApplyProject({ username: loggedUser.id }));
+      setDetailOpen(false);
     }
   };
 
   const onReject = () => {
     if (window.confirm("거절하시겠습니까?")) {
       rejectAwaiter(loggedUser.id, projectId, awaiter.username);
-      // setDetailOpen(false);
-      window.location.reload();
+      dispatch(getApplyProject({ username: loggedUser.id }));
+      setDetailOpen(false);
     }
   };
 
