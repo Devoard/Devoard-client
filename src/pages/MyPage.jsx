@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setActivePage } from '../modules/user';
 import ProfileAPI from '../api/ProfileAPI';
+import UserAPI from '../api/UserAPI';
 import Title from '../components/common/Title';
 import Button from '../components/common/Button';
 import PopUp from '../components/common/PopUp';
@@ -39,6 +40,7 @@ import {
 const MyPage = () => {
   const [data, setData] = useState(null);
   const [files, setFiles] = useState('');
+  const [userImg, setUserImg] = useState(null);
   const [intro, setIntro] = useState('');
   const [contact, setContact] = useState('');
   const [portfolio, setPortfolio] = useState('');
@@ -74,7 +76,12 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const onLoadImg = (e) => {
-    setFiles(URL.createObjectURL(e.target.files[0]));
+    const uploadFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append('files', uploadFile);
+
+    setFiles(URL.createObjectURL(uploadFile));
+    setUserImg(formData);
   }
 
   const onDeleteImg = () => {
@@ -83,14 +90,14 @@ const MyPage = () => {
   }
 
   const getData = async() => {
-    const data = await ProfileAPI.getProfileData("loggedUser.id");
+    const data = await ProfileAPI.getProfileData(loggedUser.id);
 
     if (!data) {
       navigate('/survey')
     }
     else {
       setData(data);
-      setFiles(data.user_img);
+      setUserImg(data.user_img);
       setIntro(data.user_intro);
       setContact(data.user_connect);
       setPortfolio(data.user_pf_addr);
@@ -103,7 +110,6 @@ const MyPage = () => {
   const updateData = async() => {
     await ProfileAPI.updateProfileData(
       loggedUser.id, {
-        user_img: files,
         user_intro: intro,
         user_connect: contact,
         user_pf_addr: portfolio,
@@ -115,11 +121,19 @@ const MyPage = () => {
     .then(() => {
       window.scrollTo(0, 0);
       setIsCheckPopUp(false);
-      /*dispatch(setLoggedUser({
-        ...loggedUser,
-        imageUrl: files
-      }))*/
     })
+
+    await ProfileAPI.updateProfileImg(
+      loggedUser.id, {
+        user_img: userImg
+      }
+    )
+
+    /*await UserAPI.updateUserData(
+      loggedUser.id, {
+        imageUrl: userImg
+      }
+    )*/
   }
 
   const resizeTextArea = (e) => {
