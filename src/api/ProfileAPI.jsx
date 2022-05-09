@@ -20,6 +20,13 @@ const ProfileAPI = {
     .catch((err) => 
       console.log(err)
     )
+  },
+  updateProfileImg: async(id, data) => {
+    await axios.patch(`${url}/${id}`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   }
 };
 
