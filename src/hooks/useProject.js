@@ -15,13 +15,13 @@ export const useProject = () => {
       p_id,
       select_awaiter,
     };
-    // await axios
-    //   .post("http://localhost:8000/project/access_awaiter/", body, {
-    //     headers,
-    //   })
-    //   .then((res) => {
-    //     alert(res.data);
-    //   });
+    await axios
+      .post("http://localhost:8000/project/access_awaiter/", body, {
+        headers,
+      })
+      .then((res) => {
+        alert(res.data);
+      });
   };
 
   const rejectAwaiter = async (username, p_id, select_awaiter) => {
