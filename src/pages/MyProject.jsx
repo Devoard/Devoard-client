@@ -112,6 +112,8 @@ const MyProject = () => {
     }
     if (projectTabMenu === "나의 프로젝트 지원 현황") {
       setApplyList(arr);
+
+      console.log("데이터 세팅");
     }
   }, [skip, projectList]);
 
