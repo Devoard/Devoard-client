@@ -1,7 +1,5 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
-import { getApplyProject } from "../modules/project";
 
 const cookies = new Cookies();
 const token = cookies.get("token");
@@ -17,13 +15,13 @@ export const useProject = () => {
       p_id,
       select_awaiter,
     };
-    await axios
-      .post("http://localhost:8000/project/access_awaiter/", body, {
-        headers,
-      })
-      .then((res) => {
-        alert(res.data);
-      });
+    // await axios
+    //   .post("http://localhost:8000/project/access_awaiter/", body, {
+    //     headers,
+    //   })
+    //   .then((res) => {
+    //     alert(res.data);
+    //   });
   };
 
   const rejectAwaiter = async (username, p_id, select_awaiter) => {

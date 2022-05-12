@@ -52,20 +52,27 @@ const ApplyProjectPopUp = ({
   projectId,
 }) => {
   const { acceptAwaiter, rejectAwaiter } = useProject();
+  const dispatch = useDispatch();
 
   const { loggedUser } = useSelector((state) => state.user);
 
   const onAccept = () => {
     if (window.confirm("수락하시겠습니까?")) {
-      acceptAwaiter(loggedUser.id, projectId, awaiter.username);
-      window.location.replace("/my_project");
+      acceptAwaiter(loggedUser.id, projectId, awaiter.username).then(() => {
+        dispatch(getApplyProject({ username: loggedUser.id })).then(() => {
+          setDetailOpen(false);
+        });
+      });
     }
   };
 
   const onReject = () => {
     if (window.confirm("거절하시겠습니까?")) {
-      rejectAwaiter(loggedUser.id, projectId, awaiter.username);
-      window.location.replace("/my_project");
+      rejectAwaiter(loggedUser.id, projectId, awaiter.username).then(() => {
+        dispatch(getApplyProject({ username: loggedUser.id })).then(() => {
+          setDetailOpen(false);
+        });
+      });
     }
   };
 

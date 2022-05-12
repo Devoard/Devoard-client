@@ -93,6 +93,7 @@ export const getApplyProject = (body) => async (dispatch) => {
   //   }
   // );
   // const data = await response.data;
+  console.log("data");
   const data = [
     {
       project_detail: "tq",
