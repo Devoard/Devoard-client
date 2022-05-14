@@ -93,7 +93,7 @@ const MyPage = () => {
     const data = await ProfileAPI.getProfileData(loggedUser.id);
 
     if (!data) {
-      navigate('/survey')
+      //navigate('/survey')
     }
     else {
       setData(data);
@@ -151,7 +151,7 @@ const MyPage = () => {
   }, [loggedUser]);
 
 
-  if (!data) return null;
+  //if (!data) return null;
   return (
     <PageWrapper>
       <Title>마이 페이지</Title>
