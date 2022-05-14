@@ -3,13 +3,28 @@ import { darken, lighten } from 'polished';
 import Button from '../components/common/Button';
 import { BsBellFill, BsChatSquareDotsFill } from "react-icons/bs";
 
-export const HeaderWrapper = styled.div`
+export const HeaderArea = styled.div`
+  width: 100%;
+  position: relative;
+  height: 4.5rem;
+`;
+
+export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
+  position: fixed;
   justify-content: space-between;
-  position: relative;
   width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
   height: 4.5rem;
+  background: linear-gradient(to bottom, rgb(8, 14, 29, 0.8) 90%, transparent);
+  z-index: 10;
+
+  transition: 0.3s ease;
+  &.hide {
+    transform: translateY(-4.5rem);
+  }
 `;
 
 export const StaticMenuWrapper = styled.div`
@@ -17,7 +32,7 @@ export const StaticMenuWrapper = styled.div`
   justify-content: center;
 `;
 
-export const Logo = styled.span`
+export const Logo = styled.div`
   color: var(--color-orange);
   font-family: var(--font-logo);
   font-size: 2rem;

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import LoginPopUp from './LoginPopUp';
 import ToggleMenu from './ToggleMenu';
 import {
-  HeaderWrapper,
+  HeaderArea,
+  HeaderContainer,
   StaticMenuWrapper,
   Logo,
   ProjectMenu,
@@ -18,6 +19,8 @@ import { useSelector } from 'react-redux';
 const Header = () => {
   const [isLoginPopUp, setIsLoginPopUp] = useState(false);
   const [isToggleMenuPopUp, setIsToggleMenuPopUp] = useState(false);
+  const [pageY, setPageY] = useState(0);
+  const [hide, setHide] = useState(false);
   const { loggedIn, loggedUser, activePage } = useSelector(state=>state.user);
   const userIcon = useRef(null);
 
@@ -35,10 +38,40 @@ const Header = () => {
     }
   }, [isToggleMenuPopUp]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const { pageYOffset } = window;
+      const deltaY = pageYOffset - pageY;
+      const hide = pageYOffset !== 0 && deltaY >= 0;
+
+      setHide(hide);
+      setPageY(pageYOffset);
+    }
+    
+    const throttle = (callback, waitTime) => {
+      let timerId = null;
+      return () => {
+        if (timerId) return;
+        timerId = setTimeout(() => {
+          callback();
+          timerId = null;
+        }, waitTime);
+      }
+    }
+
+    const throttleScroll = throttle(handleScroll, 50);
+
+    window.addEventListener('scroll', throttleScroll);
+
+    return () => window.removeEventListener('scroll', throttleScroll);
+  }, [pageY]);
+
   if (!loggedUser) return null;
   return (
-    <>
-      <HeaderWrapper>
+    <HeaderArea>
+      <HeaderContainer
+        className={hide && 'hide'}
+      >
         <StaticMenuWrapper>
           <Link to='/' style={{textDecoration: 'none'}}>
             <Logo>Devoard</Logo>
@@ -80,7 +113,7 @@ const Header = () => {
           isVisible={isToggleMenuPopUp}
           setIsVisible={setIsToggleMenuPopUp}
         />
-      </HeaderWrapper>
+      </HeaderContainer>
 
       <LoginPopUp
         loggedIn={loggedIn}
@@ -88,7 +121,7 @@ const Header = () => {
         setIsLoginPopUp={setIsLoginPopUp}
       >
       </LoginPopUp>
-    </>
+    </HeaderArea>
   );
 }
 
