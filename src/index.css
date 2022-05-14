@@ -16,19 +16,6 @@ url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 }
 
 
-@media (min-width: 1920px) {
-  body {width: 1680px;}
-}
-
-@media (max-width: 1919px) {
-  body {width: 1420px;}
-}
-
-@media (max-width: 1400px) {
-  body {width: 1024px;}
-}
-
-
 :root {
   --font-body: 'NanumSquare';
   --font-title: 'SpoqaHanSansNeo-Regular';
@@ -44,11 +31,13 @@ html {
 }
 
 body {
+  width: 100%;
   margin: 0;
   padding: 0;
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.5rem;
+  box-sizing: border-box;
   color: #3A3D3E;
 }
 

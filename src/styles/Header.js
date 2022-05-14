@@ -4,6 +4,8 @@ import Button from '../components/common/Button';
 import { BsBellFill, BsChatSquareDotsFill } from "react-icons/bs";
 
 export const HeaderArea = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
   position: relative;
   height: 4.5rem;
@@ -14,9 +16,10 @@ export const HeaderContainer = styled.div`
   align-items: center;
   position: fixed;
   justify-content: space-between;
+  max-width: 1280px;
+  box-sizing: border-box;
   width: 100%;
   padding: 0 20px;
-  box-sizing: border-box;
   height: 4.5rem;
   background: linear-gradient(to bottom, rgb(8, 14, 29, 0.8) 90%, transparent);
   z-index: 10;
