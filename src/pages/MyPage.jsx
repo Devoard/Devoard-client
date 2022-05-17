@@ -97,7 +97,7 @@ const MyPage = () => {
     }
     else {
       setData(data);
-      setUserImg(data.user_img);
+      //setUserImg(data.user_img);
       setIntro(data.user_intro);
       setContact(data.user_connect);
       setPortfolio(data.user_pf_addr);
@@ -123,17 +123,30 @@ const MyPage = () => {
       setIsCheckPopUp(false);
     })
 
-    await ProfileAPI.updateProfileImg(
+    /*await ProfileAPI.updateProfileImg(
       loggedUser.id, {
         user_img: userImg
       }
-    )
+    )*/
 
     /*await UserAPI.updateUserData(
       loggedUser.id, {
         imageUrl: userImg
       }
     )*/
+  }
+
+  // 임시
+  const createData = async() => {
+    await ProfileAPI.createProfileData({
+      id: loggedUser.id,
+      user_intro: intro,
+      user_connect: contact,
+      user_pf_addr: portfolio,
+      user_stack: stackLevel,
+      user_exp: isExperienced,
+      user_import: important
+    })
   }
 
   const resizeTextArea = (e) => {
@@ -146,7 +159,7 @@ const MyPage = () => {
   }, [dispatch])
 
   useEffect(() => {
-    setFiles(loggedUser.imageUrl);
+    //setFiles(loggedUser.imageUrl);
     if (loggedUser.id) getData();
   }, [loggedUser]);
 
@@ -156,7 +169,7 @@ const MyPage = () => {
     <PageWrapper>
       <Title>마이 페이지</Title>
       <Background>
-        <UserImgWrapper>
+        {/*<UserImgWrapper>
           {files &&
           <UserImg src={files} alt='user_img' />}
           <ImgInput 
@@ -179,7 +192,7 @@ const MyPage = () => {
           >
             선택된 이미지 삭제
           </DeleteButton>
-        </UserImgWrapper>
+          </UserImgWrapper>*/}
         <UserNameWrapper>
           <Text>이름</Text>
           <Text style={{fontWeight: 'normal', color: 'gray'}}>{loggedUser.id}</Text>
@@ -261,7 +274,7 @@ const MyPage = () => {
         <PopUpBtnWrapper>
           <Button
             color="orange"
-            onClick={updateData}
+            onClick={createData}
           >확인</Button>
           <Button
             color="gray"
