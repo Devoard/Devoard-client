@@ -24,33 +24,37 @@ const PopUpWrapper = styled.div`
   padding: 2rem;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
   ${(props) => {
     return css`
       width: ${props.width};
       height: ${props.height};
     `;
   }}
-  .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-  }
+`;
+
+const CloseBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: #fff;
+  z-index: 600;
 `;
 
 const PopUp = ({ children, isVisible, setIsPopUp, width, height }) => {
   if (!isVisible) return null;
-
+  const onClick = () => {
+    setIsPopUp(!isVisible);
+  };
   return (
     <PopUpBackground>
       <PopUpWrapper width={width} height={height}>
-        <IoIosClose
-          className="icon"
-          size="40"
-          onClick={() => {
-            setIsPopUp(false);
-          }}
-        />
+        <CloseBtn onClick={onClick}>
+          <IoIosClose className="icon" size="40" />
+        </CloseBtn>
         {children}
       </PopUpWrapper>
     </PopUpBackground>

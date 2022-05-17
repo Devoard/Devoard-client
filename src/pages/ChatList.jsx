@@ -15,7 +15,8 @@ import { chat_list, set_user } from "../modules/chat";
 // `;
 const ListBox = styled.div`
   width: 65%;
-  min-height: 680px;
+  /* min-height: 680px; */
+  min-height: 660px;
   margin: 30px auto;
 `;
 const ChatItem = styled.div`
