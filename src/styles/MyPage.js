@@ -63,6 +63,7 @@ export const Input = styled.input`
 
 export const TextArea = styled.textarea`
   width: 100%;
+  height: 4rem;
   box-sizing: border-box;
   padding: 1rem;
   resize: none;
@@ -73,10 +74,7 @@ export const TextArea = styled.textarea`
   font-family: var(--font-body);
 `;
 
-export const UserNameWrapper = styled(Wrapper)`
-  margin-top: 3rem;
-`;
-
+export const UserNameWrapper = styled(Wrapper)``;
 export const IntroWrapper = styled(Wrapper)``;
 export const ContactWrapper = styled(Wrapper)``;
 export const PfAddrWrapper = styled(Wrapper)``;
