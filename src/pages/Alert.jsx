@@ -49,8 +49,6 @@ const Alert = () => {
           {alertList.map((v, i) => (
             <AlertItem key={i} alert={v} />
           ))}
-          <AlertItem />
-          <AlertItem />
         </ListBox>
       </Wrap>
     </AlertWrap>
