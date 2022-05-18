@@ -107,7 +107,7 @@ const Devoard = () => {
               key={post.id}
               projectTitle={post.title}
               projectText={post.body}
-              tags={post.field}
+              tagsText={post.field}
               recruitState={post.recruit_state}
             />
           </Link>
