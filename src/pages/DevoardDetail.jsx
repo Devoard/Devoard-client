@@ -42,6 +42,7 @@ import {
 
 const DevoardDetail = () => {
   const [post, setPost] = useState(null);
+  const [tags, setTags] = useState(null);
   const [isWriter, setIsWriter] = useState(false);
   const [isRemovePopUp, setIsRemovePopUp] = useState(false);
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
@@ -80,6 +81,13 @@ const DevoardDetail = () => {
     if (post) checkIsWriter();
   }, [post, loggedUser]);
 
+  useEffect(() => {
+    if (!post) return null;
+    const tags = post.field.split(',');
+
+    setTags(tags);
+  }, [post]);
+
   if (post === null) return null;
   return (
     <PageWrapper>
@@ -114,9 +122,10 @@ const DevoardDetail = () => {
           </InfoWrapper>
           <DividerLine />
           <TagWrapper>
-          {/* {post.field.map((tag, i) => (
+          {tags &&
+           tags.map((tag, i) => (
             <Tag key={i}>{tag}</Tag>
-          ))} */}
+          ))}
           </TagWrapper>
           <BodyWrapper>
             <SubTitle>모집 인원</SubTitle>

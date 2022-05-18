@@ -75,8 +75,16 @@ const ProjectText = styled.div`
 `;
 
 
-const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, tags, ...rest }) => {
+const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, tagsText, ...rest }) => {
   const [isColored, setIsColored] = useState(isScrapped);
+  const [tags, setTags] = useState(null);
+
+  useEffect(() => {
+    if (!tagsText) return null;
+    const tags = tagsText.split(",");
+    
+    setTags(tags);
+  }, [tagsText]);
   
   return (
     <ProjectDetailWrapper
@@ -94,12 +102,12 @@ const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, ta
       </StateWrapper>
       <ProjectTitle>{projectTitle}</ProjectTitle>
       <DividerLine />
-      {/*tags && tags.length !== 0 && 
-      <TagWrapper>
+      {tags && tags.length !== 0 && 
+        <TagWrapper>
         {tags.map((tag, i) => (
           <Tag key={i}>{tag}</Tag>
         ))}
-        </TagWrapper>*/}
+        </TagWrapper>}
       <ProjectText>
         {projectText}
       </ProjectText>
