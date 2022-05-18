@@ -18,6 +18,11 @@ export function useAlert() {
       }
     );
     const data = await response.data;
+    console.log(data);
+    // const data = [
+    //   { id: 3, data: "저희 프로젝트에 초대합니다.", devoard_data: "tq" },
+    //   { id: 4, data: "아쉽게도 같이 하실 수 없습니다.", devoard_data: "tq" },
+    // ];
     return data;
   };
 
@@ -27,6 +32,23 @@ export function useAlert() {
       headers,
     });
     const data = await response.data;
+    console.log(data);
+    // const data = {
+    //   id: 3,
+    //   user: {
+    //     username: "Zy0ung",
+    //     user_git_id: "Zy0young",
+    //     user_connect: "Zy0young@gmail.com",
+    //   },
+    //   title: "프로젝트 지원 결과 안내",
+    //   data: "프로젝트에 초대합니다 연락 바랍니다.",
+    //   team_master: {
+    //     username: "Zy0young",
+    //     user_git_id: "dahye@gmail.com",
+    //     user_connect: "dahye@naver.com",
+    //   },
+    //   devoard_data: "tq",
+    // };
     return data;
   };
 
