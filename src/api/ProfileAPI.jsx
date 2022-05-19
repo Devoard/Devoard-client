@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8000/profile';
+const url = 'http://localhost:8000/user/profile';
 
 
 const ProfileAPI = {

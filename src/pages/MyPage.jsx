@@ -24,11 +24,16 @@ import {
   TextArea,
   UserNameWrapper,
   IntroWrapper,
+  JobWrapper,
+  ComboBox,
+  Option,
   ContactWrapper,
   PfAddrWrapper,
   DevStackWrapper,
   ExperienceWrapper,
+  TimeWrapper,
   ImportantWrapper,
+  HowWrapper,
   LevelBox,
   Box,
   ButtonWrapper,
@@ -42,6 +47,7 @@ const MyPage = () => {
   const [files, setFiles] = useState('');
   const [userImg, setUserImg] = useState(null);
   const [intro, setIntro] = useState('');
+  const [job, setJob] = useState('');
   const [contact, setContact] = useState('');
   const [portfolio, setPortfolio] = useState('');
   const [isFieldOpen, setIsFieldOpen] = useState({
@@ -68,7 +74,9 @@ const MyPage = () => {
     skill: false,
     socialize: false,
   });
+  const [time, setTime] = useState('');
   const [isExperienced, setIsExperienced] = useState(false);
+  const [how, setHow] = useState('');
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
   const { loggedUser } = useSelector(state => state.user);
   const imgInput = useRef();
@@ -99,11 +107,14 @@ const MyPage = () => {
       setData(data);
       //setUserImg(data.user_img);
       setIntro(data.user_intro);
+      setJob(data.user_job);
       setContact(data.user_connect);
       setPortfolio(data.user_pf_addr);
       setStackLevel(data.user_stack);
       setIsExperienced(data.user_exp);
+      setTime(data.user_time);
       setImportant(data.user_import);
+      setHow(data.user_how);
     }
   } 
 
@@ -142,10 +153,13 @@ const MyPage = () => {
       id: loggedUser.id,
       user_intro: intro,
       user_connect: contact,
+      user_job: job,
       user_pf_addr: portfolio,
       user_stack: stackLevel,
       user_exp: isExperienced,
-      user_import: important
+      user_time: time,
+      user_import: important,
+      user_how: how
     })
   }
 
@@ -207,6 +221,20 @@ const MyPage = () => {
             }}
           />
         </IntroWrapper>
+        <JobWrapper>
+          <Text>직업</Text>
+          <ComboBox
+            id="job" 
+            name="job"
+            value={job}
+            onChange={(e)=>setJob(e.target.value)}
+          >
+            <Option label="-- 선택하세요 --" />
+            <Option value="학생">학생</Option>
+            <Option value="취업 준비생">취업 준비생</Option>
+            <Option value="직장인">직장인</Option>
+          </ComboBox>
+        </JobWrapper>
         <ContactWrapper>
           <Text>연락처</Text>
           <Input 
@@ -247,6 +275,23 @@ const MyPage = () => {
             >없음</Box>
           </LevelBox>
         </ExperienceWrapper>
+        <TimeWrapper>
+          <Text>활동 가능 시간</Text>
+          <ComboBox
+            id="time" 
+            name="time"
+            value={time}
+            onChange={(e)=>setTime(e.target.value)}
+          >
+            <Option label="-- 선택하세요 --" />
+            <Option value="평일 9AM ~ 12PM">평일 9AM ~ 12PM</Option>
+            <Option value="평일 12PM ~ 6PM">평일 12PM ~ 6PM</Option>
+            <Option value="평일 6PM ~ 12AM">평일 6PM ~ 12AM</Option>
+            <Option value="주말 9AM ~ 12PM">주말 9AM ~ 12PM</Option>
+            <Option value="주말 12PM ~ 6PM">주말 12PM ~ 6PM</Option>
+            <Option value="주말 6PM ~ 12PM">주말 6PM ~ 12PM</Option>
+          </ComboBox>
+        </TimeWrapper>
         <ImportantWrapper>
           <Text>중요하게 생각하는 요소</Text>
           <ImportantContents 
@@ -254,6 +299,19 @@ const MyPage = () => {
             setImportant={setImportant}
           />
         </ImportantWrapper>
+        <HowWrapper>
+          <Text style={{marginRight: '7rem'}}>선호하는 방식</Text>
+          <LevelBox>
+            <Box 
+              isChecked={how === '온라인' ? true : false}
+              onClick={() => setHow('온라인')}
+            >온라인</Box>
+            <Box
+              isChecked={how === '오프라인' ? true : false}
+              onClick={() => setHow('오프라인')}
+            >오프라인</Box>
+          </LevelBox>
+        </HowWrapper>
         <ButtonWrapper>
           <Button 
             color="orange"
@@ -274,7 +332,7 @@ const MyPage = () => {
         <PopUpBtnWrapper>
           <Button
             color="orange"
-            onClick={createData}
+            onClick={updateData}
           >확인</Button>
           <Button
             color="gray"
