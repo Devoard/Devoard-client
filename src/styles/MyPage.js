@@ -76,6 +76,7 @@ export const TextArea = styled.textarea`
 
 export const UserNameWrapper = styled(Wrapper)``;
 export const IntroWrapper = styled(Wrapper)``;
+export const JobWrapper = styled(Wrapper)``;
 export const ContactWrapper = styled(Wrapper)``;
 export const PfAddrWrapper = styled(Wrapper)``;
 
@@ -88,8 +89,27 @@ export const ExperienceWrapper = styled(Wrapper)`
   display: flex;
 `;
 
+export const TimeWrapper = styled(Wrapper)``;
+
 export const ImportantWrapper = styled(Wrapper)``;
 
+export const HowWrapper = styled(Wrapper)`
+  display: flex;
+`;
+
+
+export const ComboBox = styled.select`
+  height: 1.8rem;
+  padding: 0.2rem 0.5rem;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  border: 2px solid gray;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+`;
+
+export const Option = styled.option``;
 
 export const Box = styled.div`
   padding: 0 0.6rem;
