@@ -31,6 +31,15 @@ const TextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
+const RadioForm = styled.form`
+  display: flex;
+  gap: 28px;
+  margin: 30px;
+  & > label {
+    color: #fff;
+  }
+`;
+
 const SurveyComp = ({ data, setDatas, datas }) => {
   const [selectArr, setSelectArr] = useState([]);
   const [id, setId] = useState(0);
@@ -44,19 +53,19 @@ const SurveyComp = ({ data, setDatas, datas }) => {
   };
 
   const onFirstAnswer = (e) => {
-    setDatas({ ...datas, [e.target.dataset.id]: e.target.innerHTML });
+    setDatas({ ...datas, [e.target.dataset.id]: e.target.innerText });
   };
 
   const onSelect = (e) => {
-    setDatas({ ...datas, [e.target.dataset.id]: e.target.innerHTML });
+    setDatas({ ...datas, [e.target.dataset.id]: e.target.innerText });
   };
 
   const onSelectMulti = (e) => {
-    if (selectArr.includes(e.target.innerHTML)) {
-      const arr = selectArr.filter((v, i) => v !== e.target.innerHTML);
+    if (selectArr.includes(e.target.innerText)) {
+      const arr = selectArr.filter((v, i) => v !== e.target.innerText);
       setSelectArr(arr);
     } else {
-      setSelectArr((prev) => prev.concat(e.target.innerHTML));
+      setSelectArr((prev) => prev.concat(e.target.innerText));
       setId(e.target.dataset.id);
     }
   };
@@ -108,7 +117,7 @@ const SurveyComp = ({ data, setDatas, datas }) => {
             );
         })}
 
-      {data.id === 8 &&
+      {data.id === 6 &&
         data.a.map((v, i) => {
           if (datas[data.id].includes(v))
             return (
@@ -130,7 +139,7 @@ const SurveyComp = ({ data, setDatas, datas }) => {
         })}
 
       {data.id > 2 &&
-        data.id < 8 &&
+        data.id < 6 &&
         data.a.map((v, i) => {
           if (datas[data.id] === v)
             return (
@@ -151,12 +160,34 @@ const SurveyComp = ({ data, setDatas, datas }) => {
             );
         })}
 
-      {data.id > 8 && (
+      {data.id > 6 && data.id !== 8 && (
         <TextArea
           data-id={data.id}
           onChange={onTextChange}
           value={datas[data.id]}
         />
+      )}
+
+      {data.id === 8 && (
+        <RadioForm>
+          <label>
+            <input type="radio" name="job" value="학생" data-id={data.id} />
+            학생
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="job"
+              value="취업준비생"
+              data-id={data.id}
+            />
+            취업준비생
+          </label>
+          <label>
+            <input type="radio" name="job" value="직장인" data-id={data.id} />
+            직장인
+          </label>
+        </RadioForm>
       )}
     </>
   );

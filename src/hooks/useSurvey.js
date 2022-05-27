@@ -23,7 +23,6 @@ export const useSurvey = () => {
       user_intro: datas[9],
       user_plan: datas[10],
       user_tmi: datas[11],
-      user_git_id: datas[12],
     };
     const response = await axios.post(
       "http://localhost:8000/survey/collect/",

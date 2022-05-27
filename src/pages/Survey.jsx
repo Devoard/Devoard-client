@@ -25,7 +25,7 @@ const ProgressBar = styled.div`
 `;
 const ProgressStatus = styled.div`
   height: 100%;
-  width: ${(props) => props.status * (100 / 12)}%;
+  width: ${(props) => props.status * (100 / 10)}%;
   border-radius: 50px;
   background: var(--color-orange);
 `;
@@ -76,14 +76,14 @@ const Survey = () => {
   };
 
   const onNextClick = () => {
-    if (dataId === 12) {
+    if (dataId === 10) {
       if (window.confirm("설문조사를 완료하시겠습니까?")) {
         submitSurvey(datas);
         window.alert("전송하였습니다.");
         navigate("/");
       }
     }
-    if (dataId >= 12) return;
+    if (dataId >= 10) return;
     setDataId((prev) => prev + 1);
   };
 
