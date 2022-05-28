@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PostAPI from '../api/PostAPI';
+import PostAPI from '../lib/api/PostAPI';
 import Title from '../components/common/Title';
 import AddTag from '../components/Write/AddTag';
 import PopUp from '../components/common/PopUp';

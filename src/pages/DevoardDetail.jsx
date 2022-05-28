@@ -6,7 +6,7 @@ import RecruitState from "../components/common/RecruitState";
 import Tag from "../components/common/Tag";
 import Button from "../components/common/Button";
 import PopUp from "../components/common/PopUp";
-import PostAPI from "../api/PostAPI";
+import PostAPI from "../lib/api/PostAPI";
 import {
   PageWrapper,
   Background,
@@ -42,7 +42,7 @@ import {
 
 const DevoardDetail = () => {
   const [post, setPost] = useState(null);
-  const [tags, setTags] = useState(null);
+  const [tags, setTags] = useState("");
   const [isWriter, setIsWriter] = useState(false);
   const [isRemovePopUp, setIsRemovePopUp] = useState(false);
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
@@ -83,8 +83,8 @@ const DevoardDetail = () => {
 
   useEffect(() => {
     if (!post) return null;
+    if (post.field === "") return null;
     const tags = post.field.split(',');
-
     setTags(tags);
   }, [post]);
 
