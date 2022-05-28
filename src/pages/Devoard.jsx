@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import PostAPI from '../api/PostAPI';
+import PostAPI from '../lib/api/PostAPI';
 import { setActivePage } from '../modules/user';
 import Title from '../components/common/Title';
 import ProjectDetail from '../components/common/ProjectDetail';
