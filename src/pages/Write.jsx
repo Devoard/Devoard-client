@@ -72,7 +72,7 @@ const Write = () => {
       data: post.data_cnt,
       devops: post.devops_cnt
     });
-    setStacks(post.field);
+    setStacks(post.field.split(","));
     setSituation(post.done);
     setPeriod(post.period);
   }
