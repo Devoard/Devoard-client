@@ -24,9 +24,9 @@ import {
 
 const Home = () => {
   const [recruitCnt, setRecruitCnt] = useState(0);
+  const [recentPosts, setRecentPosts] = useState(null);
   const dispatch = useDispatch();
   const project_wrapper = useRef(null);
-  const text = "TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText";
 
   useEffect(() => {
     let timer = null;
@@ -41,16 +41,18 @@ const Home = () => {
     };
 
     const getPostCnt = async() => {
-      try {
-        const posts = await PostAPI.getPosts('ongoing');
-        const totalCnt = posts.length;
-        recruitCntAnimation(totalCnt);
-      } catch (err) {
-        console.log(err);
-      }
+      const posts = await PostAPI.getPosts('ongoing');
+      const totalCnt = posts.length;
+      recruitCntAnimation(totalCnt);
     };
 
+    const getRecentPostsData = async() => {
+      const posts = await PostAPI.getRecentPosts();
+      setRecentPosts(posts);
+    }
+
     getPostCnt();
+    getRecentPostsData();
 
     dispatch(setActivePage('home'));
     project_wrapper.current.addEventListener('mousewheel', handleHorizontalScroll);
@@ -58,7 +60,7 @@ const Home = () => {
     return () => {
       clearInterval(timer);
     }
-  }, [setActivePage]);
+  }, []);
 
 
   const handleHorizontalScroll = (e) => {
@@ -94,43 +96,20 @@ const Home = () => {
         <ProjectDetailWrapper
           ref={project_wrapper}
         >
-          <ProjectDetail 
-            recruitState={true}
-            projectTitle="Project Title"
-            projectText={text}
-          />
-          <ProjectDetail
-            recruitState={false}
-            projectTitle="Title"
-            projectText="Text"
-          />
-           <ProjectDetail 
-            recruitState={true}
-            projectTitle="Title"
-            projectText="Text"
-          />
-          <ProjectDetail
-            recruitState={false}
-            projectTitle="Title"
-            projectText="Text"
-          />
-           <ProjectDetail 
-            recruitState={true}
-            projectTitle="Title"
-            projectText="Text"
-          />
-          <ProjectDetail
-            recruitState={false}
-            projectTitle="Title"
-            projectText="Text"
-          />
+          {recentPosts &&
+           recentPosts.map((post, i) => (
+            <Link key={i} to={`/devoard/${post.id}`} style={{textDecoration: 'none'}}>
+              <ProjectDetail 
+                recruitState={post.recruit_state}
+                field={post.field}
+                title={post.title}
+                body={post.body}
+              />
+            </Link>
+          ))}
         </ProjectDetailWrapper>
-        <Link
-          to='/devoard'>
-          <MoreProjectBtn 
-            color="orange"
-            outline
-          >
+        <Link to='/devoard'>
+          <MoreProjectBtn color="orange" outline>
             프로젝트 더 보기
           </MoreProjectBtn>
         </Link>

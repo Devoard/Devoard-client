@@ -32,9 +32,9 @@ const ProjectTitle = styled.span`
   display: inline-block;
   margin-top: 1rem;
   font-size: 1.5rem;
-  color: var(--color-title);
   font-family: var(--font-title);
   white-space: normal;
+  color: #3A3D3E;
 `;
 
 const DividerLine = styled.div`
@@ -72,19 +72,20 @@ const ProjectText = styled.div`
   word-wrap:break-word; 
   white-space: normal;  
   overflow: hidden;
+  color: #3A3D3E;
 `;
 
 
-const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, tagsText, ...rest }) => {
+const ProjectDetail = ({ isScrapped, recruitState, title, body, field, ...rest }) => {
   const [isColored, setIsColored] = useState(isScrapped);
   const [tags, setTags] = useState(null);
 
   useEffect(() => {
-    if (!tagsText) return null;
-    const tags = tagsText.split(",");
+    if (!field) return null;
+    const tags = field.split(",");
     
     setTags(tags);
-  }, [tagsText]);
+  }, [field]);
   
   return (
     <ProjectDetailWrapper
@@ -100,7 +101,7 @@ const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, ta
           onClick={()=>setIsColored(!isColored)}
         />
       </StateWrapper>
-      <ProjectTitle>{projectTitle}</ProjectTitle>
+      <ProjectTitle>{title}</ProjectTitle>
       <DividerLine />
       {tags && tags.length !== 0 && 
         <TagWrapper>
@@ -109,7 +110,7 @@ const ProjectDetail = ({ isScrapped, recruitState, projectTitle, projectText, ta
         ))}
         </TagWrapper>}
       <ProjectText>
-        {projectText}
+        {body}
       </ProjectText>
     </ProjectDetailWrapper>
   )

@@ -52,6 +52,15 @@ const PostAPI = {
 
     return res.data;
   },
+  getRecentPosts: async () => {
+    const res = await axios
+    .get(`${url}Now/`)
+    .catch(err =>
+      console.log(err)
+    );
+
+    return res.data;
+  },
   createPost: async (data) => {
     await axios
     .post(`${url}/`, data)
