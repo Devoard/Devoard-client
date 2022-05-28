@@ -4,13 +4,6 @@ const url = 'http://localhost:8000/user/profile';
 
 
 const ProfileAPI = {
-  // 임시
-  createProfileData: async(data) => {
-    await axios.post(url, data)
-    .catch((err) => 
-      console.log(err)
-    )
-  },
   getProfileData: async(id) => {
     let result = null;
     const res = await axios.get(`${url}/${id}`)

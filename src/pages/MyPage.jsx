@@ -2,15 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setActivePage } from '../modules/user';
-import ProfileAPI from '../api/ProfileAPI';
-import UserAPI from '../api/UserAPI';
+import ProfileAPI from '../lib/api/ProfileAPI';
 import Title from '../components/common/Title';
 import Button from '../components/common/Button';
 import PopUp from '../components/common/PopUp';
 import DevStackContents from '../components/MyPage/StackContents';
 import ImportantContents from '../components/MyPage/ImportantContents';
 import devStack from '../assets/data/devStack.json';
-import defaultUserImg from '../assets/images/defaultUserImg.png';
 import {
   PageWrapper,
   Background,
@@ -83,20 +81,6 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onLoadImg = (e) => {
-    const uploadFile = e.target.files[0];
-    const formData = new FormData();
-    formData.append('files', uploadFile);
-
-    setFiles(URL.createObjectURL(uploadFile));
-    setUserImg(formData);
-  }
-
-  const onDeleteImg = () => {
-    URL.revokeObjectURL(files);
-    setFiles(defaultUserImg);
-  }
-
   const getData = async() => {
     const data = await ProfileAPI.getProfileData(loggedUser.id);
 
@@ -132,34 +116,6 @@ const MyPage = () => {
     .then(() => {
       window.scrollTo(0, 0);
       setIsCheckPopUp(false);
-    })
-
-    /*await ProfileAPI.updateProfileImg(
-      loggedUser.id, {
-        user_img: userImg
-      }
-    )*/
-
-    /*await UserAPI.updateUserData(
-      loggedUser.id, {
-        imageUrl: userImg
-      }
-    )*/
-  }
-
-  // 임시
-  const createData = async() => {
-    await ProfileAPI.createProfileData({
-      id: loggedUser.id,
-      user_intro: intro,
-      user_connect: contact,
-      user_job: job,
-      user_pf_addr: portfolio,
-      user_stack: stackLevel,
-      user_exp: isExperienced,
-      user_time: time,
-      user_import: important,
-      user_how: how
     })
   }
 
