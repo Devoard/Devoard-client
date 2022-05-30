@@ -22,7 +22,7 @@ const PostAPI = {
       res = await axios
       .get(`${url}`, {
         params: {
-          recruit_state: true,
+          recruit_state: 'True',
         },
       })
       .catch((err) => {
@@ -33,7 +33,7 @@ const PostAPI = {
       res = await axios
       .get(`${url}`, {
         params: {
-          recruit_state: false,
+          recruit_state: 'False',
         },
       })
       .catch((err) => {
