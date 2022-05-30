@@ -109,8 +109,8 @@ const DevoardDetail = () => {
           <Title>{post.title}</Title>
           <InfoWrapper>
             <UserWrapper>
-              {/*<UserImg src={post.writer_info.imageUrl} />
-              <UserName>{post.writer_info.username}</UserName>*/}
+              <UserImg src={post.writer.git_userImg} />
+              <UserName>{post.writer.username}</UserName>
             </UserWrapper>
             <DataWrapper>
               <WriteDate>{post.date}</WriteDate>

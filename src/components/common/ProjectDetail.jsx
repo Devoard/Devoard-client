@@ -7,7 +7,7 @@ import { FiHeart } from 'react-icons/fi';
 const ProjectDetailWrapper = styled.div`
   display: inline-block;
   box-sizing: border-box;
-  width: 28rem;
+  width: 24.4rem;
   height: 20rem;
   background: white;
   border-radius: 0.7rem;
