@@ -7,13 +7,14 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 `;
 
 export const ProjectWrapper = styled.div`
   display: grid;
 
   grid-template-columns: 1fr 1fr 1fr;
-  @media (max-width: 1400px) {
+  @media (max-width: 1280px) {
     grid-template-columns: repeat(2, 30rem)
   }
   @media (max-width: 1080px) {
@@ -32,6 +33,7 @@ export const SortingWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 1.5rem;
+  z-index: 5;
 `;
 
 export const ComboBox = styled.div`
