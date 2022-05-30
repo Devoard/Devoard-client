@@ -57,13 +57,10 @@ const Survey = () => {
     3: "",
     4: "",
     5: "",
-    6: "",
+    6: [],
     7: "",
-    8: [],
-    9: "",
-    10: "",
-    11: "",
-    12: "",
+    8: "",
+    9: [],
   });
 
   useEffect(() => {
@@ -79,6 +76,7 @@ const Survey = () => {
     if (dataId === 10) {
       if (window.confirm("설문조사를 완료하시겠습니까?")) {
         submitSurvey(datas);
+        console.log(datas);
         window.alert("전송하였습니다.");
         navigate("/");
       }

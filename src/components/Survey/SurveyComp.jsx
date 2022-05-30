@@ -52,10 +52,6 @@ const SurveyComp = ({ data, setDatas, datas }) => {
     setDatas({ ...datas, [e.target.dataset.id]: e.target.value });
   };
 
-  const onFirstAnswer = (e) => {
-    setDatas({ ...datas, [e.target.dataset.id]: e.target.innerText });
-  };
-
   const onSelect = (e) => {
     setDatas({ ...datas, [e.target.dataset.id]: e.target.innerText });
   };
@@ -70,77 +66,44 @@ const SurveyComp = ({ data, setDatas, datas }) => {
     }
   };
 
-  return (
-    <>
-      <Question>{data.q}</Question>
+  const onJobchange = (e) => {
+    setDatas({ ...datas, [e.target.dataset.id]: e.target.value });
+  };
 
-      {data.id === 1 &&
-        data.a.map((v, i) => {
-          if (datas[data.id] === v)
-            return (
-              <Answer
-                key={i}
-                select={true}
-                onClick={onFirstAnswer}
-                data-id={data.id}
-              >
-                {v}
-              </Answer>
-            );
-          else
-            return (
-              <Answer key={i} onClick={onFirstAnswer} data-id={data.id}>
-                {v}
-              </Answer>
-            );
-        })}
-
-      {data.id === 2 &&
-        data.a[datas[1]] &&
-        data.a[datas[1]].map((v, i) => {
-          if (datas[data.id].includes(v))
-            return (
-              <Answer
-                key={i}
-                select={true}
-                onClick={onSelectMulti}
-                data-id={data.id}
-              >
-                {v}
-              </Answer>
-            );
-          else
-            return (
-              <Answer key={i} onClick={onSelectMulti} data-id={data.id}>
-                {v}
-              </Answer>
-            );
-        })}
-
-      {data.id === 6 &&
-        data.a.map((v, i) => {
-          if (datas[data.id].includes(v))
-            return (
-              <Answer
-                key={i}
-                select={true}
-                onClick={onSelectMulti}
-                data-id={data.id}
-              >
-                {v}
-              </Answer>
-            );
-          else
-            return (
-              <Answer key={i} onClick={onSelectMulti} data-id={data.id}>
-                {v}
-              </Answer>
-            );
-        })}
-
-      {data.id > 2 &&
-        data.id < 6 &&
-        data.a.map((v, i) => {
+  const renderSwitch = () => {
+    switch (data.id) {
+      case 1:
+      case 2:
+      case 4:
+        return (
+          <TextArea
+            data-id={data.id}
+            onChange={onTextChange}
+            value={datas[data.id]}
+          />
+        );
+      case 3:
+        return (
+          <RadioForm>
+            {data.a.map((v, i) => {
+              return (
+                <label key={i}>
+                  <input
+                    type="radio"
+                    name="job"
+                    value={v}
+                    data-id={data.id}
+                    checked={datas[data.id] === v}
+                    onChange={onJobchange}
+                  />
+                  {v}
+                </label>
+              );
+            })}
+          </RadioForm>
+        );
+      case 5:
+        return data.a.map((v, i) => {
           if (datas[data.id] === v)
             return (
               <Answer
@@ -158,37 +121,83 @@ const SurveyComp = ({ data, setDatas, datas }) => {
                 {v}
               </Answer>
             );
-        })}
+        });
+      case 6:
+        return (
+          data.a[datas[data.id - 1]] &&
+          data.a[datas[data.id - 1]].map((v, i) => {
+            if (datas[data.id].includes(v))
+              return (
+                <Answer
+                  key={i}
+                  select={true}
+                  onClick={onSelectMulti}
+                  data-id={data.id}
+                >
+                  {v}
+                </Answer>
+              );
+            else
+              return (
+                <Answer key={i} onClick={onSelectMulti} data-id={data.id}>
+                  {v}
+                </Answer>
+              );
+          })
+        );
 
-      {data.id > 6 && data.id !== 8 && (
-        <TextArea
-          data-id={data.id}
-          onChange={onTextChange}
-          value={datas[data.id]}
-        />
-      )}
+      case 7:
+      case 8:
+      case 10:
+        return data.a.map((v, i) => {
+          if (datas[data.id] === v)
+            return (
+              <Answer
+                key={i}
+                select={true}
+                onClick={onSelect}
+                data-id={data.id}
+              >
+                {v}
+              </Answer>
+            );
+          else
+            return (
+              <Answer key={i} onClick={onSelect} data-id={data.id}>
+                {v}
+              </Answer>
+            );
+        });
+      case 9:
+        return data.a.map((v, i) => {
+          if (datas[data.id].includes(v))
+            return (
+              <Answer
+                key={i}
+                select={true}
+                onClick={onSelectMulti}
+                data-id={data.id}
+              >
+                {v}
+              </Answer>
+            );
+          else
+            return (
+              <Answer key={i} onClick={onSelectMulti} data-id={data.id}>
+                {v}
+              </Answer>
+            );
+        });
+      default:
+        return null;
+    }
+  };
 
-      {data.id === 8 && (
-        <RadioForm>
-          <label>
-            <input type="radio" name="job" value="학생" data-id={data.id} />
-            학생
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="job"
-              value="취업준비생"
-              data-id={data.id}
-            />
-            취업준비생
-          </label>
-          <label>
-            <input type="radio" name="job" value="직장인" data-id={data.id} />
-            직장인
-          </label>
-        </RadioForm>
-      )}
+  return (
+    <>
+      <Question>{data.q}</Question>
+
+      {renderSwitch()}
     </>
   );
 };
