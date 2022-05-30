@@ -18,7 +18,6 @@ export function useAlert() {
       }
     );
     const data = await response.data;
-    console.log(data);
     // const data = [
     //   { id: 3, data: "저희 프로젝트에 초대합니다.", devoard_data: "tq" },
     //   { id: 4, data: "아쉽게도 같이 하실 수 없습니다.", devoard_data: "tq" },
@@ -32,7 +31,6 @@ export function useAlert() {
       headers,
     });
     const data = await response.data;
-    console.log(data);
     // const data = {
     //   id: 3,
     //   user: {
