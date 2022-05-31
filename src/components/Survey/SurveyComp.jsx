@@ -91,9 +91,9 @@ const SurveyComp = ({ data, setDatas, datas }) => {
                   <input
                     type="radio"
                     name="job"
-                    value={v}
+                    value={i}
                     data-id={data.id}
-                    checked={datas[data.id] === v}
+                    checked={datas[data.id] === String(i)}
                     onChange={onJobchange}
                   />
                   {v}
@@ -145,7 +145,6 @@ const SurveyComp = ({ data, setDatas, datas }) => {
               );
           })
         );
-
       case 7:
       case 8:
       case 10:

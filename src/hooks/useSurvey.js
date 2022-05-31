@@ -14,7 +14,7 @@ export const useSurvey = () => {
       username: datas[0],
       user_connect: datas[1],
       user_intro: datas[2],
-      user_job: datas[3],
+      user_job: parseInt(datas[3]),
       user_pf_addr: datas[4],
       user_skill_name: datas[6],
       user_exp: datas[7],

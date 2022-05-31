@@ -54,7 +54,7 @@ const Survey = () => {
     0: loggedUser.id,
     1: "",
     2: [],
-    3: "",
+    3: null,
     4: "",
     5: "",
     6: [],

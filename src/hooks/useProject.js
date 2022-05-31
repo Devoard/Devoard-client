@@ -40,13 +40,12 @@ export const useProject = () => {
   };
 
   const getProject = async (project_id) => {
-    const response = await axios.get(
-      "http://localhost:8000/project/detail/",
-      { project_id },
-      {
-        headers,
-      }
-    );
+    const response = await axios.get("http://localhost:8000/project/detail/", {
+      params: {
+        project_id,
+      },
+      headers,
+    });
     const data = await response.data;
     // const data = {
     //   project_detail: {
