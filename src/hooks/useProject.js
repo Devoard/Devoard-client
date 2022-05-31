@@ -52,7 +52,7 @@ export const useProject = () => {
     //     title: "44",
     //     field: "['Spring', 'Vue']",
     //     frontend_cnt: "4",
-    //     backend_cnt: "0",
+    //     backend_cnt: "1",
     //     android_cnt: "0",
     //     ios_cnt: "0",
     //     data_cnt: "0",
