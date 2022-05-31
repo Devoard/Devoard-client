@@ -61,6 +61,7 @@ const Survey = () => {
     7: "",
     8: "",
     9: [],
+    10: "",
   });
 
   useEffect(() => {
@@ -97,6 +98,8 @@ const Survey = () => {
             return (
               <SurveyComp key={i} data={v} setDatas={setDatas} datas={datas} />
             );
+          } else {
+            return null;
           }
         })}
         <CuntrolBox>

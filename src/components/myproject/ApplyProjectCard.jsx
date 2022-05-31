@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { getApplyProject } from "../../modules/project";
 import ApplyProjectPopUp from "./ApplyProjectPopUp";
 const Wrap = styled.div`
   background: #fff;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PopUp from "../common/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { useProject } from "../../hooks/useProject";
-import { getApplyProject, setProjectTabMenu } from "../../modules/project";
+import { getApplyProject } from "../../modules/project";
 
 const Name = styled.h3`
   border-bottom: 1px solid #000;
