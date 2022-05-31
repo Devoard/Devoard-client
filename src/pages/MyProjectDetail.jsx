@@ -88,7 +88,11 @@ const MyProjectDetail = () => {
   useEffect(() => {
     if (!post) return null;
     if (post.field === "") return null;
-    const tags = post.field.split(",");
+    const tags = post.field
+      .slice(1, -1)
+      .replace(/\'/g, "")
+      .replace(/\s/g, "")
+      .split(",");
     setTags(tags);
   }, [post]);
 
@@ -131,18 +135,24 @@ const MyProjectDetail = () => {
           <BodyWrapper>
             <SubTitle>모집 인원</SubTitle>
             <RecruitCnt>
-              {post.frontend_cnt && (
+              {parseInt(post.frontend_cnt) > 0 && (
                 <Field>Front-end : {post.frontend_cnt} 명</Field>
               )}
-              {post.backend_cnt && (
+              {parseInt(post.backend_cnt) > 0 && (
                 <Field>Back-end : {post.backend_cnt} 명</Field>
               )}
-              {post.android_cnt && (
+              {parseInt(post.android_cnt) > 0 && (
                 <Field>Android : {post.android_cnt} 명</Field>
               )}
-              {post.ios_cnt && <Field>IOS : {post.ios_cnt} 명</Field>}
-              {post.data_cnt && <Field>Data : {post.data_cnt} 명</Field>}
-              {post.devops_cnt && <Field>Devops : {post.devops_cnt} 명</Field>}
+              {parseInt(post.ios_cnt) > 0 && (
+                <Field>IOS : {post.ios_cnt} 명</Field>
+              )}
+              {parseInt(post.data_cnt) > 0 && (
+                <Field>Data : {post.data_cnt} 명</Field>
+              )}
+              {parseInt(post.devops_cnt) > 0 && (
+                <Field>Devops : {post.devops_cnt} 명</Field>
+              )}
             </RecruitCnt>
             <SubTitle>프로젝트 설명</SubTitle>
             <Body>{post.body}</Body>

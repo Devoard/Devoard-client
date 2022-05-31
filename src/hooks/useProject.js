@@ -40,38 +40,38 @@ export const useProject = () => {
   };
 
   const getProject = async (project_id) => {
-    const response = await axios.get("http://localhost:8000/project/detail/", {
-      params: {
-        project_id,
-      },
-      headers,
-    });
-    const data = await response.data;
-    // const data = {
-    //   project_detail: {
-    //     title: "44",
-    //     field: "['Spring', 'Vue']",
-    //     frontend_cnt: "4",
-    //     backend_cnt: "0",
-    //     android_cnt: "0",
-    //     ios_cnt: "0",
-    //     data_cnt: "0",
-    //     devops_cnt: "0",
-    //     body: "44",
-    //     period: "0",
-    //     done: "준비 중",
-    //     date: "2022-05-16",
-    //     writer: {
-    //       id: 2,
-    //       username: "Zy0ung",
-    //       git_userImg: "-",
-    //     },
-    //     id: 8,
+    // const response = await axios.get("http://localhost:8000/project/detail/", {
+    //   params: {
+    //     project_id,
     //   },
-    //   team_master: "Zy0ung",
-    //   joiner: ["dvlops87"],
-    //   id: 3,
-    // };
+    //   headers,
+    // });
+    // const data = await response.data;
+    const data = {
+      project_detail: {
+        title: "44",
+        field: "['Spring', 'Vue']",
+        frontend_cnt: "4",
+        backend_cnt: "1",
+        android_cnt: "0",
+        ios_cnt: "0",
+        data_cnt: "0",
+        devops_cnt: "0",
+        body: "44",
+        period: "0",
+        done: "준비 중",
+        date: "2022-05-16",
+        writer: {
+          id: 2,
+          username: "Zy0ung",
+          git_userImg: "-",
+        },
+        id: 8,
+      },
+      team_master: "Zy0ung",
+      joiner: ["dvlops87"],
+      id: 3,
+    };
     return data;
   };
 
