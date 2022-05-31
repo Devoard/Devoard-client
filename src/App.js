@@ -13,6 +13,7 @@ import DevoardDetail from "./pages/DevoardDetail";
 import Write from "./pages/Write";
 import Survey from "./pages/Survey";
 import NotFound from "./pages/NotFound";
+import MyProjectDetail from "./pages/MyProjectDetail";
 
 const App = () => {
   const { loggedIn } = useSelector((state) => state.user);
@@ -41,6 +42,7 @@ const App = () => {
             {loggedIn ? <Route path="/survey" element={<Survey />} /> : ""}
             <Route path="*" element={<NotFound />} />
             <Route path="/devoard/:id" element={<DevoardDetail />} />
+            <Route path="/project/:id" element={<MyProjectDetail />} />
           </Route>
         </Routes>
       </ThemeProvider>

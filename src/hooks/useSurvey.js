@@ -16,11 +16,11 @@ export const useSurvey = () => {
       user_intro: datas[2],
       user_job: datas[3],
       user_pf_addr: datas[4],
-      user_skill_name: datas[5],
-      user_exp: datas[6],
-      user_time: datas[7],
-      user_import: datas[8],
-      user_how: datas[9],
+      user_skill_name: datas[6],
+      user_exp: datas[7],
+      user_time: datas[8],
+      user_import: datas[9],
+      user_how: datas[10],
     };
     const response = await axios.post(
       "http://localhost:8000/survey/collect/",
