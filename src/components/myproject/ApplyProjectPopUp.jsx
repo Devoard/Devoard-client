@@ -4,6 +4,7 @@ import PopUp from "../common/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { useProject } from "../../hooks/useProject";
 import { getApplyProject } from "../../modules/project";
+import ProjectAPI from "../../lib/api/ProjectAPI";
 
 const Name = styled.h3`
   border-bottom: 1px solid #000;
@@ -51,28 +52,32 @@ const ApplyProjectPopUp = ({
   importArr,
   projectId,
 }) => {
-  const { acceptAwaiter, rejectAwaiter } = useProject();
+  // const { acceptAwaiter, rejectAwaiter } = useProject();
   const dispatch = useDispatch();
 
   const { loggedUser } = useSelector((state) => state.user);
 
   const onAccept = () => {
     if (window.confirm("수락하시겠습니까?")) {
-      acceptAwaiter(loggedUser.id, projectId, awaiter.username).then(() => {
-        dispatch(getApplyProject({ username: loggedUser.id })).then(() => {
-          setDetailOpen(false);
-        });
-      });
+      ProjectAPI.acceptAwaiter(loggedUser.id, projectId, awaiter.username).then(
+        () => {
+          dispatch(getApplyProject({ username: loggedUser.id })).then(() => {
+            setDetailOpen(false);
+          });
+        }
+      );
     }
   };
 
   const onReject = () => {
     if (window.confirm("거절하시겠습니까?")) {
-      rejectAwaiter(loggedUser.id, projectId, awaiter.username).then(() => {
-        dispatch(getApplyProject({ username: loggedUser.id })).then(() => {
-          setDetailOpen(false);
-        });
-      });
+      ProjectAPI.rejectAwaiter(loggedUser.id, projectId, awaiter.username).then(
+        () => {
+          dispatch(getApplyProject({ username: loggedUser.id })).then(() => {
+            setDetailOpen(false);
+          });
+        }
+      );
     }
   };
 

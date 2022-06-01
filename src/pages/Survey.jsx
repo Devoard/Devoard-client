@@ -6,6 +6,7 @@ import Button from "../components/common/Button";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSurvey } from "../hooks/useSurvey";
+import SurveyAPI from "../lib/api/SurveyAPI";
 
 const SurveyPage = styled.div`
   display: flex;
@@ -44,7 +45,7 @@ const Title = styled.h2`
 const Survey = () => {
   const navigate = useNavigate();
 
-  const { submitSurvey } = useSurvey();
+  // const { submitSurvey } = useSurvey();
 
   const { loggedUser } = useSelector((state) => state.user);
 
@@ -76,8 +77,7 @@ const Survey = () => {
   const onNextClick = () => {
     if (dataId === 10) {
       if (window.confirm("설문조사를 완료하시겠습니까?")) {
-        submitSurvey(datas);
-        console.log(datas);
+        SurveyAPI.submitSurvey(datas);
         window.alert("전송하였습니다.");
         navigate("/");
       }
