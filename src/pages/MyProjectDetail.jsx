@@ -40,6 +40,7 @@ import {
   PopUpBtnWrapper,
 } from "../styles/DevoardDetail";
 import { useProject } from "../hooks/useProject";
+import ProjectAPI from "../lib/api/ProjectAPI";
 
 const MyProjectDetail = () => {
   const [post, setPost] = useState(null);
@@ -48,7 +49,7 @@ const MyProjectDetail = () => {
   const [isRemovePopUp, setIsRemovePopUp] = useState(false);
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
 
-  const { getProject } = useProject();
+  // const { getProject } = useProject();
   const { loggedUser } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -57,7 +58,10 @@ const MyProjectDetail = () => {
   const postId = params.id;
 
   const getPost = async () => {
-    getProject(postId).then((res) => {
+    // getProject(postId).then((res) => {
+    //   setPost(res.project_detail);
+    // });
+    ProjectAPI.getProject(postId).then((res) => {
       setPost(res.project_detail);
     });
   };
@@ -73,7 +77,7 @@ const MyProjectDetail = () => {
   };
 
   const updateRecruitState = async () => {
-    await PostAPI.updatePost(postId, { done: false });
+    await PostAPI.updatePost(postId, { recruit_state: false });
     setIsCheckPopUp(false);
     getPost();
   };
@@ -101,9 +105,9 @@ const MyProjectDetail = () => {
     <PageWrapper>
       <Background>
         <StateWrapper>
-          <RecruitState isRecruit={post.done} />
+          <RecruitState isRecruit={post.recruit_state} />
           <UpdateWrapper>
-            {isWriter && post.done && (
+            {isWriter && post.recruit_state && (
               <Link to={`/write/${postId}`} style={{ textDecoration: "none" }}>
                 <Edit>수정</Edit>
               </Link>
@@ -159,14 +163,14 @@ const MyProjectDetail = () => {
             <SubTitle>예상 개발 기간</SubTitle>
             <Period>{post.period}</Period>
             <SubTitle>진행 상황</SubTitle>
-            <Situation>{post.done}</Situation>
+            <Situation>{post.recruit_state}</Situation>
             <ButtonWrapper>
-              {isWriter && post.done && (
+              {isWriter && post.recruit_state && (
                 <Button onClick={() => setIsCheckPopUp(true)} color="orange">
                   모집 완료
                 </Button>
               )}
-              {!isWriter && post.done && (
+              {!isWriter && post.recruit_state && (
                 <>
                   <Button color="orange">신청하기</Button>
                   <Button color="gray" outline style={{ marginLeft: "2rem" }}>

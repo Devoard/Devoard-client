@@ -50,6 +50,7 @@ export const useProject = () => {
     // const data = {
     //   project_detail: {
     //     title: "44",
+    //     recruit_state: true,
     //     field: "['Spring', 'Vue']",
     //     frontend_cnt: "4",
     //     backend_cnt: "1",

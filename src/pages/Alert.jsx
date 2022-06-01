@@ -5,6 +5,7 @@ import AlertItem from "../components/Alert/AlertItem";
 
 import Title from "../components/common/Title";
 import { useAlert } from "../hooks/useAlert";
+import AlertAPI from "../lib/api/AlertAPI";
 import { setActivePage } from "../modules/user";
 const AlertWrap = styled.div`
   width: 100%;
@@ -28,7 +29,7 @@ const ListBox = styled.div`
 
 const Alert = () => {
   const dispatch = useDispatch();
-  const { getAlertList } = useAlert();
+  // const { getAlertList } = useAlert();
 
   const { loggedUser } = useSelector((state) => state.user);
 
@@ -36,7 +37,7 @@ const Alert = () => {
 
   useEffect(() => {
     dispatch(setActivePage("alert"));
-    getAlertList(loggedUser.id).then((res) => {
+    AlertAPI.getAlertList(loggedUser.id).then((res) => {
       setAlertList(res);
     });
   }, [setActivePage]);
