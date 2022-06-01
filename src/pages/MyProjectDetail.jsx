@@ -56,9 +56,6 @@ const MyProjectDetail = () => {
   const postId = params.id;
 
   const getPost = async () => {
-    // getProject(postId).then((res) => {
-    //   setPost(res.project_detail);
-    // });
     ProjectAPI.getProject(postId).then((res) => {
       setPost(res.project_detail);
     });
