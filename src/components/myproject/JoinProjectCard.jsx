@@ -81,7 +81,7 @@ const JoinProjectCard = ({ project, project_id }) => {
         <>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <RecruitState active={project.recruit_state}>
-              {project.recruit_state}
+              {project.recruit_state === true ? "모집 중" : "모집 완료"}
             </RecruitState>
           </div>
           <Title>{project.title}</Title>
