@@ -1,10 +1,9 @@
-import { darken, lighten } from "polished";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PopUp from "../components/common/PopUp";
-import { submit_chat } from "../modules/chat";
 import moment from "moment";
+import ChatAPI from "../lib/api/ChatAPI";
 const Form = styled.form`
   width: 90%;
   height: 70%;
@@ -41,7 +40,6 @@ const ChatWrite = ({ writeOpen, setWriteOpen, setDetailOpen }) => {
   const [content, setContent] = useState("");
   const { loggedUser } = useSelector((state) => state.user);
   const { to_user } = useSelector((state) => state.chat);
-  const dispatch = useDispatch();
   const onChange = (e) => {
     setContent(e.target.value);
   };
@@ -52,7 +50,7 @@ const ChatWrite = ({ writeOpen, setWriteOpen, setDetailOpen }) => {
       to_user: to_user,
       date: moment().format("YYYY-MM-DD HH:mm"),
     };
-    dispatch(submit_chat(body));
+    ChatAPI.submitChat(body);
     alert("쪽지를 전송했습니다.");
     setContent("");
     setWriteOpen(false);

@@ -78,8 +78,8 @@ const MakedProjectCard = ({ project }) => {
   return (
     <Wrap onClick={onDetail}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <RecruitState active={project.done === "진행중" ? true : false}>
-          {project.done}
+        <RecruitState active={project.recruit_state}>
+          {project.recruit_state}
         </RecruitState>
         {/* {isLike ? <FullHeart /> : <OutlineHeart />} */}
       </div>

@@ -5,7 +5,6 @@ import SurveyComp from "../components/Survey/SurveyComp";
 import Button from "../components/common/Button";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSurvey } from "../hooks/useSurvey";
 import SurveyAPI from "../lib/api/SurveyAPI";
 
 const SurveyPage = styled.div`
@@ -44,8 +43,6 @@ const Title = styled.h2`
 
 const Survey = () => {
   const navigate = useNavigate();
-
-  // const { submitSurvey } = useSurvey();
 
   const { loggedUser } = useSelector((state) => state.user);
 
