@@ -66,13 +66,13 @@ const Tag = styled.span`
   margin-right: 6px;
 `;
 
-const MakedProjectCard = ({ project }) => {
+const MakedProjectCard = ({ project, project_id }) => {
   const navigate = useNavigate();
 
   const fieldArr = project.field.split(",");
 
   const onDetail = () => {
-    navigate(`/project/${project.id}`);
+    navigate(`/project/${project_id}`);
   };
 
   return (
