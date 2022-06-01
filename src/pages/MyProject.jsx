@@ -201,7 +201,13 @@ const MyProject = () => {
           {projectTabMenu === "내가 구성한 프로젝트" &&
             makedList &&
             makedList.length > 0 &&
-            makedList.map((v, i) => <MakedProjectCard key={i} project={v} />)}
+            makedList.map((v, i) => (
+              <MakedProjectCard
+                key={i}
+                project={v.project_detail}
+                project_id={v.id}
+              />
+            ))}
           {projectTabMenu === "나의 프로젝트 지원 현황" &&
             applyList &&
             applyList.length > 0 &&
