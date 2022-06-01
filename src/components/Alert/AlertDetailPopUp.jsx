@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAlert } from "../../hooks/useAlert";
 import AlertAPI from "../../lib/api/AlertAPI";
 import PopUp from "../common/PopUp";
 
@@ -19,7 +18,6 @@ const Info = styled.p`
 
 const AlertDetailPopUp = ({ alertId, openDetail, setOpenDetail }) => {
   const [alert, setAlert] = useState();
-  // const { getAlertDetail } = useAlert();
 
   useEffect(() => {
     AlertAPI.getAlertDetail(alertId).then((res) => {

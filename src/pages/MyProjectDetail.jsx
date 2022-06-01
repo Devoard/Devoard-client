@@ -39,7 +39,6 @@ import {
   SubText,
   PopUpBtnWrapper,
 } from "../styles/DevoardDetail";
-import { useProject } from "../hooks/useProject";
 import ProjectAPI from "../lib/api/ProjectAPI";
 
 const MyProjectDetail = () => {
@@ -49,7 +48,6 @@ const MyProjectDetail = () => {
   const [isRemovePopUp, setIsRemovePopUp] = useState(false);
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
 
-  // const { getProject } = useProject();
   const { loggedUser } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();

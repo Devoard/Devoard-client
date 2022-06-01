@@ -80,8 +80,8 @@ const JoinProjectCard = ({ project, project_id }) => {
       {project && (
         <>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <RecruitState active={project.done === "진행중" ? true : false}>
-              {project.done}
+            <RecruitState active={project.recruit_state}>
+              {project.recruit_state}
             </RecruitState>
           </div>
           <Title>{project.title}</Title>

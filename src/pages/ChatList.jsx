@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Title from "../components/common/Title";
 import ChatDetail from "./ChatDetail";
 import { setActivePage } from "../modules/user";
-import { chat_list, set_user } from "../modules/chat";
+import { chatList, setUser } from "../modules/chat";
 
 // const Wrap = styled.div`
 //   width: 100%;
@@ -110,7 +110,7 @@ const ChatList = () => {
     const body = {
       user: loggedUser.id,
     };
-    dispatch(chat_list(body)).then((res) => {
+    dispatch(chatList(body)).then((res) => {
       setAllChat(res.payload);
       setPage(Math.ceil(res.payload.length / message_num));
     });
@@ -143,7 +143,7 @@ const ChatList = () => {
   const onDetailClick = (e) => {
     const from_user = e.target.getAttribute("data-from");
     setDetailOpen(true);
-    dispatch(set_user(from_user));
+    dispatch(setUser(from_user));
   };
 
   return (

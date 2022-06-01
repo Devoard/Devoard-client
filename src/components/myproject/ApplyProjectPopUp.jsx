@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import PopUp from "../common/PopUp";
 import { useDispatch, useSelector } from "react-redux";
-import { useProject } from "../../hooks/useProject";
 import { getApplyProject } from "../../modules/project";
 import ProjectAPI from "../../lib/api/ProjectAPI";
 
@@ -52,7 +51,6 @@ const ApplyProjectPopUp = ({
   importArr,
   projectId,
 }) => {
-  // const { acceptAwaiter, rejectAwaiter } = useProject();
   const dispatch = useDispatch();
 
   const { loggedUser } = useSelector((state) => state.user);

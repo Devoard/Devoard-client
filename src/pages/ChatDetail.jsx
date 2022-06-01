@@ -4,7 +4,7 @@ import moment from "moment";
 import styled from "styled-components";
 import PopUp from "../components/common/PopUp";
 import WriteBtn from "../components/Write/WriteBtn";
-import { chat_detail_list } from "../modules/chat";
+import { chatDetailList } from "../modules/chat";
 import ChatWrite from "./ChatWrite";
 
 const ListBox = styled.div`
@@ -54,7 +54,7 @@ const ChatDetail = ({ setDetailOpen, detailOpen }) => {
         from_user: loggedUser.id,
         loggedUser: loggedUser.id,
       };
-      dispatch(chat_detail_list(body)).then((res) => {
+      dispatch(chatDetailList(body)).then((res) => {
         setDetailChat(res.payload);
       });
     }
