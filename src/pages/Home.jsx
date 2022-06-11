@@ -31,28 +31,25 @@ const Home = () => {
   useEffect(() => {
     let timer = null;
 
-    const recruitCntAnimation = (totalCnt) => {
+    const recruitCntAnimation = (cnt) => {
       let num = 0;
   
       timer = setInterval(() => {
-        if (num === totalCnt) return null;
+        if (num === cnt) return null;
         setRecruitCnt(++num);
-      }, 1000/totalCnt);
+      }, 1000/cnt);
     };
 
-    const getPostCnt = async() => {
-      const posts = await PostAPI.getPosts('ongoing');
-      const totalCnt = posts.length;
-      recruitCntAnimation(totalCnt);
+    const getPostCnt = () => {
+      PostAPI.getPosts('ongoing')
+      .then(res => {
+        const totalCnt = res.length;
+        recruitCntAnimation(totalCnt);
+      })
     };
-
-    const getRecentPostsData = async() => {
-      const posts = await PostAPI.getRecentPosts();
-      setRecentPosts(posts);
-    }
 
     getPostCnt();
-    getRecentPostsData();
+    PostAPI.getRecentPosts().then(res => setRecentPosts(res));
 
     dispatch(setActivePage('home'));
     project_wrapper.current.addEventListener('mousewheel', handleHorizontalScroll);
