@@ -42,8 +42,6 @@ import {
 
 const MyPage = () => {
   const [data, setData] = useState(null);
-  const [files, setFiles] = useState('');
-  const [userImg, setUserImg] = useState(null);
   const [intro, setIntro] = useState('');
   const [job, setJob] = useState('');
   const [contact, setContact] = useState('');
@@ -77,7 +75,6 @@ const MyPage = () => {
   const [how, setHow] = useState('');
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
   const { loggedUser } = useSelector(state => state.user);
-  const imgInput = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -89,7 +86,6 @@ const MyPage = () => {
     }
     else {
       setData(data);
-      //setUserImg(data.user_img);
       setIntro(data.user_intro);
       setJob(data.user_job);
       setContact(data.user_connect);
@@ -102,8 +98,8 @@ const MyPage = () => {
     }
   } 
 
-  const updateData = async() => {
-    await ProfileAPI.updateProfileData(
+  const updateData = () => {
+    ProfileAPI.updateProfileData(
       loggedUser.id, {
         user_intro: intro,
         user_connect: contact,
@@ -129,7 +125,6 @@ const MyPage = () => {
   }, [dispatch])
 
   useEffect(() => {
-    //setFiles(loggedUser.imageUrl);
     if (loggedUser.id) getData();
   }, [loggedUser]);
 
@@ -139,30 +134,6 @@ const MyPage = () => {
     <PageWrapper>
       <Title>마이 페이지</Title>
       <Background>
-        {/*<UserImgWrapper>
-          {files &&
-          <UserImg src={files} alt='user_img' />}
-          <ImgInput 
-            ref={imgInput}
-            type="file"
-            id="userImg"
-            accept="image/*"
-            onChange={onLoadImg}
-          />
-          <UploadButton
-            color="orange"
-            onClick={() => {imgInput.current.click()}}
-          >
-            이미지 선택
-          </UploadButton>
-          <DeleteButton
-            outline
-            color="gray"
-            onClick={onDeleteImg}
-          >
-            선택된 이미지 삭제
-          </DeleteButton>
-          </UserImgWrapper>*/}
         <UserNameWrapper>
           <Text>이름</Text>
           <Text style={{fontWeight: 'normal', color: 'gray'}}>{loggedUser.id}</Text>

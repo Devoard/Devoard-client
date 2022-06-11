@@ -54,16 +54,14 @@ const Devoard = () => {
   }, [setActivePage, isMenuOpen])
 
   useEffect(() => {
-    const getSortedPosts = async() => {
-      let posts = null;
+    const getSortedPosts = () => {
+      let option = null;
       
-      if (selectedMenu === "전체 보기")
-        posts = await PostAPI.getPosts('all');
-      else if (selectedMenu === "모집 중")
-        posts = await PostAPI.getPosts('ongoing');
-      else if (selectedMenu === "모집 완료")
-        posts = await PostAPI.getPosts('done');
-      setPosts(posts);
+      if (selectedMenu === "전체 보기") option = 'all';
+      else if (selectedMenu === "모집 중") option = 'ongoing';
+      else if (selectedMenu === "모집 완료") option = 'done';
+        
+      PostAPI.getPosts(option).then(res => setPosts(res));
     }
 
     getSortedPosts();

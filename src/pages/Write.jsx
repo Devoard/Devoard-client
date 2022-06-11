@@ -60,7 +60,7 @@ const Write = () => {
 
 
   const getPostData = async() => {
-    const post = await PostAPI.getDetailPost(postId);
+    const post = await PostAPI.getDetailPost(postId)
 
     setTitle(post.title);
     setBody(post.body);
@@ -77,7 +77,7 @@ const Write = () => {
     setPeriod(post.period);
   }
 
-  const createPost = async() => { 
+  const createPost = () => { 
     let today = new Date();
 
     let year = today.getFullYear();
@@ -86,7 +86,7 @@ const Write = () => {
 
     const date = year + '-' + month + '-' + day;
 
-    await PostAPI.createPost({
+    PostAPI.createPost({
       title: title,
       body: body,
       field: stacks,
@@ -105,8 +105,8 @@ const Write = () => {
     .then(navigate("/devoard"));
   }
 
-  const updatePost = async() => {
-    await PostAPI.updatePost(postId, {
+  const updatePost = () => {
+    PostAPI.updatePost(postId, {
       id: postId,
       title: title,
       body: body,

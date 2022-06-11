@@ -52,20 +52,20 @@ const DevoardDetail = () => {
   const params = useParams();
   const postId = params.id;
 
-  const getPost = async () => {
-    const post = await PostAPI.getDetailPost(postId);
-    setPost(post);
+  const getPost = () => {
+    PostAPI.getDetailPost(postId).then(res => setPost(res));
   };
 
-  const removePost = async () => {
-    await PostAPI.removePost(postId);
-    navigate("/devoard");
+  const removePost = () => {
+    PostAPI.removePost(postId).then(navigate("/devoard"));
   };
 
-  const updateRecruitState = async () => {
-    await PostAPI.updatePost(postId, { recruit_state: false });
-    setIsCheckPopUp(false);
-    getPost();
+  const updateRecruitState = () => {
+    PostAPI.updatePost(postId, { recruit_state: false })
+    .then(() => {
+      setIsCheckPopUp(false);
+      getPost();
+    })
   };
 
   useEffect(() => {
@@ -82,13 +82,12 @@ const DevoardDetail = () => {
   }, [post, loggedUser]);
 
   useEffect(() => {
-    if (!post) return null;
-    if (post.field === "") return null;
+    if (!post || post.field === "") return null;
     const tags = post.field.split(',');
     setTags(tags);
   }, [post]);
 
-  if (post === null) return null;
+  if (!post) return null;
   return (
     <PageWrapper>
       <Background>
