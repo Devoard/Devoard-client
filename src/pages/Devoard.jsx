@@ -44,9 +44,8 @@ const Devoard = () => {
     else if (selectedMenu === "모집 완료") option = 'done';
       
     const result = await PostAPI.getPosts(option, page.current++);
-    //console.log({ option, result })
+    
     if (result.length < limit.current) isScroll.current = false;
-
     setPosts(posts => posts.concat(result));
   }
 
@@ -60,25 +59,15 @@ const Devoard = () => {
 
   useEffect(() => {
     let observer;
-
     if (target) {
-      console.log("다시 생성")
       observer = new IntersectionObserver(onIntersect, {
         threshold: 0.7
       });
       observer.observe(target.current);
     }
-
     return () => observer && observer.disconnect();
   }, [selectedMenu]);
 
-  useEffect(() => {
-    console.log(posts)
-  }, [posts])
-
-  useEffect(() => {
-    console.log(isScroll)
-  }, [isScroll])
 
   useEffect(()=>{
     dispatch(setActivePage('devoard'));
