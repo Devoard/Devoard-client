@@ -92,6 +92,7 @@ const Devoard = () => {
         if (menuWrapper.current.contains(e.target))
           setSelectedMenu(e.target.attributes.getNamedItem("data-value").value);
           isScroll.current = true;
+          page.current = 1;
           setPosts([]);
           setIsMenuOpen(false);
       } 
