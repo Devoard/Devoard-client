@@ -2,42 +2,18 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 const url = "http://localhost:8000/devoard";
-const cookies = new Cookies();
-const token = cookies.get("token");
-const headers = {
-  Authorization: `Token ${token}`,
-};
 
 const PostAPI = {
-  getPosts: async (state) => {
+  getPosts: async (state, page) => {
     let res = null;
-    if (state === "all") {
-      res = await axios.get(`${url}`, { headers }).catch((err) => {
-        console.log(err);
-      });
-    }
-    if (state === "ongoing") {
-      res = await axios
-        .get(`${url}`, {
-          params: {
-            recruit_state: "True",
-          },
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    if (state === "done") {
-      res = await axios
-        .get(`${url}`, {
-          params: {
-            recruit_state: "False",
-          },
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    let params = { page: page }
+
+    if (state === "ongoing") params.recruit_state = 'True';
+    if (state === "done") params.recruit_state = 'False';
+
+    res = await axios
+        .get(`${url}`, { params: params })
+        .catch((err) => console.log(err));
 
     return res.data;
   },

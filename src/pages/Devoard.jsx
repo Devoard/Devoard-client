@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import PostAPI from '../lib/api/PostAPI';
 import { setActivePage } from '../modules/user';
 import Title from '../components/common/Title';
+import Loading from '../components/common/Loading';
 import ProjectDetail from '../components/common/ProjectDetail';
 import WriteBtn from '../components/Write/WriteBtn';
 import {
@@ -17,24 +18,72 @@ import {
   Menu,
   Search,
   SearchInput,
-  SearchIcon
+  SearchIcon,
+  Target
 } from '../styles/Devoard';
 
 const Devoard = () => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("전체 보기");
   const comboBox = useRef(null);
   const menuWrapper = useRef(null);
+  const target = useRef(null);
+  const limit = useRef(4);
+  const dispatch = useDispatch();
+  let isScroll = useRef(true);
+  let page = useRef(1);
+
+
+  const getSortedPosts = async() => {
+    if (!isScroll.current) return null;
+    let option = null;
+    
+    if (selectedMenu === "전체 보기") option = 'all';
+    else if (selectedMenu === "모집 중") option = 'ongoing';
+    else if (selectedMenu === "모집 완료") option = 'done';
+      
+    const result = await PostAPI.getPosts(option, page.current++);
+    //console.log({ option, result })
+    if (result.length < limit.current) isScroll.current = false;
+
+    setPosts(posts => posts.concat(result));
+  }
+
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting && isScroll.current) {
+      observer.unobserve(entry.target);
+      await getSortedPosts();
+      observer.observe(entry.target);
+    }
+  }
+
+  useEffect(() => {
+    let observer;
+
+    if (target) {
+      console.log("다시 생성")
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.7
+      });
+      observer.observe(target.current);
+    }
+
+    return () => observer && observer.disconnect();
+  }, [selectedMenu]);
+
+  useEffect(() => {
+    console.log(posts)
+  }, [posts])
+
+  useEffect(() => {
+    console.log(isScroll)
+  }, [isScroll])
 
   useEffect(()=>{
     dispatch(setActivePage('devoard'));
     
     const handleCloseMenu = (e) => {
-      if (loading) return null;
-
       if (!isMenuOpen) {
         if (comboBox.current.contains(e.target))
           setIsMenuOpen(true);
@@ -42,7 +91,9 @@ const Devoard = () => {
       else {
         if (menuWrapper.current.contains(e.target))
           setSelectedMenu(e.target.attributes.getNamedItem("data-value").value);
-        setIsMenuOpen(false);
+          isScroll.current = true;
+          setPosts([]);
+          setIsMenuOpen(false);
       } 
     }
 
@@ -51,23 +102,9 @@ const Devoard = () => {
     return () => {
       window.removeEventListener('mousedown', handleCloseMenu);
     }
-  }, [setActivePage, isMenuOpen])
+  }, [setActivePage, isMenuOpen]);
 
-  useEffect(() => {
-    const getSortedPosts = () => {
-      let option = null;
-      
-      if (selectedMenu === "전체 보기") option = 'all';
-      else if (selectedMenu === "모집 중") option = 'ongoing';
-      else if (selectedMenu === "모집 완료") option = 'done';
-        
-      PostAPI.getPosts(option).then(res => setPosts(res));
-    }
 
-    getSortedPosts();
-  }, [selectedMenu]);
-
-  if (loading) return <div style={{color: 'white'}}>로딩 중 ...</div>;
   return (
     <PageWrapper>
       <Title>현재 모집 중인 프로젝트</Title>
@@ -101,7 +138,7 @@ const Devoard = () => {
             key={post.id}
             style={{ color: '#333333' }}
           >
-            <ProjectDetail 
+            <ProjectDetail
               key={post.id}
               title={post.title}
               body={post.body}
@@ -110,6 +147,7 @@ const Devoard = () => {
             />
           </Link>
         ))}
+        <Target ref={target}></Target>
       </ProjectWrapper>
       <Link to='/write' style={{ color: '#333333' }}>
         <WriteBtn />
