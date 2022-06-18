@@ -29,7 +29,7 @@ const Devoard = () => {
   const comboBox = useRef(null);
   const menuWrapper = useRef(null);
   const target = useRef(null);
-  const limit = useRef(4);
+  const limit = useRef(6);
   const dispatch = useDispatch();
   let isScroll = useRef(true);
   let page = useRef(1);
