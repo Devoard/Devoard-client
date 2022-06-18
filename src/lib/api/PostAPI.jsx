@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "universal-cookie";
 
 const url = "http://localhost:8000/devoard";
 
@@ -15,7 +14,7 @@ const PostAPI = {
         .get(`${url}`, { params: params })
         .catch((err) => console.log(err));
 
-    return res.data;
+    return res.data.results;
   },
   getDetailPost: async (id) => {
     const res = await axios.get(`${url}/${id}`).catch((err) => {
