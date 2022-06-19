@@ -39,10 +39,7 @@ const Home = () => {
     };
 
     const getPostCnt = () => {
-      PostAPI.getPosts("ongoing").then((res) => {
-        const totalCnt = res.length;
-        recruitCntAnimation(totalCnt);
-      });
+      PostAPI.getPostsCnt().then(res => recruitCntAnimation(res));
     };
 
     getPostCnt();
