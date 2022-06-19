@@ -16,6 +16,14 @@ const PostAPI = {
 
     return res.data.results;
   },
+  getPostsCnt: async () => {
+    const params = { page: 1, recruit_state: 'True' }
+    const res = await axios
+      .get(`${url}`, { params: params })
+      .catch(err => console.log(err));
+
+    return res.data.count;
+  },
   getDetailPost: async (id) => {
     const res = await axios.get(`${url}/${id}`).catch((err) => {
       console.log(err);
