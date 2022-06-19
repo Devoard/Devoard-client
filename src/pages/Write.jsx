@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import PostAPI from '../lib/api/PostAPI';
-import Title from '../components/common/Title';
-import AddTag from '../components/Write/AddTag';
-import PopUp from '../components/common/PopUp';
-import Button from '../components/common/Button';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import PostAPI from "../lib/api/PostAPI";
+import Title from "../components/common/Title";
+import AddTag from "../components/Write/AddTag";
+import PopUp from "../components/common/PopUp";
+import Button from "../components/common/Button";
 import {
   PageWrapper,
   Background,
@@ -31,8 +31,8 @@ import {
   BtnWrapper,
   PostBtn,
   CheckText,
-  PopUpBtnWrapper
-} from '../styles/Write';
+  PopUpBtnWrapper,
+} from "../styles/Write";
 
 const Write = () => {
   const [recruitCnt, setRecruitCnt] = useState({
@@ -41,7 +41,7 @@ const Write = () => {
     android: "",
     ios: "",
     data: "",
-    devops: ""
+    devops: "",
   });
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -53,14 +53,13 @@ const Write = () => {
   const [isWarning, setIsWarning] = useState(false);
   const [isExistStack, setIsExistStack] = useState(false);
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
-  const { loggedUser } = useSelector(state => state.user);
+  const { loggedUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const params = useParams();
   const postId = params.id;
 
-
-  const getPostData = async() => {
-    const post = await PostAPI.getDetailPost(postId)
+  const getPostData = async () => {
+    const post = await PostAPI.getDetailPost(postId);
 
     setTitle(post.title);
     setBody(post.body);
@@ -70,21 +69,21 @@ const Write = () => {
       android: post.android_cnt,
       ios: post.ios_cnt,
       data: post.data_cnt,
-      devops: post.devops_cnt
+      devops: post.devops_cnt,
     });
     setStacks(post.field.split(","));
     setSituation(post.done);
     setPeriod(post.period);
-  }
+  };
 
-  const createPost = () => { 
+  const createPost = () => {
     let today = new Date();
 
     let year = today.getFullYear();
-    let month = ('0' + (today.getMonth() + 1)).slice(-2);
-    let day = ('0' + today.getDate()).slice(-2);
+    let month = ("0" + (today.getMonth() + 1)).slice(-2);
+    let day = ("0" + today.getDate()).slice(-2);
 
-    const date = year + '-' + month + '-' + day;
+    const date = year + "-" + month + "-" + day;
 
     PostAPI.createPost({
       title: title,
@@ -101,9 +100,8 @@ const Write = () => {
       recruit_state: true,
       username: loggedUser.id,
       date: date,
-    })
-    .then(navigate("/devoard"));
-  }
+    }).then(navigate("/devoard"));
+  };
 
   const updatePost = () => {
     PostAPI.updatePost(postId, {
@@ -119,46 +117,42 @@ const Write = () => {
       devops_cnt: recruitCnt.devops,
       period: period,
       done: situation,
-    })
-    .then(navigate("/devoard"));
-  }
+    }).then(navigate("/devoard"));
+  };
 
   const isExistTag = (selected) => {
     for (let stack of stacks) {
-      if (stack === selected)
-        return true;
+      if (stack === selected) return true;
     }
 
     return false;
-  }
+  };
 
   const addStack = () => {
     const selected = selectedStack;
-    setSelectedStack(""); 
+    setSelectedStack("");
 
     if (selected === "") return null;
 
-    if (isExistTag(selected)){
+    if (isExistTag(selected)) {
       setIsExistStack(true);
       return null;
     }
-    
+
     setIsExistStack(false);
-    setStacks([ ...stacks, selected ])
-  }
+    setStacks([...stacks, selected]);
+  };
 
   const resizeTextArea = (e) => {
     e.target.style.height = "1px";
-    e.target.style.height = (14 + e.target.scrollHeight) + "px";
-  }
+    e.target.style.height = 14 + e.target.scrollHeight + "px";
+  };
 
   const checkForm = () => {
     if (title === "" || !isValidRecruitCnt() || body === "" || situation === "")
       setIsWarning(true);
-    else
-      setIsCheckPopUp(true);
-  }
-
+    else setIsCheckPopUp(true);
+  };
 
   const isValidRecruitCnt = () => {
     let total = 0;
@@ -166,15 +160,14 @@ const Write = () => {
       if (isNaN(cnt)) return false;
       total += cnt;
     }
-    
-    return (total === 0 ? false : true);
-  }
 
+    return total === 0 ? false : true;
+  };
 
   useEffect(() => {
     const removeStack = () => {
-      setStacks(stacks.filter(stack => stack !== selectedTag));
-    }
+      setStacks(stacks.filter((stack) => stack !== selectedTag));
+    };
 
     removeStack();
   }, [selectedTag]);
@@ -182,13 +175,13 @@ const Write = () => {
   useEffect(() => {
     let timer = null;
 
-    timer = setTimeout(()=>{
+    timer = setTimeout(() => {
       setIsExistStack(false);
     }, 3000);
 
-    return (() => {
+    return () => {
       clearTimeout(timer);
-    })
+    };
   }, [isExistStack]);
 
   useEffect(() => {
@@ -196,31 +189,23 @@ const Write = () => {
   }, [recruitCnt]);
 
   useEffect(() => {
-    if(postId) getPostData();
-  }, [])
+    if (postId) getPostData();
+  }, []);
 
-
-  
   return (
     <PageWrapper>
       <Title>모집 글 작성하기</Title>
       <Background>
-        <WarningText style={{marginBottom: '2rem'}}>* 은 필수 항목입니다</WarningText>
-        <TitleWrapper
-          isWarning={isWarning && title === "" ? true : false}
-        >
+        <WarningText style={{ marginBottom: "2rem" }}>
+          * 은 필수 항목입니다
+        </WarningText>
+        <TitleWrapper isWarning={isWarning && title === "" ? true : false}>
           <Text>* 프로젝트 명</Text>
-          <ColumnAlignWrapper
-            style={{ width: '65%' }}
-          >
-            <Input 
-              value={title}
-              onChange={(e)=>setTitle(e.target.value)}
-            />
+          <ColumnAlignWrapper style={{ width: "65%" }}>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
           </ColumnAlignWrapper>
-          
         </TitleWrapper>
-      
+
         <RecruitCntWrapper
           isWarning={isWarning && !isValidRecruitCnt() ? true : false}
         >
@@ -228,82 +213,95 @@ const Write = () => {
           <ColumnAlignWrapper>
             <SelectWrapper>
               <FieldText>Front-end</FieldText>
-              <Input 
+              <Input
                 value={recruitCnt.front_end}
-                style={{ width: '4%', textAlign: 'center'}}
+                style={{ width: "4%", textAlign: "center" }}
                 placeholder="0"
-                onChange={(e)=>setRecruitCnt({ ...recruitCnt, front_end: e.target.value })}
+                onChange={(e) =>
+                  setRecruitCnt({ ...recruitCnt, front_end: e.target.value })
+                }
               />
               <NumText>명</NumText>
             </SelectWrapper>
             <SelectWrapper>
               <FieldText>Back-end</FieldText>
-              <Input 
+              <Input
                 value={recruitCnt.back_end}
-                style={{ width: '4%', textAlign: 'center'}}
+                style={{ width: "4%", textAlign: "center" }}
                 placeholder="0"
-                onChange={(e)=>setRecruitCnt({ ...recruitCnt, back_end: e.target.value })}
+                onChange={(e) =>
+                  setRecruitCnt({ ...recruitCnt, back_end: e.target.value })
+                }
               />
               <NumText>명</NumText>
             </SelectWrapper>
             <SelectWrapper>
               <FieldText>Android</FieldText>
-              <Input 
+              <Input
                 value={recruitCnt.android}
-                style={{ width: '4%', textAlign: 'center'}}
+                style={{ width: "4%", textAlign: "center" }}
                 placeholder="0"
-                onChange={(e)=>setRecruitCnt({ ...recruitCnt, android: e.target.value })}
+                onChange={(e) =>
+                  setRecruitCnt({ ...recruitCnt, android: e.target.value })
+                }
               />
               <NumText>명</NumText>
             </SelectWrapper>
             <SelectWrapper>
               <FieldText>IOS</FieldText>
-              <Input 
+              <Input
                 value={recruitCnt.ios}
-                style={{ width: '4%', textAlign: 'center'}}
+                style={{ width: "4%", textAlign: "center" }}
                 placeholder="0"
-                onChange={(e)=>setRecruitCnt({ ...recruitCnt, ios: e.target.value })}
+                onChange={(e) =>
+                  setRecruitCnt({ ...recruitCnt, ios: e.target.value })
+                }
               />
               <NumText>명</NumText>
             </SelectWrapper>
             <SelectWrapper>
               <FieldText>Data</FieldText>
-              <Input 
+              <Input
                 value={recruitCnt.data}
-                style={{ width: '4%', textAlign: 'center'}}
+                style={{ width: "4%", textAlign: "center" }}
                 placeholder="0"
-                onChange={(e)=>setRecruitCnt({ ...recruitCnt, data: e.target.value })}
+                onChange={(e) =>
+                  setRecruitCnt({ ...recruitCnt, data: e.target.value })
+                }
               />
               <NumText>명</NumText>
             </SelectWrapper>
             <SelectWrapper>
               <FieldText>Devops</FieldText>
-              <Input 
+              <Input
                 value={recruitCnt.devops}
-                style={{ width: '4%', textAlign: 'center'}}
+                style={{ width: "4%", textAlign: "center" }}
                 placeholder="0"
-                onChange={(e)=>setRecruitCnt({ ...recruitCnt, devops: e.target.value })}
+                onChange={(e) =>
+                  setRecruitCnt({ ...recruitCnt, devops: e.target.value })
+                }
               />
               <NumText>명</NumText>
             </SelectWrapper>
-            {isWarning && !isValidRecruitCnt() ?
-              <WarningText
-                style={{ marginTop: '1rem'}}
-              >모집 인원은 최소 1명이며, 숫자로 입력해야 합니다
-              </WarningText> : ""
-            }
+            {isWarning && !isValidRecruitCnt() ? (
+              <WarningText style={{ marginTop: "1rem" }}>
+                모집 인원은 최소 1명이며, 숫자로 입력해야 합니다
+              </WarningText>
+            ) : (
+              ""
+            )}
           </ColumnAlignWrapper>
         </RecruitCntWrapper>
         <StackWrapper>
           <Text>기술 스택</Text>
           <ColumnAlignWrapper>
             <SelectWrapper>
-              <ComboBox 
-                id="stack" 
+              <ComboBox
+                id="stack"
                 name="stack"
                 value={selectedStack}
                 isWarning={isExistStack}
-                onChange={(e)=>setSelectedStack(e.target.value)}
+                onChange={(e) => setSelectedStack(e.target.value)}
               >
                 <Option label="-- 선택하세요 --" />
                 <OptGroup label="Front-end">
@@ -342,54 +340,48 @@ const Write = () => {
               </ComboBox>
               <AddBtn onClick={addStack}>+ 추가</AddBtn>
             </SelectWrapper>
-            {isExistStack ?
-            <WarningText>이미 추가된 태그입니다.</WarningText> : ""
-            }
+            {isExistStack ? (
+              <WarningText>이미 추가된 태그입니다.</WarningText>
+            ) : (
+              ""
+            )}
             <TagWrapper>
               {stacks &&
                 stacks.map((tag, i) => (
-                  <AddTag 
-                    key={i}
-                    setSelectedTag={setSelectedTag}
-                  >
+                  <AddTag key={i} setSelectedTag={setSelectedTag}>
                     {tag}
                   </AddTag>
-                ))
-              }
+                ))}
             </TagWrapper>
           </ColumnAlignWrapper>
         </StackWrapper>
-        <DetailWrapper
-          isWarning={isWarning && body === "" ? true : false}
-        >
+        <DetailWrapper isWarning={isWarning && body === "" ? true : false}>
           <Text>* 상세 설명</Text>
-          <TextArea 
+          <TextArea
             value={body}
             onChange={(e) => {
               resizeTextArea(e);
               setBody(e.target.value);
-            }} 
+            }}
           />
         </DetailWrapper>
         <PeriodWrapper>
           <Text>예상 개발 기간</Text>
-          <TextArea 
+          <TextArea
             value={period}
             onChange={(e) => {
               resizeTextArea(e);
               setPeriod(e.target.value);
-            }} 
+            }}
           />
         </PeriodWrapper>
-        <StateWrapper
-          isWarning={isWarning && situation === "" ? true : false}
-        >
+        <StateWrapper isWarning={isWarning && situation === "" ? true : false}>
           <Text>* 진행 상황</Text>
           <ComboBox
-            id="situation" 
+            id="situation"
             name="situation"
             value={situation}
-            onChange={(e)=>setSituation(e.target.value)}
+            onChange={(e) => setSituation(e.target.value)}
           >
             <Option label="-- 선택하세요 --" />
             <Option value="준비 중">준비 중</Option>
@@ -398,10 +390,10 @@ const Write = () => {
           </ComboBox>
         </StateWrapper>
         <BtnWrapper>
-          <PostBtn 
-            color="orange" 
+          <PostBtn
+            color="orange"
             large
-            style={{marginTop: '2rem'}}
+            style={{ marginTop: "2rem" }}
             onClick={checkForm}
           >
             등록하기
@@ -410,28 +402,28 @@ const Write = () => {
       </Background>
       <PopUp
         isVisible={isCheckPopUp}
-        width={'30rem'}
-        height={'13rem'}
+        width={"30rem"}
+        height={"13rem"}
         setIsPopUp={setIsCheckPopUp}
       >
-        <CheckText>글을 {postId ? '수정' : '등록'}하시겠습니까?</CheckText>
+        <CheckText>글을 {postId ? "수정" : "등록"}하시겠습니까?</CheckText>
         <PopUpBtnWrapper>
-          <Button
-            color="gray"
-            onClick={()=>setIsCheckPopUp(false)}
-          >취소</Button>
+          <Button color="gray" onClick={() => setIsCheckPopUp(false)}>
+            취소
+          </Button>
           <Button
             color="orange"
-            style={{marginLeft: '1rem'}}
-            onClick={()=>{
-              postId ? updatePost() : createPost()
+            style={{ marginLeft: "1rem" }}
+            onClick={() => {
+              postId ? updatePost() : createPost();
             }}
-          >확인</Button>
-
+          >
+            확인
+          </Button>
         </PopUpBtnWrapper>
       </PopUp>
     </PageWrapper>
-  )
-}
+  );
+};
 
 export default Write;
