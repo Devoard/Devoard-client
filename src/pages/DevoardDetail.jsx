@@ -53,7 +53,7 @@ const DevoardDetail = () => {
   const postId = params.id;
 
   const getPost = () => {
-    PostAPI.getDetailPost(postId).then(res => setPost(res));
+    PostAPI.getDetailPost(postId).then((res) => setPost(res));
   };
 
   const removePost = () => {
@@ -61,11 +61,10 @@ const DevoardDetail = () => {
   };
 
   const updateRecruitState = () => {
-    PostAPI.updatePost(postId, { recruit_state: false })
-    .then(() => {
+    PostAPI.updatePost(postId, { recruit_state: false }).then(() => {
       setIsCheckPopUp(false);
       getPost();
-    })
+    });
   };
 
   useEffect(() => {
@@ -83,7 +82,7 @@ const DevoardDetail = () => {
 
   useEffect(() => {
     if (!post || post.field === "") return null;
-    const tags = post.field.split(',');
+    const tags = post.field.split(",");
     setTags(tags);
   }, [post]);
 
@@ -121,10 +120,7 @@ const DevoardDetail = () => {
           </InfoWrapper>
           <DividerLine />
           <TagWrapper>
-          {tags &&
-           tags.map((tag, i) => (
-            <Tag key={i}>{tag}</Tag>
-          ))}
+            {tags && tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
           </TagWrapper>
           <BodyWrapper>
             <SubTitle>모집 인원</SubTitle>
@@ -138,9 +134,15 @@ const DevoardDetail = () => {
               {parseInt(post.android_cnt) > 0 && (
                 <Field>Android : {post.android_cnt} 명</Field>
               )}
-              {parseInt(post.ios_cnt) > 0 && <Field>IOS : {post.ios_cnt} 명</Field>}
-              {parseInt(post.data_cnt) > 0 && <Field>Data : {post.data_cnt} 명</Field>}
-              {parseInt(post.devops_cnt) > 0 && <Field>Devops : {post.devops_cnt} 명</Field>}
+              {parseInt(post.ios_cnt) > 0 && (
+                <Field>IOS : {post.ios_cnt} 명</Field>
+              )}
+              {parseInt(post.data_cnt) > 0 && (
+                <Field>Data : {post.data_cnt} 명</Field>
+              )}
+              {parseInt(post.devops_cnt) > 0 && (
+                <Field>Devops : {post.devops_cnt} 명</Field>
+              )}
             </RecruitCnt>
             <SubTitle>프로젝트 설명</SubTitle>
             <Body>{post.body}</Body>
@@ -154,7 +156,7 @@ const DevoardDetail = () => {
                   모집 완료
                 </Button>
               )}
-              {!isWriter && post.recruit_state && (
+              {!isWriter && post.recruit_state && !post.belong && (
                 <>
                   <Button color="orange">신청하기</Button>
                   <Button color="gray" outline style={{ marginLeft: "2rem" }}>

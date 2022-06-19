@@ -72,7 +72,7 @@ const JoinProjectCard = ({ project, project_id }) => {
   const fieldArr = project.field.split(",");
 
   const onDetail = () => {
-    navigate(`/project/${project_id}`);
+    navigate(`/devoard/${project_id}`);
   };
 
   return (
