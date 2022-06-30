@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import PostAPI from '../lib/api/PostAPI';
-import { useDispatch } from 'react-redux';
-import { setActivePage } from '../modules/user';
-import ProjectDetail from '../components/common/ProjectDetail';
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import PostAPI from "../lib/api/PostAPI";
+import { useDispatch } from "react-redux";
+import { setActivePage } from "../modules/user";
+import ProjectDetail from "../components/common/ProjectDetail";
 import {
   PageWrapper,
   RecruitDisplayWrapper,
@@ -17,10 +17,8 @@ import {
   PopularTeamWrapper,
   PopularTeamText,
   ProjectDetailWrapper,
-  MoreProjectBtn
-} from '../styles/Home';
-
-
+  MoreProjectBtn,
+} from "../styles/Home";
 
 const Home = () => {
   const [recruitCnt, setRecruitCnt] = useState(0);
@@ -33,11 +31,11 @@ const Home = () => {
 
     const recruitCntAnimation = (cnt) => {
       let num = 0;
-  
+
       timer = setInterval(() => {
         if (num === cnt) return null;
         setRecruitCnt(++num);
-      }, 1000/cnt);
+      }, 1000 / cnt);
     };
 
     const getPostCnt = () => {
@@ -45,31 +43,33 @@ const Home = () => {
     };
 
     getPostCnt();
-    PostAPI.getRecentPosts().then(res => setRecentPosts(res));
+    PostAPI.getRecentPosts().then((res) => setRecentPosts(res));
 
-    dispatch(setActivePage('home'));
-    project_wrapper.current.addEventListener('mousewheel', handleHorizontalScroll);
-  
+    dispatch(setActivePage("home"));
+    project_wrapper.current.addEventListener(
+      "mousewheel",
+      handleHorizontalScroll
+    );
+
     return () => {
       clearInterval(timer);
-    }
+    };
   }, []);
-
 
   const handleHorizontalScroll = (e) => {
     e.preventDefault();
-    if(e.wheelDelta > 0)
-      project_wrapper.current.scrollLeft -= 60;
-    else
-      project_wrapper.current.scrollLeft += 60;
-  }
+    if (e.wheelDelta > 0) project_wrapper.current.scrollLeft -= 60;
+    else project_wrapper.current.scrollLeft += 60;
+  };
 
   return (
     <PageWrapper>
       <RecruitDisplayWrapper>
-        <button><Link to="/survey">설문조사</Link></button>
+        <button>
+          <Link to="/survey">설문조사</Link>
+        </button>
         <RecruitDisplayText>
-          <RecruitCnt>{recruitCnt}</RecruitCnt> 팀<br/>
+          <RecruitCnt>{recruitCnt}</RecruitCnt> 팀<br />
           현재 모집 중
         </RecruitDisplayText>
         <RecruitBtnWrapper>
@@ -86,22 +86,24 @@ const Home = () => {
       </IntroTextWrapper>
       <PopularTeamWrapper>
         <PopularTeamText>현재 인기 있는 모집 팀</PopularTeamText>
-        <ProjectDetailWrapper
-          ref={project_wrapper}
-        >
+        <ProjectDetailWrapper ref={project_wrapper}>
           {recentPosts &&
-           recentPosts.map((post, i) => (
-            <Link key={i} to={`/devoard/${post.id}`} style={{textDecoration: 'none'}}>
-              <ProjectDetail 
-                recruitState={post.recruit_state}
-                field={post.field}
-                title={post.title}
-                body={post.body}
-              />
-            </Link>
-          ))}
+            recentPosts.map((post, i) => (
+              <Link
+                key={i}
+                to={`/devoard/${post.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <ProjectDetail
+                  recruitState={post.recruit_state}
+                  field={post.field}
+                  title={post.title}
+                  body={post.body}
+                />
+              </Link>
+            ))}
         </ProjectDetailWrapper>
-        <Link to='/devoard'>
+        <Link to="/devoard">
           <MoreProjectBtn color="orange" outline>
             프로젝트 더 보기
           </MoreProjectBtn>
@@ -109,6 +111,6 @@ const Home = () => {
       </PopularTeamWrapper>
     </PageWrapper>
   );
-}
+};
 
 export default Home;
