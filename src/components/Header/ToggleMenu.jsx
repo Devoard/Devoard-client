@@ -83,7 +83,7 @@ const ToggleMenu = ({ isVisible, setIsVisible }) => {
       >
         <Menu data-link="/scrap">스크랩</Menu>
         <Menu data-link="/my_project">나의 프로젝트</Menu>
-        <Menu data-link="/my_page">마이 페이지</Menu>
+        <Menu data-link="/user/profile">마이 페이지</Menu>
         <Menu
           ref={logout_menu}
         >로그아웃</Menu>
