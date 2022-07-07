@@ -42,7 +42,7 @@ import {
 const MyPage = () => {
   const [data, setData] = useState(null);
   const [intro, setIntro] = useState("");
-  const [job, setJob] = useState("");
+  const [job, setJob] = useState(0);
   const [contact, setContact] = useState("");
   const [portfolio, setPortfolio] = useState("");
   const [isFieldOpen, setIsFieldOpen] = useState({
@@ -91,7 +91,7 @@ const MyPage = () => {
       setStackLevel(data.user_stack);
       setIsExperienced(data.user_exp);
       setTime(data.user_time);
-      setImportant(data.user_import);
+      setImportant(data.user_import.split(','));
       setHow(data.user_how);
     }
   };
@@ -153,9 +153,9 @@ const MyPage = () => {
             onChange={(e) => setJob(e.target.value)}
           >
             <Option label="-- 선택하세요 --" />
-            <Option value="학생">학생</Option>
-            <Option value="취업 준비생">취업 준비생</Option>
-            <Option value="직장인">직장인</Option>
+            <Option value={0}>학생</Option>
+            <Option value={1}>취업 준비생</Option>
+            <Option value={2}>직장인</Option>
           </ComboBox>
         </JobWrapper>
         <ContactWrapper>
