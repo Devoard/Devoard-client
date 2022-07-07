@@ -4,9 +4,14 @@ const url = 'http://localhost:8000/user/profile';
 
 
 const ProfileAPI = {
-  getProfileData: async(id) => {
+  getProfileData: async(username) => {
     let result = null;
-    const res = await axios.get(`${url}/${id}`)
+    const params = {
+      username: username
+    }
+    const res = await axios.get(`${url}`, { 
+      params: params 
+    })
     .catch((err) => {
       console.log(err);
     })
