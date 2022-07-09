@@ -74,7 +74,7 @@ const DevoardDetail = () => {
 
   useEffect(() => {
     const checkIsWriter = () => {
-      if (post.username === loggedUser.id) setIsWriter(true);
+      if (post.username === loggedUser.username) setIsWriter(true);
     };
 
     if (post) checkIsWriter();
@@ -156,7 +156,7 @@ const DevoardDetail = () => {
                   모집 완료
                 </Button>
               )}
-              {!isWriter && post.recruit_state && !post.belong && (
+              {!isWriter && post.recruit_state && (
                 <>
                   <Button color="orange">신청하기</Button>
                   <Button color="gray" outline style={{ marginLeft: "2rem" }}>

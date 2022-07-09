@@ -42,7 +42,7 @@ const PostAPI = {
     });
   },
   updatePost: async (id, data) => {
-    await axios.patch(`${url}/${id}`, data).catch((err) => {
+    await axios.put(`${url}/${id}`, data).catch((err) => {
       console.log(err);
     });
   },

@@ -49,6 +49,8 @@ const Write = () => {
   const [period, setPeriod] = useState("");
   const [selectedStack, setSelectedStack] = useState("");
   const [situation, setSituation] = useState("");
+  const [date, setDate] = useState("");
+  const [writer, setWriter] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
   const [isWarning, setIsWarning] = useState(false);
   const [isExistStack, setIsExistStack] = useState(false);
@@ -74,6 +76,8 @@ const Write = () => {
     setStacks(post.field.split(","));
     setSituation(post.done);
     setPeriod(post.period);
+    setDate(post.date);
+    setWriter(post.writer);
   };
 
   const createPost = () => {
@@ -117,6 +121,10 @@ const Write = () => {
       devops_cnt: recruitCnt.devops,
       period: period,
       done: situation,
+      recruit_state: true,
+      username: loggedUser.username,
+      date: date,
+      writer: writer
     }).then(navigate("/devoard"));
   };
 
