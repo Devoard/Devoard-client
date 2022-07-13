@@ -52,6 +52,10 @@ const DevoardDetail = () => {
   const params = useParams();
   const postId = params.id;
 
+  useEffect(() => {
+    console.log(post.situation);
+  }, []);
+
   const getPost = () => {
     PostAPI.getDetailPost(postId).then((res) => setPost(res));
   };
@@ -62,22 +66,9 @@ const DevoardDetail = () => {
 
   const updateRecruitState = () => {
     PostAPI.updatePost(postId, {
-      id: postId,
-      title: post.title,
-      body: post.body,
-      field: post.stacks,
-      frontend_cnt: post.recruitCnt.front_end,
-      backend_cnt: post.recruitCnt.back_end,
-      android_cnt: post.recruitCnt.android,
-      ios_cnt: post.recruitCnt.ios,
-      data_cnt: post.recruitCnt.data,
-      devops_cnt: post.recruitCnt.devops,
-      period: post.period,
-      done: post.situation,
+      ...post,
       recruit_state: false,
-      username: post.loggedUser.username,
-      date: post.date,
-      writer: post.writer
+      done: post.situation,
     }).then(() => {
       setIsCheckPopUp(false);
       getPost();
