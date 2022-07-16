@@ -52,6 +52,10 @@ const DevoardDetail = () => {
   const params = useParams();
   const postId = params.id;
 
+  useEffect(() => {
+    console.log(post.situation);
+  }, []);
+
   const getPost = () => {
     PostAPI.getDetailPost(postId).then((res) => setPost(res));
   };
