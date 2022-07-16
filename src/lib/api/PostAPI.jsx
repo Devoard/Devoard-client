@@ -42,7 +42,12 @@ const PostAPI = {
     });
   },
   updatePost: async (id, data) => {
-    await axios.put(`${url}/${id}`, data).catch((err) => {
+    await axios.put(`${url}/${id}/`, data).catch((err) => {
+      console.log(err);
+    });
+  },
+  updateRecruit: async (id, data) => {
+    await axios.put(`${url}/${id}/btn`, data).catch((err) => {
       console.log(err);
     });
   },
