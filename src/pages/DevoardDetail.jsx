@@ -65,10 +65,9 @@ const DevoardDetail = () => {
   };
 
   const updateRecruitState = () => {
-    PostAPI.updatePost(postId, {
+    PostAPI.updateRecruit(postId, {
       ...post,
       recruit_state: false,
-      done: post.situation,
     }).then(() => {
       setIsCheckPopUp(false);
       getPost();
