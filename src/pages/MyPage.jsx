@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { setActivePage } from "../modules/user";
 import ProfileAPI from "../lib/api/ProfileAPI";
 import Title from "../components/common/Title";
@@ -75,7 +74,6 @@ const MyPage = () => {
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
   const { loggedUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const getData = async () => {
     const data = await ProfileAPI.getProfileData(loggedUser.id);
@@ -88,7 +86,7 @@ const MyPage = () => {
       setJob(data.user_job);
       setContact(data.user_connect);
       setPortfolio(data.user_pf_addr);
-      setStackLevel(data.user_stack);
+      //setStackLevel(data.user_stack);
       setIsExperienced(data.user_exp);
       setTime(data.user_time);
       setImportant(data.user_import.split(','));
@@ -101,7 +99,7 @@ const MyPage = () => {
       user_intro: intro,
       user_connect: contact,
       user_pf_addr: portfolio,
-      user_stack: stackLevel,
+      //user_stack: stackLevel,
       user_exp: isExperienced,
       user_import: important,
     }).then(() => {
@@ -169,7 +167,7 @@ const MyPage = () => {
             onChange={(e) => setPortfolio(e.target.value)}
           />
         </PfAddrWrapper>
-        <DevStackWrapper>
+        {/*<DevStackWrapper>
           <Text>기술 스택</Text>
           {Object.keys(devStack).map((v, i) => (
             <DevStackContents
@@ -181,7 +179,7 @@ const MyPage = () => {
               setStackLevel={setStackLevel}
             />
           ))}
-        </DevStackWrapper>
+        </DevStackWrapper>*/}
         <ExperienceWrapper>
           <Text style={{ marginRight: "3rem" }}>팀 프로젝트 경험 유무</Text>
           <LevelBox>
