@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8000/user/profile';
+const url = 'http://localhost:8000/profile';
 
 
 const ProfileAPI = {
@@ -21,7 +21,7 @@ const ProfileAPI = {
     return result;
   },
   updateProfileData: async(id, data) => {
-    await axios.patch(`${url}/${id}`, data)
+    await axios.patch(`${url}/`, data)
     .catch((err) => 
       console.log(err)
     )

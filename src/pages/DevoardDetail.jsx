@@ -52,10 +52,6 @@ const DevoardDetail = () => {
   const params = useParams();
   const postId = params.id;
 
-  useEffect(() => {
-    console.log(post.situation);
-  }, []);
-
   const getPost = () => {
     PostAPI.getDetailPost(postId).then((res) => setPost(res));
   };
@@ -81,7 +77,7 @@ const DevoardDetail = () => {
 
   useEffect(() => {
     const checkIsWriter = () => {
-      if (post.username === loggedUser.username) setIsWriter(true);
+      if (post.writer.username == loggedUser.id) setIsWriter(true);
     };
 
     if (post) checkIsWriter();

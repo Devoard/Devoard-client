@@ -37,6 +37,7 @@ import {
   CheckText,
   PopUpBtnWrapper,
 } from "../styles/MyPage";
+import { DataNode } from "domhandler";
 
 const MyPage = () => {
   const [data, setData] = useState(null);
@@ -60,16 +61,9 @@ const MyPage = () => {
     data: [0],
     devops: [0],
   });
-  const [important, setImportant] = useState({
-    design: false,
-    feature: false,
-    ui_ux: false,
-    schedule: false,
-    skill: false,
-    socialize: false,
-  });
+  const [important, setImportant] = useState(null);
   const [time, setTime] = useState("");
-  const [isExperienced, setIsExperienced] = useState(false);
+  const [isExperienced, setIsExperienced] = useState("");
   const [how, setHow] = useState("");
   const [isCheckPopUp, setIsCheckPopUp] = useState(false);
   const { loggedUser } = useSelector((state) => state.user);
@@ -77,7 +71,6 @@ const MyPage = () => {
 
   const getData = async () => {
     const data = await ProfileAPI.getProfileData(loggedUser.id);
-
     if (!data) {
       //navigate('/survey')
     } else {
@@ -89,19 +82,40 @@ const MyPage = () => {
       //setStackLevel(data.user_stack);
       setIsExperienced(data.user_exp);
       setTime(data.user_time);
-      setImportant(data.user_import.split(','));
+      const importantData = data.user_import.split(',');
+      let obj = {
+        '디자인': false,
+        '기능': false,
+        'UI/UX': false,
+        '일정': false,
+        '실력': false,
+        '친목': false,
+      };
+      importantData.map((data) => {
+        obj[data] = true;
+      }); 
+      setImportant(obj);
       setHow(data.user_how);
     }
   };
 
   const updateData = () => {
+    let arr = [];
+    for (let key in important) {
+      if (important[key]) arr.push(key);
+    }
+    
     ProfileAPI.updateProfileData(loggedUser.id, {
+      ...data,
       user_intro: intro,
+      user_job: job,
       user_connect: contact,
       user_pf_addr: portfolio,
       //user_stack: stackLevel,
       user_exp: isExperienced,
-      user_import: important,
+      user_import: arr,
+      user_time: time,
+      user_how: how
     }).then(() => {
       window.scrollTo(0, 0);
       setIsCheckPopUp(false);
@@ -184,14 +198,14 @@ const MyPage = () => {
           <Text style={{ marginRight: "3rem" }}>팀 프로젝트 경험 유무</Text>
           <LevelBox>
             <Box
-              isChecked={isExperienced}
-              onClick={() => setIsExperienced(true)}
+              isChecked={isExperienced === "경험 있음" ? true : false}
+              onClick={() => setIsExperienced("경험 있음")}
             >
               있음
             </Box>
             <Box
-              isChecked={!isExperienced}
-              onClick={() => setIsExperienced(false)}
+              isChecked={isExperienced === "경험 없음" ? true : false}
+              onClick={() => setIsExperienced("경험 없음")}
             >
               없음
             </Box>
@@ -206,21 +220,22 @@ const MyPage = () => {
             onChange={(e) => setTime(e.target.value)}
           >
             <Option label="-- 선택하세요 --" />
-            <Option value="평일 9AM ~ 12PM">평일 9AM ~ 12PM</Option>
-            <Option value="평일 12PM ~ 6PM">평일 12PM ~ 6PM</Option>
-            <Option value="평일 6PM ~ 12AM">평일 6PM ~ 12AM</Option>
-            <Option value="주말 9AM ~ 12PM">주말 9AM ~ 12PM</Option>
-            <Option value="주말 12PM ~ 6PM">주말 12PM ~ 6PM</Option>
-            <Option value="주말 6PM ~ 12PM">주말 6PM ~ 12PM</Option>
+            <Option value="평일 9AM~12PM">평일 9AM ~ 12PM</Option>
+            <Option value="평일 12PM~6PM">평일 12PM ~ 6PM</Option>
+            <Option value="평일 6PM~12AM">평일 6PM ~ 12AM</Option>
+            <Option value="주말 9AM~12PM">주말 9AM ~ 12PM</Option>
+            <Option value="주말 12PM~6PM">주말 12PM ~ 6PM</Option>
+            <Option value="주말 6PM~12PM">주말 6PM ~ 12PM</Option>
           </ComboBox>
         </TimeWrapper>
+        {important && 
         <ImportantWrapper>
           <Text>중요하게 생각하는 요소</Text>
           <ImportantContents
             important={important}
             setImportant={setImportant}
           />
-        </ImportantWrapper>
+      </ImportantWrapper>}
         <HowWrapper>
           <Text style={{ marginRight: "7rem" }}>선호하는 방식</Text>
           <LevelBox>
