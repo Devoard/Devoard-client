@@ -34,12 +34,11 @@ const ImportantContents = ({ important, setImportant }) => {
       <CheckBoxWrapper key={i} style={{marginLeft: '1rem'}}>
         <CheckBox 
           id={v}
-          checked={important[importantData.value[i]]}
+          checked={important[importantData.text[i]]}
           onChange={(e) => {
-
             setImportant({
               ...important,
-              [importantData.value[i]]: e.target.checked
+              [importantData.text[i]]: e.target.checked
             })
           }}
         /><Label htmlFor={v}>{v}</Label>
