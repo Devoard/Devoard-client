@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 import { setLoggedIn, setLoggedUser } from '../../modules/user';
 
 const MenuWrapper = styled.div`
@@ -29,6 +30,7 @@ const Menu = styled.div`
 
 
 const ToggleMenu = ({ isVisible, setIsVisible }) => { 
+  const cookies = new Cookies();
   const menu = useRef(null);
   const logout_menu = useRef(null);
   const dispatch = useDispatch();
@@ -46,7 +48,9 @@ const ToggleMenu = ({ isVisible, setIsVisible }) => {
       window.sessionStorage.removeItem('imageUrl');
     }
     else {
-      
+      cookies.remove('token');
+      cookies.remove('git_username');
+      cookies.remove('git_userImg');
     }
 
     dispatch(setLoggedIn());
