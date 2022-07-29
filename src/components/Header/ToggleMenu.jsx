@@ -38,7 +38,7 @@ const ToggleMenu = ({ isVisible, setIsVisible }) => {
 
   
   const doSignOut = () => {
-    if (!window.sessionStorage.getItem('name')) return null;
+    if (!window.sessionStorage.getItem('name') || !cookies.getItem('token')) return null;
 
     navigate('/');
 
