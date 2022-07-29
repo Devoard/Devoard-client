@@ -86,7 +86,7 @@ const MyPage = () => {
       let obj = {
         '디자인': false,
         '기능': false,
-        'UI/UX': false,
+        'UI UX': false,
         '일정': false,
         '실력': false,
         '친목': false,
