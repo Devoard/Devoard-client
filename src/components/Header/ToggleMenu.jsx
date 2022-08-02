@@ -1,9 +1,10 @@
-import { useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Cookies from 'universal-cookie';
-import { setLoggedIn, setLoggedUser } from '../../modules/user';
+import { useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Cookies from "universal-cookie";
+import UserAPI from "../../lib/api/UserAPI";
+import { setLoggedIn, setLoggedUser } from "../../modules/user";
 
 const MenuWrapper = styled.div`
   position: absolute;
@@ -28,69 +29,59 @@ const Menu = styled.div`
   }
 `;
 
-
-const ToggleMenu = ({ isVisible, setIsVisible }) => { 
+const ToggleMenu = ({ isVisible, setIsVisible }) => {
   const cookies = new Cookies();
   const menu = useRef(null);
   const logout_menu = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
   const doSignOut = () => {
-    if (!window.sessionStorage.getItem('name') || !cookies.getItem('token')) return null;
-
-    navigate('/');
-
-    if (window.sessionStorage.getItem('name')) {
-      window.sessionStorage.removeItem('name');
-      window.sessionStorage.removeItem('email');
-      window.sessionStorage.removeItem('imageUrl');
-    }
-    else {
-      cookies.remove('token');
-      cookies.remove('git_username');
-      cookies.remove('git_userImg');
+    if (window.sessionStorage.getItem("name")) {
+      window.sessionStorage.removeItem("name");
+      window.sessionStorage.removeItem("email");
+      window.sessionStorage.removeItem("imageUrl");
+    } else {
+      UserAPI.logOut();
     }
 
     dispatch(setLoggedIn());
-    dispatch(setLoggedUser({
-      username: '',
-      id: '',
-      imageUrl: ''
-    }))
-  }
-  
+    dispatch(
+      setLoggedUser({
+        username: "",
+        id: "",
+        imageUrl: "",
+      })
+    );
+
+    navigate("/");
+  };
+
   const handleCloseMenu = (e) => {
     if (!isVisible) return null;
-    if (logout_menu.current === e.target) 
-      doSignOut();
+    if (logout_menu.current === e.target) doSignOut();
     else if (menu.current.contains(e.target))
-      navigate(e.target.attributes.getNamedItem("data-link").value)
- 
-    setIsVisible(false);
-  }
+      navigate(e.target.attributes.getNamedItem("data-link").value);
 
-  useEffect(()=>{
-    window.addEventListener('mousedown', handleCloseMenu);
+    setIsVisible(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousedown", handleCloseMenu);
 
     return () => {
-      window.removeEventListener('mousedown', handleCloseMenu);
-    }
+      window.removeEventListener("mousedown", handleCloseMenu);
+    };
   });
 
   if (!isVisible) return null;
-  return(
+  return (
     <>
-      <MenuWrapper
-        ref={menu}
-      >
+      <MenuWrapper ref={menu}>
         <Menu data-link="/scrap">스크랩</Menu>
         <Menu data-link="/my_project">나의 프로젝트</Menu>
         <Menu data-link="/user/profile">마이 페이지</Menu>
-        <Menu
-          ref={logout_menu}
-        >로그아웃</Menu>
+        <Menu ref={logout_menu}>로그아웃</Menu>
       </MenuWrapper>
     </>
   );

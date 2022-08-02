@@ -1,38 +1,35 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = 'http://localhost:8000/profile';
-
+const url = "http://localhost:8000/user/profile";
 
 const ProfileAPI = {
-  getProfileData: async(username) => {
+  getProfileData: async (username) => {
     let result = null;
     const params = {
-      username: username
-    }
-    const res = await axios.get(`${url}`, { 
-      params: params 
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      username: username,
+    };
+    const res = await axios
+      .get(`${url}`, {
+        params: params,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     if (res) result = res.data;
 
     return result;
   },
-  updateProfileData: async(id, data) => {
-    await axios.patch(`${url}/`, data)
-    .catch((err) => 
-      console.log(err)
-    )
+  updateProfileData: async (id, data) => {
+    await axios.patch(`${url}/`, data).catch((err) => console.log(err));
   },
-  updateProfileImg: async(id, data) => {
+  updateProfileImg: async (id, data) => {
     await axios.patch(`${url}/${id}`, data, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-  }
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 export default ProfileAPI;
