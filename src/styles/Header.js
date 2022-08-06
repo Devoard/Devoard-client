@@ -46,12 +46,13 @@ export const ProjectMenu = styled.span`
   font-size: 1.2rem;
   font-weight: bolder;
   color: white;
-  margin-left: 2.5rem;
+  margin: 2.5rem;
   cursor: pointer;
 
   &:hover { color: ${lighten(0.3, 'gray')};}
   &:active { color: ${darken(0.05, 'gray')};}
 `;
+
 
 export const UserIcon = styled.img`
   width: 3rem;

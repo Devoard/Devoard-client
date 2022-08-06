@@ -83,6 +83,7 @@ const Header = () => {
         <UserMenuWrapper>
           {loggedIn ? 
           (<>
+          <Link to='/survey' style={{textDecoration: 'none'}}><ProjectMenu>설문조사</ProjectMenu></Link>
           <Link to="/chat/list">
             <ChatBtn 
               color={activePage === 'chat' ? '#FFB200' : 'white'}
