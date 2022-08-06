@@ -46,7 +46,8 @@ const Alert = () => {
       <Title>알림</Title>
       <Wrap>
         <ListBox>
-          {alertList.map((v, i) => (
+          {alertList?.length===0 && <p>알림이 존재하지 않습니다.🙈</p>}
+          {alertList?.map((v, i) => (
             <AlertItem key={i} alert={v} />
           ))}
         </ListBox>
