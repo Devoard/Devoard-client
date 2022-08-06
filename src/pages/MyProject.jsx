@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import MakedProjectCard from "../components/MyProject/MakedProjectCard";
+import MakedProjectCard from "../components/myproject/MakedProjectCard";
 import {
   getApplyProject,
   getJoinList,
@@ -10,8 +10,8 @@ import {
 } from "../modules/project";
 import { setActivePage } from "../modules/user";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
-import JoinProjectCard from "../components/MyProject/JoinProjectCard";
-import ApplyProjectComp from "../components/MyProject/ApplyProjectComp";
+import JoinProjectCard from "../components/myproject/JoinProjectCard";
+import ApplyProjectComp from "../components/myproject/ApplyProjectComp";
 
 const Title = styled.h2`
   color: white;
